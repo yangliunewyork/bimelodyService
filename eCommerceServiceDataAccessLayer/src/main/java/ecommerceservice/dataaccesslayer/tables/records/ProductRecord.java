@@ -5,15 +5,16 @@ package ecommerceservice.dataaccesslayer.tables.records;
 
 
 import ecommerceservice.dataaccesslayer.tables.Product;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record9;
 import org.jooq.Row9;
 import org.jooq.impl.UpdatableRecordImpl;
 import org.jooq.types.UInteger;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 
 /**

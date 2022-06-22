@@ -7,10 +7,16 @@ package ecommerceservice.dataaccesslayer.tables;
 import ecommerceservice.dataaccesslayer.Catbirdnyc;
 import ecommerceservice.dataaccesslayer.Keys;
 import ecommerceservice.dataaccesslayer.tables.records.StoreRecord;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
+import org.jooq.Record;
 import org.jooq.Row14;
 import org.jooq.Schema;
 import org.jooq.Table;
@@ -21,10 +27,6 @@ import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 import org.jooq.types.UInteger;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**

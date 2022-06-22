@@ -6,13 +6,14 @@ package ecommerceservice.dataaccesslayer.tables.daos;
 
 import ecommerceservice.dataaccesslayer.tables.ProductImage;
 import ecommerceservice.dataaccesslayer.tables.records.ProductImageRecord;
-import org.jooq.Configuration;
-import org.jooq.impl.DAOImpl;
-import org.jooq.types.UInteger;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import org.jooq.Configuration;
+import org.jooq.impl.DAOImpl;
+import org.jooq.types.UInteger;
 
 
 /**

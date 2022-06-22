@@ -4,11 +4,11 @@
 package ecommerceservice.dataaccesslayer.tables.pojos;
 
 
-import org.jooq.types.UInteger;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import org.jooq.types.UInteger;
 
 
 /**

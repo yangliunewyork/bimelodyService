@@ -5,14 +5,15 @@ package ecommerceservice.dataaccesslayer.tables.records;
 
 
 import ecommerceservice.dataaccesslayer.tables.Store;
+
+import java.time.LocalDateTime;
+
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record14;
 import org.jooq.Row14;
 import org.jooq.impl.UpdatableRecordImpl;
 import org.jooq.types.UInteger;
-
-import java.time.LocalDateTime;
 
 
 /**

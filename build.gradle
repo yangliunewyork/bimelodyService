@@ -1,0 +1,9 @@
+repositories {
+    mavenCentral() // Use Maven Central for resolving dependencies.
+}
+
+allprojects {
+    apply plugin: 'java'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}

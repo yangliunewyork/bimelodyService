@@ -34,6 +34,7 @@ import ecommerceservice.dataaccesslayer.tables.records.StoreImageRecord;
 import ecommerceservice.dataaccesslayer.tables.records.StoreLocationRecord;
 import ecommerceservice.dataaccesslayer.tables.records.StoreOwnerRecord;
 import ecommerceservice.dataaccesslayer.tables.records.StoreRecord;
+
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;

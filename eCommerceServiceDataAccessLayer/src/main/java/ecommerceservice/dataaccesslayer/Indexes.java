@@ -6,6 +6,7 @@ package ecommerceservice.dataaccesslayer;
 
 import ecommerceservice.dataaccesslayer.tables.ProductImage;
 import ecommerceservice.dataaccesslayer.tables.ProductTagMap;
+
 import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.DSL;

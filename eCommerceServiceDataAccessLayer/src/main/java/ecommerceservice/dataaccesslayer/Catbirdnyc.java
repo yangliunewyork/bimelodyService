@@ -19,12 +19,13 @@ import ecommerceservice.dataaccesslayer.tables.StoreCategoryMap;
 import ecommerceservice.dataaccesslayer.tables.StoreImage;
 import ecommerceservice.dataaccesslayer.tables.StoreLocation;
 import ecommerceservice.dataaccesslayer.tables.StoreOwner;
-import org.jooq.Catalog;
-import org.jooq.Table;
-import org.jooq.impl.SchemaImpl;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.jooq.Catalog;
+import org.jooq.Table;
+import org.jooq.impl.SchemaImpl;
 
 
 /**
