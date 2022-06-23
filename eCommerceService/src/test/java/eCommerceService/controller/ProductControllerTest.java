@@ -1,7 +1,8 @@
 package eCommerceService.controller;
 
-import eCommerceService.model.Product;
-import eCommerceService.service.ProductService;
+import com.bimelody.ecommerceservice.controller.ProductController;
+import com.bimelody.ecommerceservice.model.Product;
+import com.bimelody.ecommerceservice.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
