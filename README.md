@@ -30,17 +30,34 @@ docker build . -t ecommerce-service
 
 # Run
 
-Run the service without docker:
+Running service requires connection to the MySql instance behind it. 
+
+### Run the service without docker
+
+We need specify the profile to use `application-local.properties`.
+
+The service can be run locally in your laptop. You just need to run the MySql instance in docker container.
 
 ```
 java -jar ./build/libs/eCommerceService-0.0.1.jar
 ```
 
-Run the service in a docker:
+### Run the service in local docker
 
+We need specify the profile to use `application-docker.properties`.
+
+In order to make the service in one docker to call the MySQL instance in another docker, we need to use Docker network, and run containers in the same network.
+
+Creating a docker network locally with:
+` docker network create ecommerce-service-network`.
+Start the mysql instance container in the docker network:
+`docker run --net=ecommerce-service-network  --name=ecommerce-mysql-instance -p 3305:3306 ecommerce-mysql-instance`
+Start the service container in the docker network:
 ```
-docker run --rm -ti -p 8080:8080 ecommerce-service
+docker run --net=ecommerce-service-network --name=ecommerce-service -e "SPRING_PROFILES_ACTIVE=docker" --rm -ti -p 8080:8080 ecommerce-service
 ```
+
+You can check the network with `docker network inspect ecommerce-service-network`.
 
 # Debug 
 
