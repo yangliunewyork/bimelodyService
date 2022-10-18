@@ -46,15 +46,17 @@ java -jar ./build/libs/eCommerceService-0.0.1.jar
 
 We need specify the profile to use `application-docker.properties`.
 
-In order to make the service in one docker to call the MySQL instance in another docker, we need to use Docker network, and run containers in the same network.
+In order to make the service in one docker to call the MySQL instance in another docker, we need to use Docker 
+network, and run containers in the same network.
 
-Creating a docker network locally with:
-` docker network create ecommerce-service-network`.
-Start the mysql instance container in the docker network:
-`docker run --net=ecommerce-service-network  --name=ecommerce-mysql-instance -p 3305:3306 ecommerce-mysql-instance`
-Start the service container in the docker network:
+Check [eCommerceDatabaseSchema](https://github.com/yangliunewyork/eCommerceDatabaseSchema) to see how to run the 
+required MySQL instance in the Docker network.
+
+Start the service container in the docker network. Below command will read `application-docker.properties` file.
+
 ```
-docker run --net=ecommerce-service-network --name=ecommerce-service -e "SPRING_PROFILES_ACTIVE=docker" --rm -ti -p 8080:8080 ecommerce-service
+docker run --net=ecommerce-service-network --name=ecommerce-service -e "SPRING_PROFILES_ACTIVE=docker" --rm -ti -p 
+8080:8080 ecommerce-service
 ```
 
 You can check the network with `docker network inspect ecommerce-service-network`.
