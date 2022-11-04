@@ -6,11 +6,12 @@
 ########################################################################################
 # Build Stage
 ########################################################################################
-FROM openjdk:11 AS BUILD_ARTIFACT
+FROM public.ecr.aws/amazoncorretto/amazoncorretto:11 AS BUILD_ARTIFACT
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
 ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/
-RUN addgroup $GROUP_NAME
+RUN yum install -y shadow-utils && yum clean all
+RUN groupadd $GROUP_NAME
 WORKDIR $APP_HOME
 COPY build.gradle settings.gradle gradlew $APP_HOME
 COPY gradle $APP_HOME/gradle
@@ -26,16 +27,17 @@ RUN ls $APP_HOME/eCommerceService/build/libs/
 # Run Stage
 ########################################################################################
 
-FROM openjdk:11-jre AS RUN_ARTIFACT
+FROM public.ecr.aws/amazoncorretto/amazoncorretto:11 AS RUN_ARTIFACT
 # Run as a non-root user to mitigate security risks
 # https://security.stackexchange.com/questions/106860/can-a-root-user-inside-a-docker-lxc-break-the-security-of-the-whole-system
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
 ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/
-RUN addgroup $GROUP_NAME
+RUN yum install -y shadow-utils && yum clean all
+RUN groupadd $GROUP_NAME
 WORKDIR $APP_HOME
 
-RUN adduser --ingroup $GROUP_NAME $APP_NAME --home $APP_HOME
+RUN useradd -G $GROUP_NAME $APP_NAME --home $APP_HOME
 USER $APP_NAME
 
 # Copy the artifact from BUILD_ARTIFACT stage
