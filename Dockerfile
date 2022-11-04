@@ -9,7 +9,7 @@
 FROM openjdk:11 AS BUILD_ARTIFACT
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
-ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME
+ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/
 RUN addgroup $GROUP_NAME
 WORKDIR $APP_HOME
 COPY build.gradle settings.gradle gradlew $APP_HOME
@@ -31,7 +31,7 @@ FROM openjdk:11-jre AS RUN_ARTIFACT
 # https://security.stackexchange.com/questions/106860/can-a-root-user-inside-a-docker-lxc-break-the-security-of-the-whole-system
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
-ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME
+ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/
 RUN addgroup $GROUP_NAME
 WORKDIR $APP_HOME
 
