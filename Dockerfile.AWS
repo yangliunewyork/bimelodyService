@@ -7,6 +7,13 @@
 # Build Stage
 ########################################################################################
 FROM public.ecr.aws/amazoncorretto/amazoncorretto:11 AS BUILD_ARTIFACT
+
+# Pass value from docker build arguments to environment variables.
+ENV DATABASE_URL=$ARG_DATABASE_URL
+ENV DATABASE_USERNAME=$ARG_DATABASE_USERNAME
+ENV DATABASE_PASSWORD=$ARG_DATABASE_PASSWORD
+
+# Set working directory
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
 ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/

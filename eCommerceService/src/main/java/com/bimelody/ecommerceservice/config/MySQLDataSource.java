@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 @Configuration
 public class MySQLDataSource {
 
+  private static final int MAX_POOL_SIZE = 30;
+
   @Bean
   public DSLContext getDSLContext(final DataSource dataSource) {
     return DSL.using(dataSource, SQLDialect.MYSQL);
@@ -23,13 +25,12 @@ public class MySQLDataSource {
   public DataSource provideConnectionPoolDataSource(
       @Value("${DATABASE_URL}") String databaseUrl,
       @Value("${DATABASE_USERNAME}") String databaseUsername,
-      @Value("${DATABASE_PASSWORD}") String databasePassword,
-      @Value("${MAXIMUM_POOL_SIZE}") int maximumPoolSize) {
+      @Value("${DATABASE_PASSWORD}") String databasePassword) {
     HikariConfig hikariConfig = new HikariConfig();
     hikariConfig.setJdbcUrl(databaseUrl);
     hikariConfig.setUsername(databaseUsername);
     hikariConfig.setPassword(databasePassword);
-    hikariConfig.setMaximumPoolSize(maximumPoolSize);
+    hikariConfig.setMaximumPoolSize(MAX_POOL_SIZE);
     return new HikariDataSource(hikariConfig);
   }
 }

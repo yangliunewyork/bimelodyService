@@ -44,7 +44,8 @@ java -jar ./build/libs/eCommerceService-0.0.1.jar
 
 ### Run the service in local docker
 
-We need specify the profile to use `application-docker.properties`.
+We use `application-docker.properties` to set environment variables(in AWS CodeBuild we have to pass arguments 
+explicitly when build the docker image).
 
 In order to make the service in one docker to call the MySQL instance in another docker, we need to use Docker 
 network, and run containers in the same network.
@@ -68,3 +69,4 @@ You can check the network with `docker network inspect ecommerce-service-network
 ```
 docker build --progress=plain --no-cache . 
 ```
+
