@@ -70,3 +70,22 @@ You can check the network with `docker network inspect ecommerce-service-network
 docker build --progress=plain --no-cache . 
 ```
 
+### Get docker image from ECR
+
+Log in ECR:  
+```
+aws ecr get-login-password --region us-east-1 --profile eCommerceService-Alpha | docker login --username AWS 
+--password-stdin 529378696789.dkr.ecr.us-east-1.amazonaws.com
+```
+
+Pull latest image:
+
+```
+docker pull 529378696789.dkr.ecr.us-east-1.amazonaws.com/ecommerce-service-ecr-repository:latest
+```
+
+Inspect image:
+
+```
+docker image inspect 2078daf2dd36 
+```
