@@ -21,15 +21,15 @@ public class MySQLDataSource {
 
   @Bean
   public DataSource provideConnectionPoolDataSource(
-      @Value("${JdbcUrl}") String JdbcUrl,
-      @Value("${DataSourceMaximumPoolSize}") int dataSourceMaximumPoolSize,
+      @Value("${DatabaseUrl}") String databaseUrl,
       @Value("${DatabaseUsername}") String DatabaseUsername,
-      @Value("${DatabasePassword}") String DatabasePassword) {
+      @Value("${DatabasePassword}") String DatabasePassword,
+      @Value("${DataSourceMaximumPoolSize}") int dataSourceMaximumPoolSize) {
     HikariConfig hikariConfig = new HikariConfig();
-    hikariConfig.setJdbcUrl(JdbcUrl);
-    hikariConfig.setMaximumPoolSize(dataSourceMaximumPoolSize);
+    hikariConfig.setJdbcUrl(databaseUrl);
     hikariConfig.setUsername(DatabaseUsername);
     hikariConfig.setPassword(DatabasePassword);
+    hikariConfig.setMaximumPoolSize(dataSourceMaximumPoolSize);
     return new HikariDataSource(hikariConfig);
   }
 }
