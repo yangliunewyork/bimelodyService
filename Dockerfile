@@ -8,11 +8,6 @@
 ########################################################################################
 FROM public.ecr.aws/amazoncorretto/amazoncorretto:11 AS BUILD_ARTIFACT
 
-# Pass value from docker build arguments to environment variables.
-ENV DATABASE_URL=$ARG_DATABASE_URL
-ENV DATABASE_USERNAME=$ARG_DATABASE_USERNAME
-ENV DATABASE_PASSWORD=$ARG_DATABASE_PASSWORD
-
 # Set working directory
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
@@ -39,6 +34,12 @@ RUN ls $APP_HOME/eCommerceService/build/libs/
 FROM public.ecr.aws/amazoncorretto/amazoncorretto:11 AS RUN_ARTIFACT
 # Run as a non-root user to mitigate security risks
 # https://security.stackexchange.com/questions/106860/can-a-root-user-inside-a-docker-lxc-break-the-security-of-the-whole-system
+
+# Pass value from docker build arguments to environment variables.
+ENV DATABASE_URL=$ARG_DATABASE_URL
+ENV DATABASE_USERNAME=$ARG_DATABASE_USERNAME
+ENV DATABASE_PASSWORD=$ARG_DATABASE_PASSWORD
+
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
 ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/
