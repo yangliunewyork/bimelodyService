@@ -25,22 +25,15 @@ List all Gradle tasks:
 Build the docker image:
 
 ```
-docker build . -t ecommerce-service
+docker build . -t ecommerce-service \
+--build-arg ARG_DATABASE_URL=jdbc:mysql://host.docker.internal:3305/Catbirdnyc \
+--build-arg ARG_DATABASE_USERNAME=root \
+--build-arg ARG_DATABASE_PASSWORD=password
 ```
 
 # Run
 
-Running service requires connection to the MySql instance behind it. 
-
-### Run the service without docker
-
-We need specify the profile to use `application-local.properties`.
-
-The service can be run locally in your laptop. You just need to run the MySql instance in docker container.
-
-```
-java -jar ./build/libs/eCommerceService-0.0.1.jar
-```
+Running service requires connection to the MySql instance behind it.
 
 ### Run the service in local docker
 
@@ -56,8 +49,9 @@ required MySQL instance in the Docker network.
 Start the service container in the docker network. Below command will read `application-docker.properties` file.
 
 ```
-docker run --net=ecommerce-service-network --name=ecommerce-service -e "SPRING_PROFILES_ACTIVE=docker" --rm -ti -p 
-8080:8080 ecommerce-service
+docker run --net=ecommerce-service-network --name=ecommerce-service \
+--rm -ti -p 8080:8080 ecommerce-service  
+
 ```
 
 You can check the network with `docker network inspect ecommerce-service-network`.

@@ -2,6 +2,7 @@ package com.bimelody.ecommerceservice.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+@Slf4j
 @Configuration
 public class MySQLDataSource {
 
