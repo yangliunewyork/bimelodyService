@@ -68,5 +68,8 @@ USER $APP_NAME
 # Copy the artifact from BUILD_ARTIFACT stage
 COPY --from=BUILD_ARTIFACT $APP_HOME/eCommerceService/build/libs/eCommerceService-0.0.1.jar eCommerceService-0.0.1.jar
 
+EXPOSE 8080
+EXPOSE 8443
+
 # Set ENTRYPOINT in exec form to run the container as an executable
 ENTRYPOINT ["java", "-jar", "eCommerceService-0.0.1.jar"]
