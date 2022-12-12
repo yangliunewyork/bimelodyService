@@ -12,6 +12,8 @@ public interface ProductRepository {
 
   void createProduct(@NonNull final Product product);
 
+  void updateProduct(@NonNull final Product product);
+
   List<Product> searchProducts(
       @Nullable final String uniqueStoreName,
       @Nullable final String productCategory,

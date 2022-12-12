@@ -12,9 +12,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateProductRequest {
+public class UpdateProductRequest {
+    private String uniqueProductNameInStore;
     private String productName;
     private String productDescription;
     private BigDecimal priceInDollar;
-    private List<String> productImageUrls;
 }

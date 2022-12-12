@@ -20,6 +20,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void updateProduct(Product product) {
+        productRepository.updateProduct(product);
+    }
+
+
+    @Override
     public List<Product> searchProducts(
             final String uniqueStoreName,
             final String productCategory,

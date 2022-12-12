@@ -13,7 +13,7 @@ import javax.ws.rs.ext.Provider;
 public class IllegalStateExceptionMapper implements ExceptionMapper<IllegalStateException> {
     @Override
     public Response toResponse(IllegalStateException exception) {
-        log.info("IllegalArgumentExceptionMapper!");
+        log.error("IllegalStateExceptionMapper:", exception);
         Error error =
                 Error.builder()
                         .statusCode(HttpStatus.SC_BAD_REQUEST)

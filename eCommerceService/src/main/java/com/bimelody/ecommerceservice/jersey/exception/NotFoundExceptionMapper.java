@@ -14,7 +14,7 @@ import javax.ws.rs.ext.Provider;
 public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
     @Override
     public Response toResponse(NotFoundException exception) {
-        log.info("NotFoundExceptionMapper!");
+        log.error("NotFoundExceptionMapper:", exception);
         Error error = Error.builder()
                 .statusCode(HttpStatus.SC_NOT_FOUND)
                 .errorMessage("The resource is not found.")
