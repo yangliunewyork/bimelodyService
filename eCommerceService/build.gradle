@@ -63,6 +63,9 @@ dependencies {
     // AWS secretes manager
     implementation 'com.amazonaws.secretsmanager:aws-secretsmanager-jdbc:1.0.6'
 
+    // AWS SDK
+    implementation 'software.amazon.awssdk:s3:2.18.35'
+
     // JOOQ
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
 

@@ -25,10 +25,7 @@ List all Gradle tasks:
 Build the docker image:
 
 ```
-docker build . -t ecommerce-service \
---build-arg ARG_DATABASE_URL=jdbc:mysql://host.docker.internal:3305/Catbirdnyc \
---build-arg ARG_DATABASE_USERNAME=root \
---build-arg ARG_DATABASE_PASSWORD=password
+docker build . -t ecommerce-service
 ```
 
 # Run
@@ -50,8 +47,8 @@ Start the service container in the docker network. Below command will read `appl
 
 ```
 docker run --net=ecommerce-service-network --name=ecommerce-service \
---rm -ti -p 8080:8080 ecommerce-service  
-
+--env-file .env \
+--rm -ti -p 8080:8080 ecommerce-service
 ```
 
 You can check the network with `docker network inspect ecommerce-service-network`.

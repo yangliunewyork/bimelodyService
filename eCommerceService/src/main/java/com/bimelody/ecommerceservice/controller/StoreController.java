@@ -142,9 +142,9 @@ public class StoreController implements StoreResource {
   }
 
   public Response getProductInfoFromStore(
-      String uniqueStoreName, String uniqueProductName) {
+      String storeIdentifier, String productIdentifierInStore) {
     Optional<Product> productOptional = productService
-            .findProductInfoFromStore(uniqueStoreName, uniqueProductName);
+            .findProductInfoFromStore(storeIdentifier, productIdentifierInStore);
     if (productOptional.isPresent()) {
       return Response.status(Response.Status.OK)
               .entity(productOptional.get())
@@ -160,7 +160,8 @@ public class StoreController implements StoreResource {
   private String generateUniqueProductNameInStore(final String uniqueStoreName,
                                                   final String productName) {
     final StringBuilder uniqueProductNameInStoreStringBuilder = new StringBuilder();
-    uniqueProductNameInStoreStringBuilder.append(productName.trim().replaceAll("\\s+", "-"));
+    // Replacing all non-alphanumeric characters with empty strings
+    uniqueProductNameInStoreStringBuilder.append(productName.replaceAll("[^A-Za-z0-9]", ""));
     String randomSuffix = "";
     for (int i = 0; i < 3; ++i) {
       Optional<Product> productOptional = productService

@@ -5,6 +5,9 @@ import com.bimelody.ecommerceservice.model.Product;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class for handling product operations.
+ */
 public interface ProductService {
 
     void createProduct(final Product product);
