@@ -86,6 +86,21 @@ public interface StoreResource {
       @QueryParam("pageNum")  @DefaultValue("1") int pageNum,
       @QueryParam("pageSize") @DefaultValue("10") int pageSize);
 
+
+  /**
+   * Some operations not related to any resource.
+   *
+   * @param operationType
+   * @return
+   */
+  @Path("{storeIdentifier}/operation")
+  @GET
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  Response operation(@PathParam("storeIdentifier") final String storeIdentifier,
+                     @QueryParam("productName") final String productName,
+                     @QueryParam("operationType") final String operationType);
+
   /**
    * Create a new product under the specified store.
    *

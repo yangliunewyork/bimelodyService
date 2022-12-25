@@ -15,5 +15,7 @@ public interface ProductImageAssetResource {
 
     @GET
     Response getPresignedUrl(
-            @QueryParam("presigned") final boolean preSigned);
+            @QueryParam("storeIdentifier") final String storeIdentifier,
+            @QueryParam("imageName") final String imageName,
+            @QueryParam("imageOrder") final int imageOrder);
 }

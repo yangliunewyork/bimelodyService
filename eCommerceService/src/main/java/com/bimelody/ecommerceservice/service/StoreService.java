@@ -19,4 +19,7 @@ public interface StoreService {
   Optional<Store> getStoreInfo(@NonNull final String uniqueStoreName);
 
   List<StoreCategory> getAllStoreCategories();
+
+  String generateProductIdentifierInStore(@NonNull final String uniqueStoreName,
+                                          @NonNull final String productName);
 }

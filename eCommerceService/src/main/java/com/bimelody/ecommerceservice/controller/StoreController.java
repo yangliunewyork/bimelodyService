@@ -18,12 +18,17 @@ import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class StoreController implements StoreResource {
+
+  private enum OperationType {
+    GenerateProductIdentifierInStore
+  }
 
   private final StoreService storeService;
 
@@ -69,7 +74,6 @@ public class StoreController implements StoreResource {
 
   @Override
   public Response updateStore(String unique_store_name, final UpdateStoresRequest updateStoresRequest) {
-    log.info("createStoresRequest is {}", updateStoresRequest);
     Store store =
             Store.builder()
                     .uniqueStoreName(unique_store_name)
@@ -89,7 +93,8 @@ public class StoreController implements StoreResource {
                                 final CreateProductRequest createProductRequest) {
     Product product = Product.builder()
             .uniqueStoreName(uniqueStoreName)
-            .uniqueProductNameInStore(generateUniqueProductNameInStore(uniqueStoreName, createProductRequest.getProductName()))
+            .uniqueProductNameInStore(storeService .generateProductIdentifierInStore(uniqueStoreName,
+                    createProductRequest.getProductName()))
             .productName(createProductRequest.getProductName())
             .productDescription(createProductRequest.getProductDescription())
             .priceInDollar(createProductRequest.getPriceInDollar())
@@ -141,6 +146,30 @@ public class StoreController implements StoreResource {
             .build();
   }
 
+  @Override
+  public Response operation(final String storeIdentifier,
+                            final String productName,
+                            final String operationType) {
+    if (OperationType.GenerateProductIdentifierInStore
+            .equals(OperationType.valueOf(operationType))) {
+      if (StringUtils.isBlank(productName)) {
+        return Response.status(Response.Status.BAD_REQUEST)
+                .entity("productName parameter is missing :" + productName)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+      }
+      final String productIdentifier = storeService.generateProductIdentifierInStore(storeIdentifier, productName);
+      return Response.status(Response.Status.OK)
+              .entity(Map.entry("productIdentifier", productIdentifier))
+              .type(MediaType.APPLICATION_JSON)
+              .build();
+    }
+    return Response.status(Response.Status.BAD_REQUEST)
+            .entity("Bad operation type:" + operationType)
+            .type(MediaType.APPLICATION_JSON)
+            .build();
+  }
+
   public Response getProductInfoFromStore(
       String storeIdentifier, String productIdentifierInStore) {
     Optional<Product> productOptional = productService
@@ -157,24 +186,5 @@ public class StoreController implements StoreResource {
     }
   }
 
-  private String generateUniqueProductNameInStore(final String uniqueStoreName,
-                                                  final String productName) {
-    final StringBuilder uniqueProductNameInStoreStringBuilder = new StringBuilder();
-    // Replacing all non-alphanumeric characters with empty strings
-    uniqueProductNameInStoreStringBuilder.append(productName.replaceAll("[^A-Za-z0-9]", ""));
-    String randomSuffix = "";
-    for (int i = 0; i < 3; ++i) {
-      Optional<Product> productOptional = productService
-              .findProductInfoFromStore(uniqueStoreName,
-                      uniqueProductNameInStoreStringBuilder.toString() + randomSuffix);
-      if (productOptional.isPresent()) {
-        randomSuffix = UUID.randomUUID().toString().substring(0,6);
-      } else {
-        return uniqueProductNameInStoreStringBuilder.toString() + randomSuffix;
-      }
-    }
-    log.error("Failed to create product in store {}",uniqueStoreName);
-    throw new IllegalStateException(String.format("Failed to create product in store: %s!", uniqueStoreName));
-  }
 
 }
