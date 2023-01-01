@@ -8,6 +8,7 @@ import com.bimelody.ecommerceservice.model.request.CreateStoreRequest;
 
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -44,55 +45,57 @@ public interface StoreResource {
 
   /**
    * Get information for a store.
-   * @param unique_store_name Store identifier.
+   * @param storeIdentifier Store identifier.
    * @return  HTTP response containing the store info.
    */
-  @Path(value = "/{unique_store_name}")
+  @Path(value = "/{storeIdentifier}")
   @GET
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  Response getStoreInfo(@PathParam("unique_store_name") final String unique_store_name);
+  Response getStoreInfo(@PathParam("storeIdentifier") final String storeIdentifier);
 
   /**
    * Update information for the specified store.
    *
-   * @param unique_store_name Unique store name.
+   * @param storeIdentifier Unique store name.
    * @param updateStoresRequest An instance of {@link UpdateStoresRequest}
    * @return HTTP response regarding update succeed or not.
    */
-  @Path(value = "/{unique_store_name}")
+  @Path(value = "/{storeIdentifier}")
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  Response updateStore(@PathParam("unique_store_name") final String unique_store_name,
+  Response updateStore(@PathParam("storeIdentifier") final String storeIdentifier,
                        final UpdateStoresRequest updateStoresRequest);
 
   /**
    * Return a list of products in the specified store.
    *
-   * @param unique_store_name Unique store name.
+   * @param storeIdentifier storeIdentifier: Unique store name.
    * @param productCategory Product category.
    * @param pageNum Page number.
    * @param pageSize Number of results per page.
    * @return  A list of products in the specified store.
    */
-  @Path("{unique_store_name}/products")
+  @Path("{storeIdentifier}/products")
   @GET
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   Response getProductsInStore(
-      @PathParam("unique_store_name") final String unique_store_name,
+      @PathParam("storeIdentifier") final String storeIdentifier,
       @QueryParam("category") final String productCategory,
       @QueryParam("pageNum")  @DefaultValue("1") int pageNum,
       @QueryParam("pageSize") @DefaultValue("10") int pageSize);
 
 
   /**
+   * @Deprecated This API was never be used.
    * Some operations not related to any resource.
    *
    * @param operationType
    * @return
    */
+  @Deprecated
   @Path("{storeIdentifier}/operation")
   @GET
   @Consumes(MediaType.APPLICATION_JSON)
@@ -104,44 +107,60 @@ public interface StoreResource {
   /**
    * Create a new product under the specified store.
    *
-   * @param unique_store_name Unique store name.
+   * @param storeIdentifier Unique store name.
    * @param createProductRequest An instance of {@link CreateProductRequest}.
    * @return HTTP response confirming whether request succeed or not.
    */
-  @Path("{unique_store_name}/products")
+  @Path("{storeIdentifier}/products")
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  Response createProduct(@PathParam("unique_store_name") final String unique_store_name,
+  Response createProduct(@PathParam("storeIdentifier") final String storeIdentifier,
                           final CreateProductRequest createProductRequest);
+
 
   /**
    * Update the product in the store.
    *
-   * @param unique_store_name Unique store name.
+   * @param storeIdentifier Unique store name.
    * @param updateProductRequest An instance of {@link UpdateProductRequest}.
    * @return HTTP response confirming whether request succeed or not.
    */
-  @Path("{unique_store_name}/products")
+  @Path("{storeIdentifier}/products")
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  Response updateProduct(@PathParam("unique_store_name") final String unique_store_name,
+  Response updateProduct(@PathParam("storeIdentifier") final String storeIdentifier,
                          final UpdateProductRequest updateProductRequest);
 
 
   /**
    * Get information about the specified product in the specified store.
    *
-   * @param unique_store_name Unique store name.
-   * @param unique_product_name Unique product name.
+   * @param storeIdentifier Unique store name.
+   * @param productIdentifier Unique product name.
    * @return HTTP response confirming whether request succeed or not.
    */
-  @Path("{unique_store_name}/products/{unique_product_name}")
+  @Path("{storeIdentifier}/products/{productIdentifier}")
   @GET
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   Response getProductInfoFromStore(
-      @PathParam("unique_store_name") final String unique_store_name,
-      @PathParam("unique_product_name") final String unique_product_name);
+      @PathParam("storeIdentifier") final String storeIdentifier,
+      @PathParam("productIdentifier") final String productIdentifier);
+
+  /**
+   * Delete the specified product in the store.
+   *
+   * @param storeIdentifier Unique store name.
+   * @param productIdentifier Unique product name.
+   * @return HTTP response confirming whether request succeed or not.
+   */
+  @Path("{storeIdentifier}/products/{productIdentifier}")
+  @DELETE
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  Response deleteProductInStore(
+          @PathParam("storeIdentifier") final String storeIdentifier,
+          @PathParam("productIdentifier") final String productIdentifier);
 }

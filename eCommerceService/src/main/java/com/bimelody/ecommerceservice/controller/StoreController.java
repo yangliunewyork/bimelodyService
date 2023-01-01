@@ -58,8 +58,8 @@ public class StoreController implements StoreResource {
             .build();
   }
 
-  public Response getStoreInfo(final String unique_store_name){
-    final Optional<Store> storeOptional = storeService.getStoreInfo(unique_store_name);
+  public Response getStoreInfo(final String storeIdentifier){
+    final Optional<Store> storeOptional = storeService.getStoreInfo(storeIdentifier);
     if (storeOptional.isPresent()) {
       return Response.status(Response.Status.OK)
               .entity(storeOptional.get())
@@ -73,10 +73,10 @@ public class StoreController implements StoreResource {
   }
 
   @Override
-  public Response updateStore(String unique_store_name, final UpdateStoresRequest updateStoresRequest) {
+  public Response updateStore(String storeIdentifier, final UpdateStoresRequest updateStoresRequest) {
     Store store =
             Store.builder()
-                    .uniqueStoreName(unique_store_name)
+                    .uniqueStoreName(storeIdentifier)
                     .storeName(updateStoresRequest.getStoreName())
                     .storeWebsite(updateStoresRequest.getStoreWebsite())
                     .contactEmail(updateStoresRequest.getContactEmail())
@@ -89,11 +89,11 @@ public class StoreController implements StoreResource {
             .build();
   }
 
-  public Response createProduct(final String uniqueStoreName,
+  public Response createProduct(final String storeIdentifier,
                                 final CreateProductRequest createProductRequest) {
     Product product = Product.builder()
-            .uniqueStoreName(uniqueStoreName)
-            .uniqueProductNameInStore(storeService .generateProductIdentifierInStore(uniqueStoreName,
+            .uniqueStoreName(storeIdentifier)
+            .uniqueProductNameInStore(storeService .generateProductIdentifierInStore(storeIdentifier,
                     createProductRequest.getProductName()))
             .productName(createProductRequest.getProductName())
             .productDescription(createProductRequest.getProductDescription())
@@ -108,22 +108,22 @@ public class StoreController implements StoreResource {
             .build();
   }
 
-  public Response updateProduct(final String uniqueStoreName,
+  public Response updateProduct(final String storeIdentifier,
                                 final UpdateProductRequest updateProductRequest) {
-    if (StringUtils.isBlank(uniqueStoreName)) {
-      throw new IllegalArgumentException("uniqueStoreName is invalid: " + uniqueStoreName);
+    if (StringUtils.isBlank(storeIdentifier)) {
+      throw new IllegalArgumentException("storeIdentifier is invalid: " + storeIdentifier);
     }
     if (StringUtils.isBlank(updateProductRequest.getUniqueProductNameInStore())) {
       throw new IllegalArgumentException("Invalid uniqueProductNameInStore: " + updateProductRequest.getUniqueProductNameInStore());
     }
     Optional<Product> productOptional = productService
-            .findProductInfoFromStore(uniqueStoreName, updateProductRequest.getUniqueProductNameInStore());
+            .findProductInfoFromStore(storeIdentifier, updateProductRequest.getUniqueProductNameInStore());
     if (productOptional.isEmpty()) {
       throw new IllegalArgumentException("Can't find product based on uniqueProductNameInStore: " + updateProductRequest.getUniqueProductNameInStore());
     }
 
     Product product = Product.builder()
-            .uniqueStoreName(uniqueStoreName)
+            .uniqueStoreName(storeIdentifier)
             .uniqueProductNameInStore(updateProductRequest.getUniqueProductNameInStore())
             .productName(updateProductRequest.getProductName())
             .productDescription(updateProductRequest.getProductDescription())
@@ -138,8 +138,8 @@ public class StoreController implements StoreResource {
   }
 
   public Response getProductsInStore(
-      final String unique_store_name, final String productCategory, int pageNum, int pageSize) {
-    List<Product> products = productService.searchProducts(unique_store_name, productCategory, pageNum, pageSize);
+      final String storeIdentifier, final String productCategory, int pageNum, int pageSize) {
+    List<Product> products = productService.searchProducts(storeIdentifier, productCategory, pageNum, pageSize);
     return Response.status(Response.Status.OK)
             .entity(products)
             .type(MediaType.APPLICATION_JSON)
@@ -186,5 +186,21 @@ public class StoreController implements StoreResource {
     }
   }
 
+  @Override
+  public Response deleteProductInStore(String storeIdentifier, String productIdentifier) {
+    log.info("Delete product with storeIdentifier={}, productIdentifier={}", storeIdentifier, productIdentifier);
 
+    Optional<Product> productOptional = productService
+            .deleteProductInStore(storeIdentifier, productIdentifier);
+    if (productOptional.isPresent()) {
+      return Response.status(Response.Status.OK)
+              .entity(productOptional.get())
+              .type(MediaType.APPLICATION_JSON)
+              .build();
+    } else {
+      return Response.status(Response.Status.NOT_FOUND)
+              .type(MediaType.APPLICATION_JSON)
+              .build();
+    }
+  }
 }

@@ -27,15 +27,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> searchProducts(
-            final String uniqueStoreName,
+            final String storeIdentifier,
             final String productCategory,
             int pageNum,
             int pageSize) {
-        return productRepository.searchProducts(uniqueStoreName, productCategory, pageNum, pageSize);
+        return productRepository.searchProducts(storeIdentifier, productCategory, pageNum, pageSize);
     }
 
     @Override
-    public Optional<Product> findProductInfoFromStore(String uniqueStoreName, String uniqueProductNameInStore) {
-        return productRepository.findProductInfoFromStore(uniqueStoreName, uniqueProductNameInStore);
+    public Optional<Product> findProductInfoFromStore(String storeIdentifier, String productIdentifier) {
+        return productRepository.findProductInfoFromStore(storeIdentifier, productIdentifier);
+    }
+
+    @Override
+    public Optional<Product> deleteProductInStore(String storeIdentifier, String productIdentifier) {
+        return productRepository.deleteProductInStore(storeIdentifier, productIdentifier);
     }
 }

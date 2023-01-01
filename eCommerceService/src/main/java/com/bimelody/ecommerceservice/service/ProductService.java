@@ -18,5 +18,8 @@ public interface ProductService {
             final String uniqueStoreName, final String productCategory, int pageNum, int pageSize);
 
     Optional<Product> findProductInfoFromStore(
-            final String uniqueStoreName, final String uniqueProductNameInStore);
+            final String uniqueStoreName, final String productIdentifier);
+
+    Optional<Product> deleteProductInStore(
+            final String uniqueStoreName, final String productIdentifier);
 }

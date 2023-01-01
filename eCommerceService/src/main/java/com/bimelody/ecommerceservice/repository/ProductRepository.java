@@ -21,5 +21,8 @@ public interface ProductRepository {
       int pageSize);
 
   Optional<Product> findProductInfoFromStore(
-          @NonNull final String uniqueStoreName, @NonNull final String uniqueProductNameInStore);
+          @NonNull final String storeIdentifier, @NonNull final String productIdentifier);
+
+  Optional<Product> deleteProductInStore(
+          @NonNull final String storeIdentifier, @NonNull final String productIdentifier);
 }
