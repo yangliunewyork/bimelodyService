@@ -11,6 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.inject.Inject;
 import javax.inject.Qualifier;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 
@@ -29,7 +30,9 @@ public class ProductImageAssetController implements ProductImageAssetResource {
         final String preSignedUrl = productImageService
                 .getS3PreSignedUrl(storeIdentifier, imageName, imageOrder);
         return Response.status(Response.Status.OK)
-                .entity(Map.entry("presignedUrl", preSignedUrl)).build();
+                .entity(Map.entry("presignedUrl", preSignedUrl))
+                .type(MediaType.APPLICATION_JSON)
+                .build();
     }
 
 }
