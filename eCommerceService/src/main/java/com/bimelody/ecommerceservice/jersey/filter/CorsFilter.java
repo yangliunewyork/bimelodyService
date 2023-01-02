@@ -72,6 +72,7 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
         // to both type of requests. Only preflight requests
         // need the previously added headers.
         response.getHeaders().add("Access-Control-Allow-Origin", "*");
+        response.getHeaders().add("ShitHappens", "Yes");
     }
 }
 
