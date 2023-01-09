@@ -82,6 +82,9 @@ public class StoreController implements StoreResource {
                     .contactEmail(updateStoresRequest.getContactEmail())
                     .contactNumber(updateStoresRequest.getContactNumber())
                     .storeDescription(updateStoresRequest.getStoreDescription())
+                    .storeLocation(updateStoresRequest.getStoreLocation())
+                    .storeLocationLatitude(updateStoresRequest.getStoreLatitude())
+                    .storeLocationLongitude(updateStoresRequest.getStoreLongitude())
                     .build();
     storeService.updateStore(store);
     return Response.status(Response.Status.OK)
