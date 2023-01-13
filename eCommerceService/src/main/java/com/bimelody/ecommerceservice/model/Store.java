@@ -3,6 +3,7 @@ package com.bimelody.ecommerceservice.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Builder
@@ -21,7 +22,7 @@ public class Store {
   private String instagramLink;
   private String twitterLink;
   private String storeLocation;
-  private Double storeLocationLatitude;
-  private Double storeLocationLongitude;
+  private BigDecimal storeLocationLatitude;
+  private BigDecimal storeLocationLongitude;
   private List<String> storeCategories;
 }

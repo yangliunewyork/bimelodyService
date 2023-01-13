@@ -63,7 +63,7 @@ public class StoreImage extends TableImpl<StoreImageRecord> {
     /**
      * The column <code>Catbirdnyc.store_image.store_image_link</code>.
      */
-    public final TableField<StoreImageRecord, String> STORE_IMAGE_LINK = createField(DSL.name("store_image_link"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<StoreImageRecord, String> STORE_IMAGE_LINK = createField(DSL.name("store_image_link"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
      * The column <code>Catbirdnyc.store_image.creation_time</code>.

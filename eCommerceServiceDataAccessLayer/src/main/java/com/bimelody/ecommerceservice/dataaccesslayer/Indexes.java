@@ -4,6 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer;
 
 
+import com.bimelody.ecommerceservice.dataaccesslayer.tables.FlywaySchemaHistory;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductImage;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductTagMap;
 
@@ -23,6 +24,7 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index FLYWAY_SCHEMA_HISTORY_FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex(DSL.name("flyway_schema_history_s_idx"), FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
     public static final Index PRODUCT_IMAGE_PRODUCT_ID = Internal.createIndex(DSL.name("product_id"), ProductImage.PRODUCT_IMAGE, new OrderField[] { ProductImage.PRODUCT_IMAGE.PRODUCT_ID }, false);
     public static final Index PRODUCT_TAG_MAP_PRODUCT_ID = Internal.createIndex(DSL.name("product_id"), ProductTagMap.PRODUCT_TAG_MAP, new OrderField[] { ProductTagMap.PRODUCT_TAG_MAP.PRODUCT_ID }, false);
     public static final Index PRODUCT_TAG_MAP_PRODUCT_TAG_ID = Internal.createIndex(DSL.name("product_tag_id"), ProductTagMap.PRODUCT_TAG_MAP, new OrderField[] { ProductTagMap.PRODUCT_TAG_MAP.PRODUCT_TAG_ID }, false);

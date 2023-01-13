@@ -74,6 +74,7 @@ public class StoreController implements StoreResource {
 
   @Override
   public Response updateStore(String storeIdentifier, final UpdateStoresRequest updateStoresRequest) {
+    //log.info("updateStoresRequest is {}", updateStoresRequest);
     Store store =
             Store.builder()
                     .uniqueStoreName(storeIdentifier)
@@ -83,8 +84,8 @@ public class StoreController implements StoreResource {
                     .contactNumber(updateStoresRequest.getContactNumber())
                     .storeDescription(updateStoresRequest.getStoreDescription())
                     .storeLocation(updateStoresRequest.getStoreLocation())
-                    .storeLocationLatitude(updateStoresRequest.getStoreLatitude())
-                    .storeLocationLongitude(updateStoresRequest.getStoreLongitude())
+                    .storeLocationLatitude(updateStoresRequest.getStoreLocationLatitude())
+                    .storeLocationLongitude(updateStoresRequest.getStoreLocationLongitude())
                     .build();
     storeService.updateStore(store);
     return Response.status(Response.Status.OK)

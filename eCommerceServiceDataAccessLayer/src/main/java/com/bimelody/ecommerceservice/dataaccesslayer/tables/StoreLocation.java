@@ -8,6 +8,7 @@ import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreLocationRecord;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -68,12 +69,12 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
     /**
      * The column <code>Catbirdnyc.store_location.latitude</code>.
      */
-    public final TableField<StoreLocationRecord, Double> LATITUDE = createField(DSL.name("latitude"), SQLDataType.FLOAT.nullable(false), this, "");
+    public final TableField<StoreLocationRecord, BigDecimal> LATITUDE = createField(DSL.name("latitude"), SQLDataType.DECIMAL(10, 6).nullable(false), this, "");
 
     /**
      * The column <code>Catbirdnyc.store_location.longitude</code>.
      */
-    public final TableField<StoreLocationRecord, Double> LONGITUDE = createField(DSL.name("longitude"), SQLDataType.FLOAT.nullable(false), this, "");
+    public final TableField<StoreLocationRecord, BigDecimal> LONGITUDE = createField(DSL.name("longitude"), SQLDataType.DECIMAL(10, 6).nullable(false), this, "");
 
     /**
      * The column <code>Catbirdnyc.store_location.creation_time</code>.
@@ -181,7 +182,7 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<UInteger, UInteger, String, Double, Double, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row7<UInteger, UInteger, String, BigDecimal, BigDecimal, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 }

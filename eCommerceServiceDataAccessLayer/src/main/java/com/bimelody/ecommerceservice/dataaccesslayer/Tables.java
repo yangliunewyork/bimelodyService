@@ -5,6 +5,7 @@ package com.bimelody.ecommerceservice.dataaccesslayer;
 
 
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Customer;
+import com.bimelody.ecommerceservice.dataaccesslayer.tables.FlywaySchemaHistory;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Product;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrand;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrandMap;
@@ -31,6 +32,11 @@ public class Tables {
      * The table <code>Catbirdnyc.customer</code>.
      */
     public static final Customer CUSTOMER = Customer.CUSTOMER;
+
+    /**
+     * The table <code>Catbirdnyc.flyway_schema_history</code>.
+     */
+    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>Catbirdnyc.product</code>.

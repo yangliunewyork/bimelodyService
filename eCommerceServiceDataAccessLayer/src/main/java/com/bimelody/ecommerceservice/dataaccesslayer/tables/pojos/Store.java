@@ -20,11 +20,11 @@ public class Store implements Serializable {
 
     private UInteger      storeId;
     private String        uniqueStoreName;
+    private String        contactNumber;
+    private String        contactEmail;
     private String        storeName;
     private String        storeWebsite;
     private String        storeDescription;
-    private String        contactNumber;
-    private String        contactEmail;
     private String        storeCoverImage;
     private String        yelpLink;
     private String        facebookLink;
@@ -38,11 +38,11 @@ public class Store implements Serializable {
     public Store(Store value) {
         this.storeId = value.storeId;
         this.uniqueStoreName = value.uniqueStoreName;
+        this.contactNumber = value.contactNumber;
+        this.contactEmail = value.contactEmail;
         this.storeName = value.storeName;
         this.storeWebsite = value.storeWebsite;
         this.storeDescription = value.storeDescription;
-        this.contactNumber = value.contactNumber;
-        this.contactEmail = value.contactEmail;
         this.storeCoverImage = value.storeCoverImage;
         this.yelpLink = value.yelpLink;
         this.facebookLink = value.facebookLink;
@@ -55,11 +55,11 @@ public class Store implements Serializable {
     public Store(
         UInteger      storeId,
         String        uniqueStoreName,
+        String        contactNumber,
+        String        contactEmail,
         String        storeName,
         String        storeWebsite,
         String        storeDescription,
-        String        contactNumber,
-        String        contactEmail,
         String        storeCoverImage,
         String        yelpLink,
         String        facebookLink,
@@ -70,11 +70,11 @@ public class Store implements Serializable {
     ) {
         this.storeId = storeId;
         this.uniqueStoreName = uniqueStoreName;
+        this.contactNumber = contactNumber;
+        this.contactEmail = contactEmail;
         this.storeName = storeName;
         this.storeWebsite = storeWebsite;
         this.storeDescription = storeDescription;
-        this.contactNumber = contactNumber;
-        this.contactEmail = contactEmail;
         this.storeCoverImage = storeCoverImage;
         this.yelpLink = yelpLink;
         this.facebookLink = facebookLink;
@@ -110,6 +110,34 @@ public class Store implements Serializable {
      */
     public void setUniqueStoreName(String uniqueStoreName) {
         this.uniqueStoreName = uniqueStoreName;
+    }
+
+    /**
+     * Getter for <code>Catbirdnyc.store.contact_number</code>.
+     */
+    public String getContactNumber() {
+        return this.contactNumber;
+    }
+
+    /**
+     * Setter for <code>Catbirdnyc.store.contact_number</code>.
+     */
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    /**
+     * Getter for <code>Catbirdnyc.store.contact_email</code>.
+     */
+    public String getContactEmail() {
+        return this.contactEmail;
+    }
+
+    /**
+     * Setter for <code>Catbirdnyc.store.contact_email</code>.
+     */
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 
     /**
@@ -152,34 +180,6 @@ public class Store implements Serializable {
      */
     public void setStoreDescription(String storeDescription) {
         this.storeDescription = storeDescription;
-    }
-
-    /**
-     * Getter for <code>Catbirdnyc.store.contact_number</code>.
-     */
-    public String getContactNumber() {
-        return this.contactNumber;
-    }
-
-    /**
-     * Setter for <code>Catbirdnyc.store.contact_number</code>.
-     */
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    /**
-     * Getter for <code>Catbirdnyc.store.contact_email</code>.
-     */
-    public String getContactEmail() {
-        return this.contactEmail;
-    }
-
-    /**
-     * Setter for <code>Catbirdnyc.store.contact_email</code>.
-     */
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
     }
 
     /**
@@ -286,11 +286,11 @@ public class Store implements Serializable {
 
         sb.append(storeId);
         sb.append(", ").append(uniqueStoreName);
+        sb.append(", ").append(contactNumber);
+        sb.append(", ").append(contactEmail);
         sb.append(", ").append(storeName);
         sb.append(", ").append(storeWebsite);
         sb.append(", ").append(storeDescription);
-        sb.append(", ").append(contactNumber);
-        sb.append(", ").append(contactEmail);
         sb.append(", ").append(storeCoverImage);
         sb.append(", ").append(yelpLink);
         sb.append(", ").append(facebookLink);

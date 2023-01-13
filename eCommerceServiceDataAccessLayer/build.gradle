@@ -41,7 +41,7 @@ dependencies {
 def DatabaseDriver = 'com.mysql.cj.jdbc.Driver'
 def DatabaseUrl = 'jdbc:mysql://127.0.0.1:3305'
 def DatabaseUsername = 'root'
-def DatabasePassword = '123456'
+def DatabasePassword = 'password'
 def DatabaseSchema = 'Catbirdnyc'
 
 /************************

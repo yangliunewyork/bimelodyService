@@ -53,72 +53,72 @@ public class StoreRecord extends UpdatableRecordImpl<StoreRecord> implements Rec
     }
 
     /**
-     * Setter for <code>Catbirdnyc.store.store_name</code>.
-     */
-    public void setStoreName(String value) {
-        set(2, value);
-    }
-
-    /**
-     * Getter for <code>Catbirdnyc.store.store_name</code>.
-     */
-    public String getStoreName() {
-        return (String) get(2);
-    }
-
-    /**
-     * Setter for <code>Catbirdnyc.store.store_website</code>.
-     */
-    public void setStoreWebsite(String value) {
-        set(3, value);
-    }
-
-    /**
-     * Getter for <code>Catbirdnyc.store.store_website</code>.
-     */
-    public String getStoreWebsite() {
-        return (String) get(3);
-    }
-
-    /**
-     * Setter for <code>Catbirdnyc.store.store_description</code>.
-     */
-    public void setStoreDescription(String value) {
-        set(4, value);
-    }
-
-    /**
-     * Getter for <code>Catbirdnyc.store.store_description</code>.
-     */
-    public String getStoreDescription() {
-        return (String) get(4);
-    }
-
-    /**
      * Setter for <code>Catbirdnyc.store.contact_number</code>.
      */
     public void setContactNumber(String value) {
-        set(5, value);
+        set(2, value);
     }
 
     /**
      * Getter for <code>Catbirdnyc.store.contact_number</code>.
      */
     public String getContactNumber() {
-        return (String) get(5);
+        return (String) get(2);
     }
 
     /**
      * Setter for <code>Catbirdnyc.store.contact_email</code>.
      */
     public void setContactEmail(String value) {
-        set(6, value);
+        set(3, value);
     }
 
     /**
      * Getter for <code>Catbirdnyc.store.contact_email</code>.
      */
     public String getContactEmail() {
+        return (String) get(3);
+    }
+
+    /**
+     * Setter for <code>Catbirdnyc.store.store_name</code>.
+     */
+    public void setStoreName(String value) {
+        set(4, value);
+    }
+
+    /**
+     * Getter for <code>Catbirdnyc.store.store_name</code>.
+     */
+    public String getStoreName() {
+        return (String) get(4);
+    }
+
+    /**
+     * Setter for <code>Catbirdnyc.store.store_website</code>.
+     */
+    public void setStoreWebsite(String value) {
+        set(5, value);
+    }
+
+    /**
+     * Getter for <code>Catbirdnyc.store.store_website</code>.
+     */
+    public String getStoreWebsite() {
+        return (String) get(5);
+    }
+
+    /**
+     * Setter for <code>Catbirdnyc.store.store_description</code>.
+     */
+    public void setStoreDescription(String value) {
+        set(6, value);
+    }
+
+    /**
+     * Getter for <code>Catbirdnyc.store.store_description</code>.
+     */
+    public String getStoreDescription() {
         return (String) get(6);
     }
 
@@ -255,27 +255,27 @@ public class StoreRecord extends UpdatableRecordImpl<StoreRecord> implements Rec
 
     @Override
     public Field<String> field3() {
-        return Store.STORE.STORE_NAME;
-    }
-
-    @Override
-    public Field<String> field4() {
-        return Store.STORE.STORE_WEBSITE;
-    }
-
-    @Override
-    public Field<String> field5() {
-        return Store.STORE.STORE_DESCRIPTION;
-    }
-
-    @Override
-    public Field<String> field6() {
         return Store.STORE.CONTACT_NUMBER;
     }
 
     @Override
-    public Field<String> field7() {
+    public Field<String> field4() {
         return Store.STORE.CONTACT_EMAIL;
+    }
+
+    @Override
+    public Field<String> field5() {
+        return Store.STORE.STORE_NAME;
+    }
+
+    @Override
+    public Field<String> field6() {
+        return Store.STORE.STORE_WEBSITE;
+    }
+
+    @Override
+    public Field<String> field7() {
+        return Store.STORE.STORE_DESCRIPTION;
     }
 
     @Override
@@ -325,27 +325,27 @@ public class StoreRecord extends UpdatableRecordImpl<StoreRecord> implements Rec
 
     @Override
     public String component3() {
-        return getStoreName();
-    }
-
-    @Override
-    public String component4() {
-        return getStoreWebsite();
-    }
-
-    @Override
-    public String component5() {
-        return getStoreDescription();
-    }
-
-    @Override
-    public String component6() {
         return getContactNumber();
     }
 
     @Override
-    public String component7() {
+    public String component4() {
         return getContactEmail();
+    }
+
+    @Override
+    public String component5() {
+        return getStoreName();
+    }
+
+    @Override
+    public String component6() {
+        return getStoreWebsite();
+    }
+
+    @Override
+    public String component7() {
+        return getStoreDescription();
     }
 
     @Override
@@ -395,27 +395,27 @@ public class StoreRecord extends UpdatableRecordImpl<StoreRecord> implements Rec
 
     @Override
     public String value3() {
-        return getStoreName();
-    }
-
-    @Override
-    public String value4() {
-        return getStoreWebsite();
-    }
-
-    @Override
-    public String value5() {
-        return getStoreDescription();
-    }
-
-    @Override
-    public String value6() {
         return getContactNumber();
     }
 
     @Override
-    public String value7() {
+    public String value4() {
         return getContactEmail();
+    }
+
+    @Override
+    public String value5() {
+        return getStoreName();
+    }
+
+    @Override
+    public String value6() {
+        return getStoreWebsite();
+    }
+
+    @Override
+    public String value7() {
+        return getStoreDescription();
     }
 
     @Override
@@ -467,31 +467,31 @@ public class StoreRecord extends UpdatableRecordImpl<StoreRecord> implements Rec
 
     @Override
     public StoreRecord value3(String value) {
-        setStoreName(value);
-        return this;
-    }
-
-    @Override
-    public StoreRecord value4(String value) {
-        setStoreWebsite(value);
-        return this;
-    }
-
-    @Override
-    public StoreRecord value5(String value) {
-        setStoreDescription(value);
-        return this;
-    }
-
-    @Override
-    public StoreRecord value6(String value) {
         setContactNumber(value);
         return this;
     }
 
     @Override
-    public StoreRecord value7(String value) {
+    public StoreRecord value4(String value) {
         setContactEmail(value);
+        return this;
+    }
+
+    @Override
+    public StoreRecord value5(String value) {
+        setStoreName(value);
+        return this;
+    }
+
+    @Override
+    public StoreRecord value6(String value) {
+        setStoreWebsite(value);
+        return this;
+    }
+
+    @Override
+    public StoreRecord value7(String value) {
+        setStoreDescription(value);
         return this;
     }
 
@@ -570,16 +570,16 @@ public class StoreRecord extends UpdatableRecordImpl<StoreRecord> implements Rec
     /**
      * Create a detached, initialised StoreRecord
      */
-    public StoreRecord(UInteger storeId, String uniqueStoreName, String storeName, String storeWebsite, String storeDescription, String contactNumber, String contactEmail, String storeCoverImage, String yelpLink, String facebookLink, String instagramLink, String twitterLink, LocalDateTime creationTime, LocalDateTime modificationTime) {
+    public StoreRecord(UInteger storeId, String uniqueStoreName, String contactNumber, String contactEmail, String storeName, String storeWebsite, String storeDescription, String storeCoverImage, String yelpLink, String facebookLink, String instagramLink, String twitterLink, LocalDateTime creationTime, LocalDateTime modificationTime) {
         super(Store.STORE);
 
         setStoreId(storeId);
         setUniqueStoreName(uniqueStoreName);
+        setContactNumber(contactNumber);
+        setContactEmail(contactEmail);
         setStoreName(storeName);
         setStoreWebsite(storeWebsite);
         setStoreDescription(storeDescription);
-        setContactNumber(contactNumber);
-        setContactEmail(contactEmail);
         setStoreCoverImage(storeCoverImage);
         setYelpLink(yelpLink);
         setFacebookLink(facebookLink);
@@ -598,11 +598,11 @@ public class StoreRecord extends UpdatableRecordImpl<StoreRecord> implements Rec
         if (value != null) {
             setStoreId(value.getStoreId());
             setUniqueStoreName(value.getUniqueStoreName());
+            setContactNumber(value.getContactNumber());
+            setContactEmail(value.getContactEmail());
             setStoreName(value.getStoreName());
             setStoreWebsite(value.getStoreWebsite());
             setStoreDescription(value.getStoreDescription());
-            setContactNumber(value.getContactNumber());
-            setContactEmail(value.getContactEmail());
             setStoreCoverImage(value.getStoreCoverImage());
             setYelpLink(value.getYelpLink());
             setFacebookLink(value.getFacebookLink());

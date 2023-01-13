@@ -5,6 +5,7 @@ package com.bimelody.ecommerceservice.dataaccesslayer;
 
 
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Customer;
+import com.bimelody.ecommerceservice.dataaccesslayer.tables.FlywaySchemaHistory;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Product;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrand;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrandMap;
@@ -45,6 +46,11 @@ public class Catbirdnyc extends SchemaImpl {
      * The table <code>Catbirdnyc.customer</code>.
      */
     public final Customer CUSTOMER = Customer.CUSTOMER;
+
+    /**
+     * The table <code>Catbirdnyc.flyway_schema_history</code>.
+     */
+    public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>Catbirdnyc.product</code>.
@@ -133,6 +139,7 @@ public class Catbirdnyc extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.asList(
             Customer.CUSTOMER,
+            FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Product.PRODUCT,
             ProductBrand.PRODUCT_BRAND,
             ProductBrandMap.PRODUCT_BRAND_MAP,

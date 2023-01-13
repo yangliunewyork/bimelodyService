@@ -100,6 +100,36 @@ public class StoreDao extends DAOImpl<StoreRecord, com.bimelody.ecommerceservice
     }
 
     /**
+     * Fetch records that have <code>contact_number BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchRangeOfContactNumber(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Store.STORE.CONTACT_NUMBER, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>contact_number IN (values)</code>
+     */
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchByContactNumber(String... values) {
+        return fetch(Store.STORE.CONTACT_NUMBER, values);
+    }
+
+    /**
+     * Fetch records that have <code>contact_email BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchRangeOfContactEmail(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Store.STORE.CONTACT_EMAIL, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>contact_email IN (values)</code>
+     */
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchByContactEmail(String... values) {
+        return fetch(Store.STORE.CONTACT_EMAIL, values);
+    }
+
+    /**
      * Fetch records that have <code>store_name BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
@@ -142,36 +172,6 @@ public class StoreDao extends DAOImpl<StoreRecord, com.bimelody.ecommerceservice
      */
     public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchByStoreDescription(String... values) {
         return fetch(Store.STORE.STORE_DESCRIPTION, values);
-    }
-
-    /**
-     * Fetch records that have <code>contact_number BETWEEN lowerInclusive AND
-     * upperInclusive</code>
-     */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchRangeOfContactNumber(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Store.STORE.CONTACT_NUMBER, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>contact_number IN (values)</code>
-     */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchByContactNumber(String... values) {
-        return fetch(Store.STORE.CONTACT_NUMBER, values);
-    }
-
-    /**
-     * Fetch records that have <code>contact_email BETWEEN lowerInclusive AND
-     * upperInclusive</code>
-     */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchRangeOfContactEmail(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Store.STORE.CONTACT_EMAIL, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>contact_email IN (values)</code>
-     */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.Store> fetchByContactEmail(String... values) {
-        return fetch(Store.STORE.CONTACT_EMAIL, values);
     }
 
     /**

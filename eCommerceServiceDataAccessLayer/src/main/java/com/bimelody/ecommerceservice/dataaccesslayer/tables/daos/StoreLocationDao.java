@@ -7,6 +7,7 @@ package com.bimelody.ecommerceservice.dataaccesslayer.tables.daos;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.StoreLocation;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreLocationRecord;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -104,14 +105,14 @@ public class StoreLocationDao extends DAOImpl<StoreLocationRecord, com.bimelody.
      * Fetch records that have <code>latitude BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchRangeOfLatitude(Double lowerInclusive, Double upperInclusive) {
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchRangeOfLatitude(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
         return fetchRange(StoreLocation.STORE_LOCATION.LATITUDE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>latitude IN (values)</code>
      */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchByLatitude(Double... values) {
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchByLatitude(BigDecimal... values) {
         return fetch(StoreLocation.STORE_LOCATION.LATITUDE, values);
     }
 
@@ -119,14 +120,14 @@ public class StoreLocationDao extends DAOImpl<StoreLocationRecord, com.bimelody.
      * Fetch records that have <code>longitude BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchRangeOfLongitude(Double lowerInclusive, Double upperInclusive) {
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchRangeOfLongitude(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
         return fetchRange(StoreLocation.STORE_LOCATION.LONGITUDE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>longitude IN (values)</code>
      */
-    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchByLongitude(Double... values) {
+    public List<com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos.StoreLocation> fetchByLongitude(BigDecimal... values) {
         return fetch(StoreLocation.STORE_LOCATION.LONGITUDE, values);
     }
 

@@ -5,6 +5,7 @@ package com.bimelody.ecommerceservice.dataaccesslayer;
 
 
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Customer;
+import com.bimelody.ecommerceservice.dataaccesslayer.tables.FlywaySchemaHistory;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Product;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrand;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrandMap;
@@ -20,6 +21,7 @@ import com.bimelody.ecommerceservice.dataaccesslayer.tables.StoreImage;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.StoreLocation;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.StoreOwner;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.CustomerRecord;
+import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.FlywaySchemaHistoryRecord;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductBrandMapRecord;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductBrandRecord;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductCategoryMapRecord;
@@ -57,6 +59,7 @@ public class Keys {
     public static final UniqueKey<CustomerRecord> KEY_CUSTOMER_EMAIL = Internal.createUniqueKey(Customer.CUSTOMER, DSL.name("KEY_customer_email"), new TableField[] { Customer.CUSTOMER.EMAIL }, true);
     public static final UniqueKey<CustomerRecord> KEY_CUSTOMER_PRIMARY = Internal.createUniqueKey(Customer.CUSTOMER, DSL.name("KEY_customer_PRIMARY"), new TableField[] { Customer.CUSTOMER.CUSTOMER_ID }, true);
     public static final UniqueKey<CustomerRecord> KEY_CUSTOMER_USERNAME = Internal.createUniqueKey(Customer.CUSTOMER, DSL.name("KEY_customer_username"), new TableField[] { Customer.CUSTOMER.USERNAME }, true);
+    public static final UniqueKey<FlywaySchemaHistoryRecord> KEY_FLYWAY_SCHEMA_HISTORY_PRIMARY = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, DSL.name("KEY_flyway_schema_history_PRIMARY"), new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
     public static final UniqueKey<ProductRecord> KEY_PRODUCT_PRIMARY = Internal.createUniqueKey(Product.PRODUCT, DSL.name("KEY_product_PRIMARY"), new TableField[] { Product.PRODUCT.PRODUCT_ID }, true);
     public static final UniqueKey<ProductRecord> KEY_PRODUCT_UNIQUE_PRODUCT_NAME_IN_STORE = Internal.createUniqueKey(Product.PRODUCT, DSL.name("KEY_product_unique_product_name_in_store"), new TableField[] { Product.PRODUCT.STORE_ID, Product.PRODUCT.UNIQUE_PRODUCT_NAME_IN_STORE }, true);
     public static final UniqueKey<ProductBrandRecord> KEY_PRODUCT_BRAND_PRIMARY = Internal.createUniqueKey(ProductBrand.PRODUCT_BRAND, DSL.name("KEY_product_brand_PRIMARY"), new TableField[] { ProductBrand.PRODUCT_BRAND.PRODUCT_BRAND_ID }, true);

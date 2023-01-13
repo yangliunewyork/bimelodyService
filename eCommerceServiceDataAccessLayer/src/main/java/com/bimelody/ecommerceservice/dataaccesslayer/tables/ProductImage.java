@@ -65,7 +65,7 @@ public class ProductImage extends TableImpl<ProductImageRecord> {
     /**
      * The column <code>Catbirdnyc.product_image.product_image_link</code>.
      */
-    public final TableField<ProductImageRecord, String> PRODUCT_IMAGE_LINK = createField(DSL.name("product_image_link"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<ProductImageRecord, String> PRODUCT_IMAGE_LINK = createField(DSL.name("product_image_link"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
      * The column <code>Catbirdnyc.product_image.creation_time</code>.

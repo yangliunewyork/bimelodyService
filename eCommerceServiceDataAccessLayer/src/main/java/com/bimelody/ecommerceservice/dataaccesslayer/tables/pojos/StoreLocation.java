@@ -5,6 +5,7 @@ package com.bimelody.ecommerceservice.dataaccesslayer.tables.pojos;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.jooq.types.UInteger;
@@ -21,8 +22,8 @@ public class StoreLocation implements Serializable {
     private UInteger      storeLocationId;
     private UInteger      storeId;
     private String        formattedAddress;
-    private Double        latitude;
-    private Double        longitude;
+    private BigDecimal    latitude;
+    private BigDecimal    longitude;
     private LocalDateTime creationTime;
     private LocalDateTime modificationTime;
 
@@ -42,8 +43,8 @@ public class StoreLocation implements Serializable {
         UInteger      storeLocationId,
         UInteger      storeId,
         String        formattedAddress,
-        Double        latitude,
-        Double        longitude,
+        BigDecimal    latitude,
+        BigDecimal    longitude,
         LocalDateTime creationTime,
         LocalDateTime modificationTime
     ) {
@@ -101,28 +102,28 @@ public class StoreLocation implements Serializable {
     /**
      * Getter for <code>Catbirdnyc.store_location.latitude</code>.
      */
-    public Double getLatitude() {
+    public BigDecimal getLatitude() {
         return this.latitude;
     }
 
     /**
      * Setter for <code>Catbirdnyc.store_location.latitude</code>.
      */
-    public void setLatitude(Double latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
     /**
      * Getter for <code>Catbirdnyc.store_location.longitude</code>.
      */
-    public Double getLongitude() {
+    public BigDecimal getLongitude() {
         return this.longitude;
     }
 
     /**
      * Setter for <code>Catbirdnyc.store_location.longitude</code>.
      */
-    public void setLongitude(Double longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 

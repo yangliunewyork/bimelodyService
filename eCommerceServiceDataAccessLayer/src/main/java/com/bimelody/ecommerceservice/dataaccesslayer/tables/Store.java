@@ -61,6 +61,16 @@ public class Store extends TableImpl<StoreRecord> {
     public final TableField<StoreRecord, String> UNIQUE_STORE_NAME = createField(DSL.name("unique_store_name"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
+     * The column <code>Catbirdnyc.store.contact_number</code>.
+     */
+    public final TableField<StoreRecord, String> CONTACT_NUMBER = createField(DSL.name("contact_number"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+
+    /**
+     * The column <code>Catbirdnyc.store.contact_email</code>.
+     */
+    public final TableField<StoreRecord, String> CONTACT_EMAIL = createField(DSL.name("contact_email"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+
+    /**
      * The column <code>Catbirdnyc.store.store_name</code>.
      */
     public final TableField<StoreRecord, String> STORE_NAME = createField(DSL.name("store_name"), SQLDataType.VARCHAR(256).nullable(false), this, "");
@@ -74,16 +84,6 @@ public class Store extends TableImpl<StoreRecord> {
      * The column <code>Catbirdnyc.store.store_description</code>.
      */
     public final TableField<StoreRecord, String> STORE_DESCRIPTION = createField(DSL.name("store_description"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
-
-    /**
-     * The column <code>Catbirdnyc.store.contact_number</code>.
-     */
-    public final TableField<StoreRecord, String> CONTACT_NUMBER = createField(DSL.name("contact_number"), SQLDataType.VARCHAR(256), this, "");
-
-    /**
-     * The column <code>Catbirdnyc.store.contact_email</code>.
-     */
-    public final TableField<StoreRecord, String> CONTACT_EMAIL = createField(DSL.name("contact_email"), SQLDataType.VARCHAR(256), this, "");
 
     /**
      * The column <code>Catbirdnyc.store.store_cover_image</code>.

@@ -136,7 +136,6 @@ public class StoreRepositoryImpl implements StoreRepository {
                             .set(STORE_LOCATION.LONGITUDE, store.getStoreLocationLongitude())
                             .where(STORE_LOCATION.STORE_ID.eq(storeRecord.getStoreId()))
                             .execute();
-
                 }
         );
     }
