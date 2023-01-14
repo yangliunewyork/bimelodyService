@@ -28,6 +28,7 @@ public class MySQLDataSource {
       @Value("${DATABASE_URL}") String databaseUrl,
       @Value("${DATABASE_USERNAME}") String databaseUsername,
       @Value("${DATABASE_PASSWORD}") String databasePassword) {
+    log.info("databaseUrl is {}, databaseUsername is {}, databasePassword is {}", databaseUrl, databaseUsername, databasePassword);
     HikariConfig hikariConfig = new HikariConfig();
     hikariConfig.setJdbcUrl(databaseUrl);
     hikariConfig.setUsername(databaseUsername);
