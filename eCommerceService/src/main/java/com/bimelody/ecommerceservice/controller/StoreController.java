@@ -74,7 +74,7 @@ public class StoreController implements StoreResource {
 
   @Override
   public Response updateStore(String storeIdentifier, final UpdateStoresRequest updateStoresRequest) {
-    //log.info("updateStoresRequest is {}", updateStoresRequest);
+    log.info("updateStoresRequest is {}", updateStoresRequest);
     Store store =
             Store.builder()
                     .uniqueStoreName(storeIdentifier)
