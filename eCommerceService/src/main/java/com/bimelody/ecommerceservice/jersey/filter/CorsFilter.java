@@ -1,5 +1,7 @@
 package com.bimelody.ecommerceservice.jersey.filter;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -12,6 +14,7 @@ import java.io.IOException;
 /**
  * https://stackoverflow.com/questions/28065963/how-to-handle-cors-using-jax-rs-with-jersey
  */
+@Slf4j
 @Provider
 @PreMatching
 public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilter {
@@ -46,6 +49,7 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
     @Override
     public void filter(ContainerRequestContext request, ContainerResponseContext response)
             throws IOException {
+        log.info("ContainerRequestContext is {}", request);
 
         // if there is no Origin header, then it is not a
         // cross origin request. We don't do anything.
