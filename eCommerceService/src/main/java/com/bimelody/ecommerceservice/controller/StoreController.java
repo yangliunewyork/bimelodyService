@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
@@ -73,7 +74,7 @@ public class StoreController implements StoreResource {
 
   @Override
   public Response updateStore(String storeIdentifier, final UpdateStoresRequest updateStoresRequest) {
-    log.info("updateStoresRequest is {}", updateStoresRequest);
+    //log.info("updateStoresRequest is {}", updateStoresRequest);
     Store store =
             Store.builder()
                     .uniqueStoreName(storeIdentifier)
