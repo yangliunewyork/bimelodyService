@@ -49,7 +49,7 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
     @Override
     public void filter(ContainerRequestContext request, ContainerResponseContext response)
             throws IOException {
-        log.info("ContainerRequestContext is {}", request);
+        log.info("ContainerRequestContext is {}", request.getRequest());
 
         // if there is no Origin header, then it is not a
         // cross origin request. We don't do anything.
