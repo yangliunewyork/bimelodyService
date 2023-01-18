@@ -3,8 +3,6 @@ package com.bimelody.ecommerceservice.repository;
 import com.amazonaws.util.CollectionUtils;
 
 import com.bimelody.ecommerceservice.model.request.FindStoresRequest;
-import com.bimelody.ecommerceservice.dataaccesslayer.tables.StoreCategoryMap;
-import com.bimelody.ecommerceservice.dataaccesslayer.tables.StoreLocation;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreCategoryMapRecord;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreLocationRecord;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreRecord;
@@ -13,6 +11,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 import org.jooq.Result;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -22,6 +21,7 @@ import org.jooq.impl.DSL;
 import org.jooq.types.UInteger;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,6 +36,7 @@ import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.STORE_CATEGOR
 import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.STORE_CATEGORY_MAP;
 import static java.util.stream.Collectors.toList;
 import static org.jooq.impl.DSL.groupConcat;
+import static org.jooq.impl.DSL.val;
 
 @Slf4j
 @Repository
@@ -210,6 +211,18 @@ public class StoreRepositoryImpl implements StoreRepository {
                     STORE_CATEGORY.CATEGORY_TYPE.in(
                             findStoresRequest.getStoreCategories().split(STORE_CATEGORY_SEPARATOR)));
         }
+        if (findStoresRequest.getLatitude() != null && findStoresRequest.getLongitude() != null) {
+            long distanceInMeters = findStoresRequest.getMeters() != null
+                    ? findStoresRequest.getMeters() : 10000L; // Default distance 10KM.
+
+            // ST_Distance_Sphere return distance in meters.
+            conditions.add(DSL.condition(
+                    "(ST_Distance_Sphere(point(longitude, latitude), point({0}, {1}))) < {2}",
+                    val(findStoresRequest.getLongitude()),
+                    val(findStoresRequest.getLatitude()),
+                    val(distanceInMeters)));
+        }
+
         Condition whereCondition = DSL.and(conditions);
         return whereCondition;
     }

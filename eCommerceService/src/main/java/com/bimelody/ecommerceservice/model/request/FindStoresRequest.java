@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -18,13 +19,13 @@ public class FindStoresRequest {
   private String storeCategories;
 
   @QueryParam("latitude")
-  private Double latitude;
+  private BigDecimal latitude;
 
   @QueryParam("longitude")
-  private Double longitude;
+  private BigDecimal longitude;
 
-  @QueryParam("distance")
-  private Double distance;
+  @QueryParam("meters")
+  private Long meters;
 
   @QueryParam("pageNum")
   @DefaultValue("1")

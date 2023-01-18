@@ -8,16 +8,16 @@
 
     <Loggers>
         <!-- SQL execution logging is logged to the LoggerListener logger at DEBUG level -->
-        <Logger name="org.jooq.tools.LoggerListener" level="warn">
+        <Logger name="org.jooq.tools.LoggerListener" level="WARN">
             <AppenderRef ref="Console"/>
         </Logger>
 
         <!-- Other jOOQ related debug log output -->
-        <Logger name="org.jooq" level="warn">
+        <Logger name="org.jooq" level="WARN">
             <AppenderRef ref="Console"/>
         </Logger>
 
-        <Root level="info">
+        <Root level="WARN">
             <AppenderRef ref="Console"/>
         </Root>
 
