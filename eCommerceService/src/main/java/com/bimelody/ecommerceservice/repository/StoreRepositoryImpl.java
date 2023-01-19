@@ -221,6 +221,22 @@ public class StoreRepositoryImpl implements StoreRepository {
                     val(findStoresRequest.getLongitude()),
                     val(findStoresRequest.getLatitude()),
                     val(distanceInMeters)));
+        } else if (
+                findStoresRequest.getNeLat() != null
+                && findStoresRequest.getNeLng() != null
+                && findStoresRequest.getSwLat() != null
+                && findStoresRequest.getSwLng() != null) {
+            conditions.add(
+                    DSL.condition(
+                            "ST_CONTAINS(ST_MakeEnvelope(\n" +
+                                    "Point({0}, {1}), \n" +
+                                    "Point({2}, {3})\n" +
+                                    "), Point(latitude, longitude))",
+                            val(findStoresRequest.getNeLat()),
+                            val(findStoresRequest.getNeLng()),
+                            val(findStoresRequest.getSwLat()),
+                            val(findStoresRequest.getSwLng()))
+            );
         }
 
         Condition whereCondition = DSL.and(conditions);
