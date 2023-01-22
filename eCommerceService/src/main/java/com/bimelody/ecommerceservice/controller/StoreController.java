@@ -150,6 +150,14 @@ public class StoreController implements StoreResource {
             .build();
   }
 
+  /**
+   * This API is not being used.
+   * @param storeIdentifier
+   * @param productName
+   * @param operationType
+   * @return
+   */
+  @Deprecated
   @Override
   public Response operation(final String storeIdentifier,
                             final String productName,

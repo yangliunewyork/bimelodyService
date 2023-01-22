@@ -24,7 +24,6 @@ public class ProductServiceImpl implements ProductService {
         productRepository.updateProduct(product);
     }
 
-
     @Override
     public List<Product> searchProducts(
             final String storeIdentifier,

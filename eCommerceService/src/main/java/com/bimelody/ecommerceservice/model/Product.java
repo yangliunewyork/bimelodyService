@@ -22,4 +22,7 @@ public class Product {
   // Add product store information below
   private String uniqueStoreName;
   private String storeName;
+  private String storeLocation;
+  private BigDecimal storeLocationLatitude;
+  private BigDecimal storeLocationLongitude;
 }

@@ -34,6 +34,7 @@ import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.PRODUCT_TAG_M
 import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.PRODUCT_BRAND;
 import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.PRODUCT_BRAND_MAP;
 
+import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.STORE_LOCATION;
 import static org.jooq.impl.DSL.groupConcat;
 import static org.jooq.impl.DSL.noCondition;
 
@@ -48,7 +49,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     private static final String PRODUCT_CATEGORIES_FIELD = "ProductCategories";
     private static final String PRODUCT_BRANDS_FIELD = "ProductBrands";
 
-
     private static final List<SelectField<?>> SELECTED_FIELDS =
             Arrays.asList(
                     PRODUCT.PRODUCT_ID,
@@ -58,6 +58,9 @@ public class ProductRepositoryImpl implements ProductRepository {
                     PRODUCT.PRICE_IN_DOLLAR,
                     STORE.UNIQUE_STORE_NAME,
                     STORE.STORE_NAME,
+                    STORE_LOCATION.FORMATTED_ADDRESS,
+                    STORE_LOCATION.LONGITUDE,
+                    STORE_LOCATION.LATITUDE,
                     groupConcat(PRODUCT_IMAGE.PRODUCT_IMAGE_LINK)
                             .separator(GROUP_RESULT_SEPARATOR)
                             .as(PRODUCT_IMAGES_FIELD),
@@ -72,6 +75,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             PRODUCT
                     .join(STORE)
                     .on(PRODUCT.STORE_ID.eq(STORE.STORE_ID))
+                    .join(STORE_LOCATION).on(STORE.STORE_ID.eq(STORE_LOCATION.STORE_ID))
                     .leftJoin(PRODUCT_IMAGE)
                     .on(PRODUCT.PRODUCT_ID.eq(PRODUCT_IMAGE.PRODUCT_ID))
                     .leftJoin(PRODUCT_BRAND_MAP)
@@ -142,7 +146,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                         .select(SELECTED_FIELDS)
                         .from(SEARCH_PRODUCTS_FROM_CLAUSE)
                         .where(where)
-                        .groupBy(PRODUCT.PRODUCT_ID)
+                        .groupBy(PRODUCT.PRODUCT_ID, STORE_LOCATION.STORE_LOCATION_ID)
                         .orderBy(PRODUCT.CREATION_TIME.desc())
                         .limit(pageSize)
                         .offset(pageSize * (pageNum - 1))
@@ -163,7 +167,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                         .select(SELECTED_FIELDS)
                         .from(SEARCH_PRODUCTS_FROM_CLAUSE)
                         .where(where)
-                        .groupBy(PRODUCT.PRODUCT_ID)
+                        .groupBy(PRODUCT.PRODUCT_ID, STORE_LOCATION.STORE_LOCATION_ID)
                         .fetch();
         List<com.bimelody.ecommerceservice.model.Product> products =
                 buildProductListWithReturnedDatabaseRecords(records);
@@ -251,6 +255,9 @@ public class ProductRepositoryImpl implements ProductRepository {
                                                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                                     .storeName(record.getValue(STORE.STORE_NAME))
                                     .uniqueStoreName(record.getValue(STORE.UNIQUE_STORE_NAME))
+                                    .storeLocation(record.getValue(STORE_LOCATION.FORMATTED_ADDRESS))
+                                    .storeLocationLatitude(record.getValue(STORE_LOCATION.LATITUDE))
+                                    .storeLocationLongitude(record.getValue(STORE_LOCATION.LONGITUDE))
                                     .build();
                         })
                 .collect(Collectors.toList());
