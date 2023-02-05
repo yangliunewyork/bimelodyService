@@ -4,3 +4,5 @@ build/
 eCommerceService/build/
 eCommerceServiceDataAccessLayer/build/
 .env
+.DS_Store
+eCommerceServiceDataAccessLayer/.DS_Store

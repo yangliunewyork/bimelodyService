@@ -2,8 +2,16 @@ repositories {
     mavenCentral() // Use Maven Central for resolving dependencies.
 }
 
-allprojects {
+subprojects {
     apply plugin: 'java'
+    apply plugin: 'checkstyle'
+    checkstyle {
+        toolVersion = '10.7.0'
+
+        // Use one common config file for all subprojects
+        configFile = project(':').file('config/checkstyle/checkstyle.xml')
+        configProperties = [ "suppressionFile" : project(':').file('config/checkstyle/suppressions.xml')]
+    }
     sourceCompatibility = '11'
     targetCompatibility = '11'
 }
