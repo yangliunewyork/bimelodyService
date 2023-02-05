@@ -148,7 +148,7 @@ public class StoreRepositoryImpl implements StoreRepository {
                 jooqDslContext
                         .select(SELECT_FIELDS)
                         .from(FROM_CLAUSE)
-                        .where(buildWhereCondition(findStoresRequest))
+                        .where(buildSqlConditionForGISSearch(findStoresRequest))
                         .groupBy(STORE.STORE_ID, STORE_LOCATION.STORE_LOCATION_ID)
                         .limit(findStoresRequest.getPageSize())
                         .offset(findStoresRequest.getPageSize() * (findStoresRequest.getPageNum() - 1))
@@ -198,7 +198,7 @@ public class StoreRepositoryImpl implements StoreRepository {
                 .collect(toList());
     }
 
-    private Condition buildWhereCondition(@NonNull final FindStoresRequest findStoresRequest) {
+    private Condition buildSqlConditionForGISSearch(@NonNull final FindStoresRequest findStoresRequest) {
         List<Condition> conditions = new ArrayList<>();
         conditions.add(
                 STORE_LOCATION.LATITUDE.isNotNull()

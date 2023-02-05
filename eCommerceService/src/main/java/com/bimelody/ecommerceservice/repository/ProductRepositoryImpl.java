@@ -3,6 +3,8 @@ package com.bimelody.ecommerceservice.repository;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductImageRecord;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductRecord;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreRecord;
+import com.bimelody.ecommerceservice.model.request.FindStoresRequest;
+import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +36,11 @@ import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.PRODUCT_TAG_M
 import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.PRODUCT_BRAND;
 import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.PRODUCT_BRAND_MAP;
 
+import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.STORE_CATEGORY;
 import static com.bimelody.ecommerceservice.dataaccesslayer.Tables.STORE_LOCATION;
 import static org.jooq.impl.DSL.groupConcat;
 import static org.jooq.impl.DSL.noCondition;
+import static org.jooq.impl.DSL.val;
 
 @Slf4j
 @Repository
@@ -129,8 +133,24 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .execute();
     }
 
+    public List<com.bimelody.ecommerceservice.model.Product> searchProducts(final SearchProductsRequest searchProductsRequest) {
+        Condition whereCondition = buildSqlConditionForGISSearch(searchProductsRequest);
+        Result<org.jooq.Record> records =
+                jooqDslContext
+                        .select(SELECTED_FIELDS)
+                        .from(SEARCH_PRODUCTS_FROM_CLAUSE)
+                        .where(whereCondition)
+                        .groupBy(PRODUCT.PRODUCT_ID, STORE_LOCATION.STORE_LOCATION_ID)
+                        .orderBy(PRODUCT.CREATION_TIME.desc())
+                        .limit(searchProductsRequest.getPageSize())
+                        .offset(searchProductsRequest.getPageSize() * (searchProductsRequest.getPageNum() - 1))
+                        .fetch();
+
+        return buildProductListWithReturnedDatabaseRecords(records);
+    }
+
     @Override
-    public List<com.bimelody.ecommerceservice.model.Product> searchProducts(
+    public List<com.bimelody.ecommerceservice.model.Product> searchProductsInStore(
             final String uniqueStoreName, final String productCategory, int pageNum, int pageSize) {
         List<Condition> conditions = new ArrayList<>();
         if (uniqueStoreName != null) {
@@ -203,15 +223,18 @@ public class ProductRepositoryImpl implements ProductRepository {
                         jooqDslContext.deleteFrom(PRODUCT_IMAGE)
                                 .where(PRODUCT_IMAGE.PRODUCT_ID
                                         .eq(productRecord.getValue(PRODUCT.PRODUCT_ID)))
-                                .execute();;
+                                .execute();
+                        ;
                         jooqDslContext.deleteFrom(PRODUCT_CATEGORY_MAP)
                                 .where(PRODUCT_CATEGORY_MAP.PRODUCT_ID
                                         .eq(productRecord.getValue(PRODUCT.PRODUCT_ID)))
-                                .execute();;
+                                .execute();
+                        ;
                         jooqDslContext.deleteFrom(PRODUCT_TAG_MAP)
                                 .where(PRODUCT_TAG_MAP.PRODUCT_ID
                                         .eq(productRecord.getValue(PRODUCT.PRODUCT_ID)))
-                                .execute();;
+                                .execute();
+                        ;
                         jooqDslContext.deleteFrom(PRODUCT_BRAND_MAP)
                                 .where(PRODUCT_BRAND_MAP.PRODUCT_ID
                                         .eq(productRecord.getValue(PRODUCT.PRODUCT_ID)))
@@ -231,6 +254,46 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
 
 
+    }
+
+    private Condition buildSqlConditionForGISSearch(@NonNull final SearchProductsRequest searchProductsRequest) {
+        List<Condition> conditions = new ArrayList<>();
+        conditions.add(
+                STORE_LOCATION.LATITUDE.isNotNull()
+        );
+        conditions.add(
+                STORE_LOCATION.LONGITUDE.isNotNull()
+        );
+        if (searchProductsRequest.getLatitude() != null && searchProductsRequest.getLongitude() != null) {
+            long distanceInMeters = searchProductsRequest.getMeters() != null
+                    ? searchProductsRequest.getMeters() : 10000L; // Default distance 10KM.
+
+            // ST_Distance_Sphere return distance in meters.
+            conditions.add(DSL.condition(
+                    "(ST_Distance_Sphere(point(longitude, latitude), point({0}, {1}))) < {2}",
+                    val(searchProductsRequest.getLongitude()),
+                    val(searchProductsRequest.getLatitude()),
+                    val(distanceInMeters)));
+        } else if (
+                searchProductsRequest.getNeLat() != null
+                        && searchProductsRequest.getNeLng() != null
+                        && searchProductsRequest.getSwLat() != null
+                        && searchProductsRequest.getSwLng() != null) {
+            conditions.add(
+                    DSL.condition(
+                            "ST_CONTAINS(ST_MakeEnvelope(\n" +
+                                    "Point({0}, {1}), \n" +
+                                    "Point({2}, {3})\n" +
+                                    "), Point(latitude, longitude))",
+                            val(searchProductsRequest.getNeLat()),
+                            val(searchProductsRequest.getNeLng()),
+                            val(searchProductsRequest.getSwLat()),
+                            val(searchProductsRequest.getSwLng()))
+            );
+        }
+
+        Condition whereCondition = DSL.and(conditions);
+        return whereCondition;
     }
 
     private List<com.bimelody.ecommerceservice.model.Product> buildProductListWithReturnedDatabaseRecords(

@@ -1,6 +1,7 @@
 package com.bimelody.ecommerceservice.repository;
 
 import com.bimelody.ecommerceservice.model.Product;
+import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
 import lombok.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -14,7 +15,9 @@ public interface ProductRepository {
 
   void updateProduct(@NonNull final Product product);
 
-  List<Product> searchProducts(
+  List<Product> searchProducts(@NonNull final SearchProductsRequest searchProductsRequest);
+
+  List<Product> searchProductsInStore(
       @Nullable final String uniqueStoreName,
       @Nullable final String productCategory,
       int pageNum,

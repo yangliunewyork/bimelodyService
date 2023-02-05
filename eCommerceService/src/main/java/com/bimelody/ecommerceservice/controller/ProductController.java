@@ -1,8 +1,10 @@
 package com.bimelody.ecommerceservice.controller;
 
 import com.bimelody.ecommerceservice.model.Product;
+import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
 import com.bimelody.ecommerceservice.resource.ProductResource;
 import com.bimelody.ecommerceservice.service.ProductService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,13 +19,13 @@ public class ProductController implements ProductResource {
 
   private final ProductService productService;
 
-  public Response getProducts(
-      final String uniqueStoreName, final String productCategory, int pageNum, int pageSize) {
+  @Override
+  public Response searchProducts(@NonNull SearchProductsRequest searchProductsRequest) {
     List<Product> products =
-        productService.searchProducts(uniqueStoreName, productCategory, pageNum, pageSize);
+            productService.searchProducts(searchProductsRequest);
     return Response.status(Response.Status.OK)
-        .entity(products)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+            .entity(products)
+            .type(MediaType.APPLICATION_JSON)
+            .build();
   }
 }

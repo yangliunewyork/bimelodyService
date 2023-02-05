@@ -1,6 +1,8 @@
 package com.bimelody.ecommerceservice.service;
 
 import com.bimelody.ecommerceservice.model.Product;
+import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,9 @@ public interface ProductService {
     void updateProduct(final Product product);
 
     List<Product> searchProducts(
+            @NonNull final SearchProductsRequest searchProductsRequest);
+
+    List<Product> searchProductsInStore(
             final String uniqueStoreName, final String productCategory, int pageNum, int pageSize);
 
     Optional<Product> findProductInfoFromStore(

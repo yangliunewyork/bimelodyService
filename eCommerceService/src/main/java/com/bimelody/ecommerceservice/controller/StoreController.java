@@ -143,7 +143,7 @@ public class StoreController implements StoreResource {
 
   public Response getProductsInStore(
       final String storeIdentifier, final String productCategory, int pageNum, int pageSize) {
-    List<Product> products = productService.searchProducts(storeIdentifier, productCategory, pageNum, pageSize);
+    List<Product> products = productService.searchProductsInStore(storeIdentifier, productCategory, pageNum, pageSize);
     return Response.status(Response.Status.OK)
             .entity(products)
             .type(MediaType.APPLICATION_JSON)

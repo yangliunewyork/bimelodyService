@@ -1,5 +1,9 @@
 package com.bimelody.ecommerceservice.resource;
 
+import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
+import lombok.NonNull;
+
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -15,9 +19,5 @@ import javax.ws.rs.core.Response;
 public interface ProductResource {
 
   @GET
-  Response getProducts(
-      @QueryParam("storeName") final String uniqueStoreName,
-      @QueryParam("category") final String productCategory,
-      @QueryParam("pageNum") @DefaultValue("1") int pageNum,
-      @QueryParam("pageSize") @DefaultValue("10") int pageSize);
+  Response searchProducts(@BeanParam final SearchProductsRequest searchProductsRequest);
 }

@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindProductsRequest {
+public class SearchProductsRequest {
 
   /**
    * Latitude of address for searching stores

@@ -2,6 +2,7 @@ package eCommerceService.controller;
 
 import com.bimelody.ecommerceservice.controller.ProductController;
 import com.bimelody.ecommerceservice.model.Product;
+import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
 import com.bimelody.ecommerceservice.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,10 +31,11 @@ public class ProductControllerTest {
     public void test_getProducts_WhenProductServiceReturnResults_ThenShouldReturnOkResponse() {
         Product mockProduct = mock(Product.class);
         List<Product> productList = List.of(mockProduct);
-        when(productService.searchProducts("uniqueStoreName", "productCategory", 1, 10))
+        SearchProductsRequest searchProductsRequestMock = mock(SearchProductsRequest.class);
+        when(productService.searchProducts(searchProductsRequestMock))
                 .thenReturn(productList);
 
-        Response response = productController.getProducts("uniqueStoreName", "productCategory", 1, 10);
+        Response response = productController.searchProducts(searchProductsRequestMock);
 
         assertEquals(Response.Status.OK, response.getStatusInfo().toEnum());
         assertEquals(MediaType.APPLICATION_JSON, response.getMediaType().toString());
