@@ -1,15 +1,17 @@
 package com.bimelody.ecommerceservice.jersey.exception;
 
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
-
+/**
+ * Map DataAccessException to an HTTP response.
+ */
 @Slf4j
 @Provider
 public class DatabaseAccessExceptionMapper implements ExceptionMapper<DataAccessException> {
@@ -17,7 +19,7 @@ public class DatabaseAccessExceptionMapper implements ExceptionMapper<DataAccess
   public Response toResponse(DataAccessException exception) {
     Error error =
         Error.builder()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
             .statusDescription(exception.getLocalizedMessage())
             .errorMessage(exception.getMessage())
             .build();

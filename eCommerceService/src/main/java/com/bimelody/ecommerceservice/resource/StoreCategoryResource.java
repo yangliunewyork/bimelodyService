@@ -7,6 +7,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * Resource for store category.
+ */
 @Path("/store-categories")
 public interface StoreCategoryResource {
   @GET

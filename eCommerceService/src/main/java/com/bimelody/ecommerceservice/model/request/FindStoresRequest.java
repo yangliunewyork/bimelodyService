@@ -1,14 +1,16 @@
 package com.bimelody.ecommerceservice.model.request;
 
+import java.math.BigDecimal;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.QueryParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.QueryParam;
-import java.math.BigDecimal;
-
+/**
+ * A POJO request class for finding stores.
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,13 +21,13 @@ public class FindStoresRequest {
   private String storeCategories;
 
   /**
-   * Latitude of address for searching stores
+   * Latitude of address for searching stores.
    */
   @QueryParam("latitude")
   private BigDecimal latitude;
 
   /**
-   * Longitude of address for searching stores
+   * Longitude of address for searching stores.
    */
   @QueryParam("longitude")
   private BigDecimal longitude;
@@ -61,14 +63,14 @@ public class FindStoresRequest {
   private BigDecimal swLng;
 
   /**
-   * search results page number
+   * search results page number.
    */
   @QueryParam("pageNum")
   @DefaultValue("1")
   private Integer pageNum;
 
   /**
-   * Number of search results returned per page
+   * Number of search results returned per page.
    */
   @QueryParam("pageSize")
   @DefaultValue("10")

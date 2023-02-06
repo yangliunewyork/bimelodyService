@@ -1,20 +1,22 @@
 package com.bimelody.ecommerceservice.service;
 
 import com.bimelody.ecommerceservice.model.Product;
+import com.bimelody.ecommerceservice.model.Store;
 import com.bimelody.ecommerceservice.model.StoreCategory;
 import com.bimelody.ecommerceservice.model.request.FindStoresRequest;
 import com.bimelody.ecommerceservice.repository.ProductRepository;
 import com.bimelody.ecommerceservice.repository.StoreRepository;
-import com.bimelody.ecommerceservice.model.Store;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
+/**
+ * Implementation for {@link StoreService}.
+ */
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -58,15 +60,16 @@ public class StoreServiceImpl implements StoreService {
     String randomSuffix = "";
     for (int i = 0; i < 3; ++i) {
       Optional<Product> productOptional = productRepository
-              .findProductInfoFromStore(uniqueStoreName,
-                      uniqueProductNameInStoreStringBuilder.toString() + randomSuffix);
+          .findProductInfoFromStore(uniqueStoreName,
+              uniqueProductNameInStoreStringBuilder.toString() + randomSuffix);
       if (productOptional.isPresent()) {
-        randomSuffix = UUID.randomUUID().toString().substring(0,6);
+        randomSuffix = UUID.randomUUID().toString().substring(0, 6);
       } else {
         return uniqueProductNameInStoreStringBuilder.toString() + randomSuffix;
       }
     }
-    log.error("Failed to generate productIdentifier in store {}",uniqueStoreName);
-    throw new IllegalStateException(String.format("Failed to generate productIdentifier in store: %s!", uniqueStoreName));
+    log.error("Failed to generate productIdentifier in store {}", uniqueStoreName);
+    throw new IllegalStateException(
+        String.format("Failed to generate productIdentifier in store: %s!", uniqueStoreName));
   }
 }

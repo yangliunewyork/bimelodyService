@@ -1,11 +1,10 @@
 package com.bimelody.ecommerceservice.resource;
 
 import com.bimelody.ecommerceservice.model.request.CreateProductRequest;
+import com.bimelody.ecommerceservice.model.request.CreateStoreRequest;
 import com.bimelody.ecommerceservice.model.request.FindStoresRequest;
 import com.bimelody.ecommerceservice.model.request.UpdateProductRequest;
 import com.bimelody.ecommerceservice.model.request.UpdateStoresRequest;
-import com.bimelody.ecommerceservice.model.request.CreateStoreRequest;
-
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -20,11 +19,15 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * Resource for store.
+ */
 @Path("/stores")
 public interface StoreResource {
 
   /**
    * Return a list of stores.
+   *
    * @param findStoresRequest An instance of {@link FindStoresRequest}
    * @return HTTP response contains stores information.
    */
@@ -35,8 +38,9 @@ public interface StoreResource {
 
   /**
    * Create a new store.
+   *
    * @param createStoresRequest An instance of {@link CreateStoreRequest}
-   * @return  HTTP response confirming whether store creation succeed or not.
+   * @return HTTP response confirming whether store creation succeed or not.
    */
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
@@ -45,8 +49,9 @@ public interface StoreResource {
 
   /**
    * Get information for a store.
+   *
    * @param storeIdentifier Store identifier.
-   * @return  HTTP response containing the store info.
+   * @return HTTP response containing the store info.
    */
   @Path(value = "/{storeIdentifier}")
   @GET
@@ -57,7 +62,7 @@ public interface StoreResource {
   /**
    * Update information for the specified store.
    *
-   * @param storeIdentifier Unique store name.
+   * @param storeIdentifier     Unique store name.
    * @param updateStoresRequest An instance of {@link UpdateStoresRequest}
    * @return HTTP response regarding update succeed or not.
    */
@@ -73,9 +78,9 @@ public interface StoreResource {
    *
    * @param storeIdentifier storeIdentifier: Unique store name.
    * @param productCategory Product category.
-   * @param pageNum Page number.
-   * @param pageSize Number of results per page.
-   * @return  A list of products in the specified store.
+   * @param pageNum         Page number.
+   * @param pageSize        Number of results per page.
+   * @return A list of products in the specified store.
    */
   @Path("{storeIdentifier}/products")
   @GET
@@ -84,30 +89,13 @@ public interface StoreResource {
   Response getProductsInStore(
       @PathParam("storeIdentifier") final String storeIdentifier,
       @QueryParam("category") final String productCategory,
-      @QueryParam("pageNum")  @DefaultValue("1") int pageNum,
+      @QueryParam("pageNum") @DefaultValue("1") int pageNum,
       @QueryParam("pageSize") @DefaultValue("10") int pageSize);
-
-
-  /**
-   * @Deprecated This API was never be used.
-   * Some operations not related to any resource.
-   *
-   * @param operationType
-   * @return
-   */
-  @Deprecated
-  @Path("{storeIdentifier}/operation")
-  @GET
-  @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  Response operation(@PathParam("storeIdentifier") final String storeIdentifier,
-                     @QueryParam("productName") final String productName,
-                     @QueryParam("operationType") final String operationType);
 
   /**
    * Create a new product under the specified store.
    *
-   * @param storeIdentifier Unique store name.
+   * @param storeIdentifier      Unique store name.
    * @param createProductRequest An instance of {@link CreateProductRequest}.
    * @return HTTP response confirming whether request succeed or not.
    */
@@ -116,13 +104,12 @@ public interface StoreResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   Response createProduct(@PathParam("storeIdentifier") final String storeIdentifier,
-                          final CreateProductRequest createProductRequest);
-
+                         final CreateProductRequest createProductRequest);
 
   /**
    * Update the product in the store.
    *
-   * @param storeIdentifier Unique store name.
+   * @param storeIdentifier      Unique store name.
    * @param updateProductRequest An instance of {@link UpdateProductRequest}.
    * @return HTTP response confirming whether request succeed or not.
    */
@@ -137,7 +124,7 @@ public interface StoreResource {
   /**
    * Get information about the specified product in the specified store.
    *
-   * @param storeIdentifier Unique store name.
+   * @param storeIdentifier   Unique store name.
    * @param productIdentifier Unique product name.
    * @return HTTP response confirming whether request succeed or not.
    */
@@ -152,7 +139,7 @@ public interface StoreResource {
   /**
    * Delete the specified product in the store.
    *
-   * @param storeIdentifier Unique store name.
+   * @param storeIdentifier   Unique store name.
    * @param productIdentifier Unique product name.
    * @return HTTP response confirming whether request succeed or not.
    */
@@ -161,6 +148,6 @@ public interface StoreResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   Response deleteProductInStore(
-          @PathParam("storeIdentifier") final String storeIdentifier,
-          @PathParam("productIdentifier") final String productIdentifier);
+      @PathParam("storeIdentifier") final String storeIdentifier,
+      @PathParam("productIdentifier") final String productIdentifier);
 }

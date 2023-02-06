@@ -1,13 +1,15 @@
 package com.bimelody.ecommerceservice.service;
 
+import com.bimelody.ecommerceservice.model.Store;
 import com.bimelody.ecommerceservice.model.StoreCategory;
 import com.bimelody.ecommerceservice.model.request.FindStoresRequest;
-import com.bimelody.ecommerceservice.model.Store;
-import lombok.NonNull;
-
 import java.util.List;
 import java.util.Optional;
+import lombok.NonNull;
 
+/**
+ * Service class that contains business logic for handling store.
+ */
 public interface StoreService {
 
   void createStore(@NonNull final Store store);

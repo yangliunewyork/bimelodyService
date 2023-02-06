@@ -25,7 +25,7 @@ RUN ./gradlew build || return 0
 COPY . .
 RUN ./gradlew build
 
-RUN ls $APP_HOME/eCommerceService/build/libs/
+RUN ls $APP_HOME/ecommerceservice/build/libs/
 
 ########################################################################################
 # Run Stage
@@ -46,10 +46,10 @@ RUN useradd -G $GROUP_NAME $APP_NAME --home $APP_HOME
 USER $APP_NAME
 
 # Copy the artifact from BUILD_ARTIFACT stage
-COPY --from=BUILD_ARTIFACT $APP_HOME/eCommerceService/build/libs/eCommerceService-0.0.1.jar eCommerceService-0.0.1.jar
+COPY --from=BUILD_ARTIFACT $APP_HOME/eCommerceService/build/libs/eCommerceService-0.0.1.jar ecommerceservice-0.0.1.jar
 
 EXPOSE 8080
 EXPOSE 8443
 
 # Set ENTRYPOINT in exec form to run the container as an executable
-ENTRYPOINT ["java", "-jar", "eCommerceService-0.0.1.jar"]
+ENTRYPOINT ["java", "-jar", "ecommerceservice-0.0.1.jar"]

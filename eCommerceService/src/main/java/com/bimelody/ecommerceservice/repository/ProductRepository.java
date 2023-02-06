@@ -2,13 +2,14 @@ package com.bimelody.ecommerceservice.repository;
 
 import com.bimelody.ecommerceservice.model.Product;
 import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
+import java.util.List;
+import java.util.Optional;
 import lombok.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.util.List;
-import java.util.Optional;
-
-/** Provide access to audio file storage. */
+/**
+ * Provide access to audio file storage.
+ */
 public interface ProductRepository {
 
   void createProduct(@NonNull final Product product);
@@ -24,8 +25,8 @@ public interface ProductRepository {
       int pageSize);
 
   Optional<Product> findProductInfoFromStore(
-          @NonNull final String storeIdentifier, @NonNull final String productIdentifier);
+      @NonNull final String storeIdentifier, @NonNull final String productIdentifier);
 
   Optional<Product> deleteProductInStore(
-          @NonNull final String storeIdentifier, @NonNull final String productIdentifier);
+      @NonNull final String storeIdentifier, @NonNull final String productIdentifier);
 }

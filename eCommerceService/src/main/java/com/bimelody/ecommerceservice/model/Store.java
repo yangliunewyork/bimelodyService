@@ -1,11 +1,13 @@
 package com.bimelody.ecommerceservice.model;
 
+import java.math.BigDecimal;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
-import java.math.BigDecimal;
-import java.util.List;
-
+/**
+ * A POJO class for Store information.
+ */
 @Builder
 @Data
 public class Store {

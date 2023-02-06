@@ -65,7 +65,7 @@ docker build --progress=plain --no-cache .
 
 Log in ECR:  
 ```
-aws ecr get-login-password --region us-east-1 --profile eCommerceService-Alpha | docker login --username AWS 
+aws ecr get-login-password --region us-east-1 --profile ecommerceservice-Alpha | docker login --username AWS 
 --password-stdin 529378696789.dkr.ecr.us-east-1.amazonaws.com
 ```
 
