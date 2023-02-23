@@ -1,5 +1,6 @@
 package com.bimelody.ecommerceservice.controller;
 
+import com.amazonaws.util.CollectionUtils;
 import com.bimelody.ecommerceservice.model.Product;
 import com.bimelody.ecommerceservice.model.Store;
 import com.bimelody.ecommerceservice.model.request.CreateProductRequest;
@@ -8,11 +9,14 @@ import com.bimelody.ecommerceservice.model.request.FindStoresRequest;
 import com.bimelody.ecommerceservice.model.request.UpdateProductRequest;
 import com.bimelody.ecommerceservice.model.request.UpdateStoresRequest;
 import com.bimelody.ecommerceservice.resource.StoreResource;
+import com.bimelody.ecommerceservice.service.ProductAssetService;
 import com.bimelody.ecommerceservice.service.ProductService;
 import com.bimelody.ecommerceservice.service.StoreService;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,13 +31,9 @@ import org.apache.commons.lang3.StringUtils;
 @RequiredArgsConstructor(onConstructor = @__(@Inject))
 public class StoreController implements StoreResource {
 
-  private enum OperationType {
-    GenerateProductIdentifierInStore
-  }
-
   private final StoreService storeService;
-
   private final ProductService productService;
+  private final ProductAssetService productAssetService;
 
   @Override
   public Response getStores(final FindStoresRequest findStoresRequest) {
@@ -126,7 +126,11 @@ public class StoreController implements StoreResource {
     }
     if (StringUtils.isBlank(updateProductRequest.getUniqueProductNameInStore())) {
       throw new IllegalArgumentException("Invalid uniqueProductNameInStore: "
-         + updateProductRequest.getUniqueProductNameInStore());
+          + updateProductRequest.getUniqueProductNameInStore());
+    }
+    if (CollectionUtils.isNullOrEmpty(updateProductRequest.getProductImageUrls())) {
+      throw new IllegalArgumentException("Product images can't be empty: "
+          + updateProductRequest.getProductImageUrls());
     }
     Optional<Product> productOptional = productService
         .findProductInfoFromStore(storeIdentifier,
@@ -136,15 +140,27 @@ public class StoreController implements StoreResource {
           + updateProductRequest.getUniqueProductNameInStore());
     }
 
+    List<String> assetLinksToBeDeletedFromS3 = productOptional.get().getProductImageUrls()
+        .stream()
+        .filter(link -> !updateProductRequest.getProductImageUrls().contains(link))
+        .collect(Collectors.toList());
+
     Product product = Product.builder()
         .uniqueStoreName(storeIdentifier)
         .uniqueProductNameInStore(updateProductRequest.getUniqueProductNameInStore())
         .productName(updateProductRequest.getProductName())
         .productDescription(updateProductRequest.getProductDescription())
         .priceInDollar(updateProductRequest.getPriceInDollar())
+        .productImageUrls(updateProductRequest.getProductImageUrls())
         .build();
 
     productService.updateProduct(product);
+
+    assetLinksToBeDeletedFromS3.forEach(
+        productAssetService::deleteS3Asset
+    );
+
+
     return Response.status(Response.Status.OK)
         .type(MediaType.APPLICATION_JSON)
         .entity(product)

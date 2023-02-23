@@ -34,6 +34,7 @@ import org.jooq.Result;
 import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
+import org.jooq.types.UInteger;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -124,12 +125,59 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public void updateProduct(@NonNull com.bimelody.ecommerceservice.model.Product product) {
-    jooqDslContext.update(PRODUCT)
-        .set(PRODUCT.PRODUCT_NAME, product.getProductName())
-        .set(PRODUCT.PRODUCT_DESCRIPTION, product.getProductDescription())
-        .set(PRODUCT.PRICE_IN_DOLLAR, product.getPriceInDollar())
-        .where(PRODUCT.UNIQUE_PRODUCT_NAME_IN_STORE.eq(product.getUniqueProductNameInStore()))
-        .execute();
+    Optional<com.bimelody.ecommerceservice.model.Product> productInfoInDatabaseOptional =
+        findProductInfoFromStore(
+            product.getUniqueStoreName(),
+            product.getUniqueProductNameInStore());
+    if (productInfoInDatabaseOptional.isEmpty()) {
+      log.info("Product is not found for identifier:{}", product.getProductId());
+      return;
+    }
+    com.bimelody.ecommerceservice.model.Product productInfoInDatabase =
+        productInfoInDatabaseOptional.get();
+    List<String> productImagesInDatabase = productInfoInDatabase.getProductImageUrls();
+
+    // Find new URLs
+    List<String> newUrls = product.getProductImageUrls().stream()
+        .filter(StringUtils::isNotBlank)
+        .filter(imageUrl -> !productImagesInDatabase.contains(imageUrl))
+        .collect(Collectors.toList());
+    // Find URLs in database that aren't needed any more.
+    List<String> oldUrls = productInfoInDatabase.getProductImageUrls().stream()
+        .filter(imageUrl -> !product.getProductImageUrls().contains(imageUrl))
+        .collect(Collectors.toList());
+    jooqDslContext.transaction(
+        transaction -> {
+          jooqDslContext.update(PRODUCT)
+              .set(PRODUCT.PRODUCT_NAME, product.getProductName())
+              .set(PRODUCT.PRODUCT_DESCRIPTION, product.getProductDescription())
+              .set(PRODUCT.PRICE_IN_DOLLAR, product.getPriceInDollar())
+              .where(PRODUCT.UNIQUE_PRODUCT_NAME_IN_STORE.eq(product.getUniqueProductNameInStore()))
+              .execute();
+
+          // Only create asset table record for new urls.
+          newUrls.forEach(
+              imageUrl -> {
+                ProductImageRecord productImageRecord =
+                    jooqDslContext.newRecord(PRODUCT_IMAGE);
+                productImageRecord.setProductId(
+                    UInteger.valueOf(productInfoInDatabase.getProductId()));
+                productImageRecord.setProductImageLink(imageUrl);
+                productImageRecord.store();
+              }
+          );
+
+          // Delete unused asset urls.
+          oldUrls.forEach(
+              imageUrl -> {
+                jooqDslContext.deleteFrom(PRODUCT_IMAGE)
+                    .where(PRODUCT_IMAGE.PRODUCT_IMAGE_LINK
+                        .eq(imageUrl))
+                    .execute();
+              }
+          );
+        }
+    );
   }
 
   @Override
@@ -225,7 +273,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .where(PRODUCT_IMAGE.PRODUCT_ID
                     .eq(productRecord.getValue(PRODUCT.PRODUCT_ID)))
                 .execute();
-            ;
+
             jooqDslContext.deleteFrom(PRODUCT_CATEGORY_MAP)
                 .where(PRODUCT_CATEGORY_MAP.PRODUCT_ID
                     .eq(productRecord.getValue(PRODUCT.PRODUCT_ID)))

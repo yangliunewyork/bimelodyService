@@ -5,7 +5,7 @@ import lombok.NonNull;
 /**
  * Service class that contains business logic for handling product image.
  */
-public interface ProductImageService {
+public interface ProductAssetService {
   /**
    * Return a S3 PreSigned URL for a product image.
    *
@@ -17,4 +17,6 @@ public interface ProductImageService {
       @NonNull final String storeIdentifier,
       @NonNull final String imageName,
       final int imageOrder);
+
+  void deleteS3Asset(final String assetLink);
 }

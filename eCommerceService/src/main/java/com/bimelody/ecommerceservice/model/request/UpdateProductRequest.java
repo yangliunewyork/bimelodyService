@@ -1,6 +1,7 @@
 package com.bimelody.ecommerceservice.model.request;
 
 import java.math.BigDecimal;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,6 @@ public class UpdateProductRequest {
   private String productDescription;
   @NonNull
   private BigDecimal priceInDollar;
+  @NonNull
+  private List<String> productImageUrls;
 }

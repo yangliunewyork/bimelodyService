@@ -8,7 +8,7 @@ import lombok.NonNull;
 import org.springframework.lang.Nullable;
 
 /**
- * Provide access to audio file storage.
+ * Provide access to product storage.
  */
 public interface ProductRepository {
 

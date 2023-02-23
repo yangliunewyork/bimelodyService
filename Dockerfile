@@ -11,7 +11,7 @@ FROM public.ecr.aws/amazoncorretto/amazoncorretto:11 AS BUILD_ARTIFACT
 # Set working directory
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
-ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/
+ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME
 RUN yum install -y shadow-utils && yum clean all
 RUN groupadd $GROUP_NAME
 WORKDIR $APP_HOME
@@ -25,8 +25,6 @@ RUN ./gradlew build || return 0
 COPY . .
 RUN ./gradlew build
 
-RUN ls $APP_HOME/ecommerceservice/build/libs/
-
 ########################################################################################
 # Run Stage
 ########################################################################################
@@ -37,7 +35,7 @@ FROM public.ecr.aws/amazoncorretto/amazoncorretto:11 AS RUN_ARTIFACT
 
 ARG GROUP_NAME=bimelody
 ARG APP_NAME=ecommerce-service
-ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME/
+ENV APP_HOME=/home/$GROUP_NAME/$APP_NAME
 RUN yum install -y shadow-utils && yum clean all
 RUN groupadd $GROUP_NAME
 WORKDIR $APP_HOME

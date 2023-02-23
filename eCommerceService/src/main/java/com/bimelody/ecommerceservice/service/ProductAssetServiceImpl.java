@@ -4,22 +4,24 @@ import java.time.Duration;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
 /**
- * Implementation for {@link ProductImageService}.
+ * Implementation for {@link ProductAssetService}.
  */
 @Slf4j
 @Service
 @AllArgsConstructor
-public class ProductImageServiceImpl implements ProductImageService {
+public class ProductAssetServiceImpl implements ProductAssetService {
 
   private final Environment environment;
 
@@ -51,5 +53,19 @@ public class ProductImageServiceImpl implements ProductImageService {
     PresignedPutObjectRequest presignedPutObjectRequest =
         s3Presigner.presignPutObject(putObjectPresignRequest);
     return presignedPutObjectRequest.url().toString();
+  }
+
+  @Override
+  public void deleteS3Asset(final String assetLink) {
+    if (StringUtils.isBlank(assetLink)
+        || !assetLink.contains("images/")) {
+      throw new IllegalArgumentException("Invalid asset link: " + assetLink);
+    }
+    final String objectKey = assetLink.substring(assetLink.indexOf("images/"));
+    DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+        .bucket(environment.getProperty("PRODUCT_IMAGE_BUCKET"))
+        .key(objectKey)
+        .build();
+    s3Client.deleteObject(deleteObjectRequest);
   }
 }

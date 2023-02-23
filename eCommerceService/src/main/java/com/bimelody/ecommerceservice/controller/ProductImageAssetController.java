@@ -1,7 +1,7 @@
 package com.bimelody.ecommerceservice.controller;
 
 import com.bimelody.ecommerceservice.resource.ProductImageAssetResource;
-import com.bimelody.ecommerceservice.service.ProductImageService;
+import com.bimelody.ecommerceservice.service.ProductAssetService;
 import com.bimelody.ecommerceservice.service.ProductService;
 import com.bimelody.ecommerceservice.service.StoreService;
 import java.util.Map;
@@ -20,13 +20,12 @@ public class ProductImageAssetController implements ProductImageAssetResource {
 
   private final StoreService storeService;
   private final ProductService productService;
-  private final ProductImageService productImageService;
-
+  private final ProductAssetService productAssetService;
 
   @Override
   public Response getPresignedUrl(String storeIdentifier, String imageName, int imageOrder) {
 
-    final String preSignedUrl = productImageService
+    final String preSignedUrl = productAssetService
         .getS3PreSignedUrl(storeIdentifier, imageName, imageOrder);
     return Response.status(Response.Status.OK)
         .entity(Map.entry("presignedUrl", preSignedUrl))
