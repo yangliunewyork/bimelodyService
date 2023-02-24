@@ -17,7 +17,7 @@ RUN groupadd $GROUP_NAME
 WORKDIR $APP_HOME
 
 
-COPY build.gradle settings.gradle gradlew $APP_HOME
+COPY build.gradle settings.gradle gradlew $APP_HOME/
 COPY gradle $APP_HOME/gradle
 
 # https://stackoverflow.com/questions/25873971/docker-cache-gradle-dependencies
