@@ -110,14 +110,16 @@ public interface StoreResource {
    * Update the product in the store.
    *
    * @param storeIdentifier      Unique store name.
+   * @param productIdentifier    Unique product name in the store.
    * @param updateProductRequest An instance of {@link UpdateProductRequest}.
    * @return HTTP response confirming whether request succeed or not.
    */
-  @Path("{storeIdentifier}/products")
+  @Path("{storeIdentifier}/products/{productIdentifier}")
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   Response updateProduct(@PathParam("storeIdentifier") final String storeIdentifier,
+                         @PathParam("productIdentifier") final String productIdentifier,
                          final UpdateProductRequest updateProductRequest);
 
 

@@ -12,9 +12,7 @@ import com.bimelody.ecommerceservice.resource.StoreResource;
 import com.bimelody.ecommerceservice.service.ProductAssetService;
 import com.bimelody.ecommerceservice.service.ProductService;
 import com.bimelody.ecommerceservice.service.StoreService;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -120,13 +118,14 @@ public class StoreController implements StoreResource {
 
   @Override
   public Response updateProduct(final String storeIdentifier,
+                                final String productIdentifier,
                                 final UpdateProductRequest updateProductRequest) {
     if (StringUtils.isBlank(storeIdentifier)) {
       throw new IllegalArgumentException("storeIdentifier is invalid: " + storeIdentifier);
     }
-    if (StringUtils.isBlank(updateProductRequest.getUniqueProductNameInStore())) {
-      throw new IllegalArgumentException("Invalid uniqueProductNameInStore: "
-          + updateProductRequest.getUniqueProductNameInStore());
+    if (StringUtils.isBlank(productIdentifier)) {
+      throw new IllegalArgumentException("Invalid productIdentifier: "
+          + productIdentifier);
     }
     if (CollectionUtils.isNullOrEmpty(updateProductRequest.getProductImageUrls())) {
       throw new IllegalArgumentException("Product images can't be empty: "
@@ -134,10 +133,10 @@ public class StoreController implements StoreResource {
     }
     Optional<Product> productOptional = productService
         .findProductInfoFromStore(storeIdentifier,
-            updateProductRequest.getUniqueProductNameInStore());
+            productIdentifier);
     if (productOptional.isEmpty()) {
-      throw new IllegalArgumentException("Can't find product based on uniqueProductNameInStore: "
-          + updateProductRequest.getUniqueProductNameInStore());
+      throw new IllegalArgumentException("Can't find product based on productIdentifier: "
+          + productIdentifier);
     }
 
     List<String> assetLinksToBeDeletedFromS3 = productOptional.get().getProductImageUrls()
@@ -147,7 +146,7 @@ public class StoreController implements StoreResource {
 
     Product product = Product.builder()
         .uniqueStoreName(storeIdentifier)
-        .uniqueProductNameInStore(updateProductRequest.getUniqueProductNameInStore())
+        .uniqueProductNameInStore(productIdentifier)
         .productName(updateProductRequest.getProductName())
         .productDescription(updateProductRequest.getProductDescription())
         .priceInDollar(updateProductRequest.getPriceInDollar())

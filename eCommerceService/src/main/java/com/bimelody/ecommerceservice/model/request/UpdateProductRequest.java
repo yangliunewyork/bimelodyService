@@ -17,8 +17,6 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class UpdateProductRequest {
   @NonNull
-  private String uniqueProductNameInStore;
-  @NonNull
   private String productName;
   @NonNull
   private String productDescription;
