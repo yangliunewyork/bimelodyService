@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductBrandRecord;
 
@@ -24,7 +24,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -36,7 +35,7 @@ public class ProductBrand extends TableImpl<ProductBrandRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.product_brand</code>
+     * The reference instance of <code>PRODUCT_BRAND</code>
      */
     public static final ProductBrand PRODUCT_BRAND = new ProductBrand();
 
@@ -49,34 +48,34 @@ public class ProductBrand extends TableImpl<ProductBrandRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.product_brand.product_brand_id</code>.
+     * The column <code>PRODUCT_BRAND.PRODUCT_BRAND_ID</code>.
      */
-    public final TableField<ProductBrandRecord, UInteger> PRODUCT_BRAND_ID = createField(DSL.name("product_brand_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<ProductBrandRecord, Long> PRODUCT_BRAND_ID = createField(DSL.name("PRODUCT_BRAND_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_brand.brand_name</code>.
+     * The column <code>PRODUCT_BRAND.BRAND_NAME</code>.
      */
-    public final TableField<ProductBrandRecord, String> BRAND_NAME = createField(DSL.name("brand_name"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<ProductBrandRecord, String> BRAND_NAME = createField(DSL.name("BRAND_NAME"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_brand.brand_website</code>.
+     * The column <code>PRODUCT_BRAND.BRAND_WEBSITE</code>.
      */
-    public final TableField<ProductBrandRecord, String> BRAND_WEBSITE = createField(DSL.name("brand_website"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<ProductBrandRecord, String> BRAND_WEBSITE = createField(DSL.name("BRAND_WEBSITE"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_brand.brand_description</code>.
+     * The column <code>PRODUCT_BRAND.BRAND_DESCRIPTION</code>.
      */
-    public final TableField<ProductBrandRecord, String> BRAND_DESCRIPTION = createField(DSL.name("brand_description"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
+    public final TableField<ProductBrandRecord, String> BRAND_DESCRIPTION = createField(DSL.name("BRAND_DESCRIPTION"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_brand.creation_time</code>.
+     * The column <code>PRODUCT_BRAND.CREATION_TIME</code>.
      */
-    public final TableField<ProductBrandRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductBrandRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_brand.modification_time</code>.
+     * The column <code>PRODUCT_BRAND.MODIFICATION_TIME</code>.
      */
-    public final TableField<ProductBrandRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductBrandRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private ProductBrand(Name alias, Table<ProductBrandRecord> aliased) {
         this(alias, aliased, null);
@@ -87,24 +86,24 @@ public class ProductBrand extends TableImpl<ProductBrandRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_brand</code> table reference
+     * Create an aliased <code>PRODUCT_BRAND</code> table reference
      */
     public ProductBrand(String alias) {
         this(DSL.name(alias), PRODUCT_BRAND);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_brand</code> table reference
+     * Create an aliased <code>PRODUCT_BRAND</code> table reference
      */
     public ProductBrand(Name alias) {
         this(alias, PRODUCT_BRAND);
     }
 
     /**
-     * Create a <code>Catbirdnyc.product_brand</code> table reference
+     * Create a <code>PRODUCT_BRAND</code> table reference
      */
     public ProductBrand() {
-        this(DSL.name("product_brand"), null);
+        this(DSL.name("PRODUCT_BRAND"), null);
     }
 
     public <O extends Record> ProductBrand(Table<O> child, ForeignKey<O, ProductBrandRecord> key) {
@@ -113,17 +112,17 @@ public class ProductBrand extends TableImpl<ProductBrandRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<ProductBrandRecord, UInteger> getIdentity() {
-        return (Identity<ProductBrandRecord, UInteger>) super.getIdentity();
+    public Identity<ProductBrandRecord, Long> getIdentity() {
+        return (Identity<ProductBrandRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<ProductBrandRecord> getPrimaryKey() {
-        return Keys.KEY_PRODUCT_BRAND_PRIMARY;
+        return Keys.CONSTRAINT_42;
     }
 
     @Override
@@ -157,7 +156,7 @@ public class ProductBrand extends TableImpl<ProductBrandRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<UInteger, String, String, String, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row6<Long, String, String, String, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row6) super.fieldsRow();
     }
 }

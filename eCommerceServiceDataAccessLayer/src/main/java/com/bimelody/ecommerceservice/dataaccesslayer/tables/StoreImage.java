@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreImageRecord;
 
@@ -26,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -38,7 +37,7 @@ public class StoreImage extends TableImpl<StoreImageRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.store_image</code>
+     * The reference instance of <code>STORE_IMAGE</code>
      */
     public static final StoreImage STORE_IMAGE = new StoreImage();
 
@@ -51,29 +50,29 @@ public class StoreImage extends TableImpl<StoreImageRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.store_image.store_image_id</code>.
+     * The column <code>STORE_IMAGE.STORE_IMAGE_ID</code>.
      */
-    public final TableField<StoreImageRecord, UInteger> STORE_IMAGE_ID = createField(DSL.name("store_image_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<StoreImageRecord, Long> STORE_IMAGE_ID = createField(DSL.name("STORE_IMAGE_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_image.store_id</code>.
+     * The column <code>STORE_IMAGE.STORE_ID</code>.
      */
-    public final TableField<StoreImageRecord, UInteger> STORE_ID = createField(DSL.name("store_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<StoreImageRecord, Long> STORE_ID = createField(DSL.name("STORE_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_image.store_image_link</code>.
+     * The column <code>STORE_IMAGE.STORE_IMAGE_LINK</code>.
      */
-    public final TableField<StoreImageRecord, String> STORE_IMAGE_LINK = createField(DSL.name("store_image_link"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
+    public final TableField<StoreImageRecord, String> STORE_IMAGE_LINK = createField(DSL.name("STORE_IMAGE_LINK"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_image.creation_time</code>.
+     * The column <code>STORE_IMAGE.CREATION_TIME</code>.
      */
-    public final TableField<StoreImageRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreImageRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_image.modification_time</code>.
+     * The column <code>STORE_IMAGE.MODIFICATION_TIME</code>.
      */
-    public final TableField<StoreImageRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreImageRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private StoreImage(Name alias, Table<StoreImageRecord> aliased) {
         this(alias, aliased, null);
@@ -84,24 +83,24 @@ public class StoreImage extends TableImpl<StoreImageRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_image</code> table reference
+     * Create an aliased <code>STORE_IMAGE</code> table reference
      */
     public StoreImage(String alias) {
         this(DSL.name(alias), STORE_IMAGE);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_image</code> table reference
+     * Create an aliased <code>STORE_IMAGE</code> table reference
      */
     public StoreImage(Name alias) {
         this(alias, STORE_IMAGE);
     }
 
     /**
-     * Create a <code>Catbirdnyc.store_image</code> table reference
+     * Create a <code>STORE_IMAGE</code> table reference
      */
     public StoreImage() {
-        this(DSL.name("store_image"), null);
+        this(DSL.name("STORE_IMAGE"), null);
     }
 
     public <O extends Record> StoreImage(Table<O> child, ForeignKey<O, StoreImageRecord> key) {
@@ -110,17 +109,17 @@ public class StoreImage extends TableImpl<StoreImageRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<StoreImageRecord, UInteger> getIdentity() {
-        return (Identity<StoreImageRecord, UInteger>) super.getIdentity();
+    public Identity<StoreImageRecord, Long> getIdentity() {
+        return (Identity<StoreImageRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<StoreImageRecord> getPrimaryKey() {
-        return Keys.KEY_STORE_IMAGE_PRIMARY;
+        return Keys.CONSTRAINT_5D;
     }
 
     @Override
@@ -131,7 +130,7 @@ public class StoreImage extends TableImpl<StoreImageRecord> {
     private transient Store _store;
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.store</code> table.
+     * Get the implicit join path to the <code>PUBLIC.STORE</code> table.
      */
     public Store store() {
         if (_store == null)
@@ -171,7 +170,7 @@ public class StoreImage extends TableImpl<StoreImageRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<UInteger, UInteger, String, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row5<Long, Long, String, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row5) super.fieldsRow();
     }
 }

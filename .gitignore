@@ -4,5 +4,6 @@ build/
 eCommerceService/build/
 eCommerceServiceDataAccessLayer/build/
 .env
+application-local.properties
 .DS_Store
 eCommerceServiceDataAccessLayer/.DS_Store

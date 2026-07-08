@@ -6,7 +6,7 @@ buildscript {
 
     dependencies {
         classpath 'org.jooq:jooq-codegen:3.16.2'
-        classpath 'mysql:mysql-connector-java:8.0.27'
+        classpath 'org.jooq:jooq-meta-extensions:3.16.2'
     }
 }
 
@@ -38,12 +38,6 @@ dependencies {
     compileOnly 'org.flywaydb:flyway-core:8.5.12'
 }
 
-def DatabaseDriver = 'com.mysql.cj.jdbc.Driver'
-def DatabaseUrl = 'jdbc:mysql://127.0.0.1:3305'
-def DatabaseUsername = 'root'
-def DatabasePassword = 'password'
-def DatabaseSchema = 'Catbirdnyc'
-
 /************************
  jooq code generation
  *************************/
@@ -51,15 +45,17 @@ import org.jooq.codegen.GenerationTool;
 import org.jooq.meta.jaxb.*;
 
 task generate {
+    def migrationDir = new File(projectDir, '../eCommerceDatabaseSchema/src/catbirdnyc.database.migration').canonicalPath
     def outputDirectory = projectDir.toString() + '/src/main/java'
     def configuration = new Configuration()
-            .withJdbc(new Jdbc()
-                    .withDriver(DatabaseDriver)
-                    .withUrl(DatabaseUrl)
-                    .withUser(DatabaseUsername)
-                    .withPassword(DatabasePassword))
             .withGenerator(new Generator()
-                    .withDatabase(new Database().withInputSchema(DatabaseSchema))
+                    .withDatabase(new Database()
+                            .withName('org.jooq.meta.extensions.ddl.DDLDatabase')
+                            .withProperties(
+                                new Property().withKey('scripts').withValue(migrationDir + '/*.sql'),
+                                new Property().withKey('sort').withValue('flyway'),
+                                new Property().withKey('dialect').withValue('MYSQL')
+                            ))
                     .withGenerate(new Generate()
                             .withPojos(true)
                             .withDaos(true))

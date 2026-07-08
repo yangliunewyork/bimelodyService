@@ -1,0 +1,18 @@
+# Get flyway docker image https://hub.docker.com/r/flyway/flyway/
+FROM flyway/flyway:latest-alpine
+LABEL description="This is a build container image to perform database schema migration."
+
+# Copy flyway sql files to `docker-entrypoint-initdb.d`.
+ADD src/catbirdnyc.database.migration /flyway/sql
+
+# Add docker test data initialization sql files. Notice that the filenames have prefix 'Z'.
+# This is because files in docker-entrypoint-initdb.d are executed in alphabetical order.
+# We want to update the schema first before beginning to insert test data.
+ADD src/catbirdnyc.database.testdata /flyway/sql
+
+# RUN ls /flyway/sql
+
+### Only run in container
+ENTRYPOINT ["flyway", "migrate"]
+
+

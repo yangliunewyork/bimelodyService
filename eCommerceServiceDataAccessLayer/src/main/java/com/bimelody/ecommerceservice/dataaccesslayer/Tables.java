@@ -5,7 +5,6 @@ package com.bimelody.ecommerceservice.dataaccesslayer;
 
 
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Customer;
-import com.bimelody.ecommerceservice.dataaccesslayer.tables.FlywaySchemaHistory;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.Product;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrand;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.ProductBrandMap;
@@ -23,88 +22,83 @@ import com.bimelody.ecommerceservice.dataaccesslayer.tables.StoreOwner;
 
 
 /**
- * Convenience access to all tables in Catbirdnyc.
+ * Convenience access to all tables in the default schema.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
 
     /**
-     * The table <code>Catbirdnyc.customer</code>.
+     * The table <code>CUSTOMER</code>.
      */
     public static final Customer CUSTOMER = Customer.CUSTOMER;
 
     /**
-     * The table <code>Catbirdnyc.flyway_schema_history</code>.
-     */
-    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
-
-    /**
-     * The table <code>Catbirdnyc.product</code>.
+     * The table <code>PRODUCT</code>.
      */
     public static final Product PRODUCT = Product.PRODUCT;
 
     /**
-     * The table <code>Catbirdnyc.product_brand</code>.
+     * The table <code>PRODUCT_BRAND</code>.
      */
     public static final ProductBrand PRODUCT_BRAND = ProductBrand.PRODUCT_BRAND;
 
     /**
-     * The table <code>Catbirdnyc.product_brand_map</code>.
+     * The table <code>PRODUCT_BRAND_MAP</code>.
      */
     public static final ProductBrandMap PRODUCT_BRAND_MAP = ProductBrandMap.PRODUCT_BRAND_MAP;
 
     /**
-     * The table <code>Catbirdnyc.product_category</code>.
+     * The table <code>PRODUCT_CATEGORY</code>.
      */
     public static final ProductCategory PRODUCT_CATEGORY = ProductCategory.PRODUCT_CATEGORY;
 
     /**
-     * The table <code>Catbirdnyc.product_category_map</code>.
+     * The table <code>PRODUCT_CATEGORY_MAP</code>.
      */
     public static final ProductCategoryMap PRODUCT_CATEGORY_MAP = ProductCategoryMap.PRODUCT_CATEGORY_MAP;
 
     /**
-     * The table <code>Catbirdnyc.product_image</code>.
+     * The table <code>PRODUCT_IMAGE</code>.
      */
     public static final ProductImage PRODUCT_IMAGE = ProductImage.PRODUCT_IMAGE;
 
     /**
-     * The table <code>Catbirdnyc.product_tag</code>.
+     * The table <code>PRODUCT_TAG</code>.
      */
     public static final ProductTag PRODUCT_TAG = ProductTag.PRODUCT_TAG;
 
     /**
-     * The table <code>Catbirdnyc.product_tag_map</code>.
+     * The table <code>PRODUCT_TAG_MAP</code>.
      */
     public static final ProductTagMap PRODUCT_TAG_MAP = ProductTagMap.PRODUCT_TAG_MAP;
 
     /**
-     * The table <code>Catbirdnyc.store</code>.
+     * The table <code>STORE</code>.
      */
     public static final Store STORE = Store.STORE;
 
     /**
-     * The table <code>Catbirdnyc.store_category</code>.
+     * The table <code>STORE_CATEGORY</code>.
      */
     public static final StoreCategory STORE_CATEGORY = StoreCategory.STORE_CATEGORY;
 
     /**
-     * The table <code>Catbirdnyc.store_category_map</code>.
+     * The table <code>STORE_CATEGORY_MAP</code>.
      */
     public static final StoreCategoryMap STORE_CATEGORY_MAP = StoreCategoryMap.STORE_CATEGORY_MAP;
 
     /**
-     * The table <code>Catbirdnyc.store_image</code>.
+     * The table <code>STORE_IMAGE</code>.
      */
     public static final StoreImage STORE_IMAGE = StoreImage.STORE_IMAGE;
 
     /**
-     * The table <code>Catbirdnyc.store_location</code>.
+     * The table <code>STORE_LOCATION</code>.
      */
     public static final StoreLocation STORE_LOCATION = StoreLocation.STORE_LOCATION;
 
     /**
-     * The table <code>Catbirdnyc.store_owner</code>.
+     * The table <code>STORE_OWNER</code>.
      */
     public static final StoreOwner STORE_OWNER = StoreOwner.STORE_OWNER;
 }

@@ -8,142 +8,205 @@ import com.bimelody.ecommerceservice.model.request.CreateStoreRequest;
 import com.bimelody.ecommerceservice.model.request.FindStoresRequest;
 import com.bimelody.ecommerceservice.model.request.UpdateProductRequest;
 import com.bimelody.ecommerceservice.model.request.UpdateStoresRequest;
-import com.bimelody.ecommerceservice.resource.StoreResource;
 import com.bimelody.ecommerceservice.service.ProductAssetService;
 import com.bimelody.ecommerceservice.service.ProductService;
 import com.bimelody.ecommerceservice.service.StoreService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller for handling Store resource.
+ * Controller for handling store and product resources.
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class StoreController implements StoreResource {
+@RestController
+@RequestMapping("/stores")
+@RequiredArgsConstructor
+public class StoreController {
 
   private final StoreService storeService;
   private final ProductService productService;
   private final ProductAssetService productAssetService;
 
-  @Override
-  public Response getStores(final FindStoresRequest findStoresRequest) {
-    final List<Store> stores = storeService.findStores(findStoresRequest);
-    return Response.status(Response.Status.OK)
-        .entity(stores)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+  /**
+   * Return a list of stores matching the given criteria.
+   *
+   * @param findStoresRequest query parameters for finding stores.
+   * @return list of stores.
+   */
+  @GetMapping
+  public ResponseEntity<List<Store>> getStores(FindStoresRequest findStoresRequest) {
+    return ResponseEntity.ok(storeService.findStores(findStoresRequest));
   }
 
-  @Override
-  public Response createStore(final CreateStoreRequest createStoresRequest) {
-    Store store =
-        Store.builder()
-            .uniqueStoreName(createStoresRequest.getUniqueStoreName())
-            .storeName(createStoresRequest.getStoreName())
-            .storeWebsite(createStoresRequest.getStoreWebsite())
-            .contactEmail(createStoresRequest.getContactEmail())
-            .contactNumber(createStoresRequest.getContactNumber())
-            .storeDescription(createStoresRequest.getStoreDescription())
-            .build();
+  /**
+   * Create a new store.
+   *
+   * @param createStoresRequest the store creation request body.
+   * @return empty 200 response on success.
+   */
+  @PostMapping
+  public ResponseEntity<Void> createStore(@RequestBody CreateStoreRequest createStoresRequest) {
+    Store store = Store.builder()
+        .uniqueStoreName(createStoresRequest.getUniqueStoreName())
+        .storeName(createStoresRequest.getStoreName())
+        .storeWebsite(createStoresRequest.getStoreWebsite())
+        .contactEmail(createStoresRequest.getContactEmail())
+        .contactNumber(createStoresRequest.getContactNumber())
+        .storeDescription(createStoresRequest.getStoreDescription())
+        .build();
     storeService.createStore(store);
-    return Response.status(Response.Status.OK)
-        .type(MediaType.APPLICATION_JSON)
+    return ResponseEntity.ok().build();
+  }
+
+  /**
+   * Get information for a specific store.
+   *
+   * @param storeIdentifier the unique store name.
+   * @return store info, or 404 if not found.
+   */
+  @GetMapping("/{storeIdentifier}")
+  public ResponseEntity<Store> getStoreInfo(
+      @PathVariable String storeIdentifier) {
+    Optional<Store> storeOptional = storeService.getStoreInfo(storeIdentifier);
+    return storeOptional
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+  }
+
+  /**
+   * Update information for the specified store.
+   *
+   * @param storeIdentifier the unique store name.
+   * @param updateStoresRequest the store update request body.
+   * @return empty 200 response on success.
+   */
+  @PutMapping("/{storeIdentifier}")
+  public ResponseEntity<Void> updateStore(
+      @PathVariable String storeIdentifier,
+      @RequestBody UpdateStoresRequest updateStoresRequest) {
+    Store store = Store.builder()
+        .uniqueStoreName(storeIdentifier)
+        .storeName(updateStoresRequest.getStoreName())
+        .storeWebsite(updateStoresRequest.getStoreWebsite())
+        .contactEmail(updateStoresRequest.getContactEmail())
+        .contactNumber(updateStoresRequest.getContactNumber())
+        .storeDescription(updateStoresRequest.getStoreDescription())
+        .storeLocation(updateStoresRequest.getStoreLocation())
+        .storeLocationLatitude(updateStoresRequest.getStoreLocationLatitude())
+        .storeLocationLongitude(updateStoresRequest.getStoreLocationLongitude())
         .build();
-  }
-
-  @Override
-  public Response getStoreInfo(final String storeIdentifier) {
-    final Optional<Store> storeOptional = storeService.getStoreInfo(storeIdentifier);
-    if (storeOptional.isPresent()) {
-      return Response.status(Response.Status.OK)
-          .entity(storeOptional.get())
-          .type(MediaType.APPLICATION_JSON)
-          .build();
-    } else {
-      return Response.status(Response.Status.NOT_FOUND)
-          .type(MediaType.APPLICATION_JSON)
-          .build();
-    }
-  }
-
-  @Override
-  public Response updateStore(String storeIdentifier,
-                              final UpdateStoresRequest updateStoresRequest) {
-    //log.info("updateStoresRequest is {}", updateStoresRequest);
-    Store store =
-        Store.builder()
-            .uniqueStoreName(storeIdentifier)
-            .storeName(updateStoresRequest.getStoreName())
-            .storeWebsite(updateStoresRequest.getStoreWebsite())
-            .contactEmail(updateStoresRequest.getContactEmail())
-            .contactNumber(updateStoresRequest.getContactNumber())
-            .storeDescription(updateStoresRequest.getStoreDescription())
-            .storeLocation(updateStoresRequest.getStoreLocation())
-            .storeLocationLatitude(updateStoresRequest.getStoreLocationLatitude())
-            .storeLocationLongitude(updateStoresRequest.getStoreLocationLongitude())
-            .build();
     storeService.updateStore(store);
-    return Response.status(Response.Status.OK)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+    return ResponseEntity.ok().build();
   }
 
-  @Override
-  public Response createProduct(final String storeIdentifier,
-                                final CreateProductRequest createProductRequest) {
+  /**
+   * Return a list of products in the specified store.
+   *
+   * @param storeIdentifier the unique store name.
+   * @param productCategory optional product category filter.
+   * @param pageNum page number, defaults to 1.
+   * @param pageSize number of results per page, defaults to 10.
+   * @return list of products.
+   */
+  @GetMapping("/{storeIdentifier}/products")
+  public ResponseEntity<List<Product>> getProductsInStore(
+      @PathVariable String storeIdentifier,
+      @RequestParam(required = false) String productCategory,
+      @RequestParam(defaultValue = "1") int pageNum,
+      @RequestParam(defaultValue = "10") int pageSize) {
+    return ResponseEntity.ok(
+        productService.searchProductsInStore(storeIdentifier, productCategory, pageNum, pageSize));
+  }
+
+  /**
+   * Create a new product in the specified store.
+   *
+   * @param storeIdentifier the unique store name.
+   * @param createProductRequest the product creation request body.
+   * @return the created product.
+   */
+  @PostMapping("/{storeIdentifier}/products")
+  public ResponseEntity<Product> createProduct(
+      @PathVariable String storeIdentifier,
+      @RequestBody CreateProductRequest createProductRequest) {
     Product product = Product.builder()
         .uniqueStoreName(storeIdentifier)
-        .uniqueProductNameInStore(storeService.generateProductIdentifierInStore(storeIdentifier,
-            createProductRequest.getProductName()))
+        .uniqueProductNameInStore(storeService.generateProductIdentifierInStore(
+            storeIdentifier, createProductRequest.getProductName()))
         .productName(createProductRequest.getProductName())
         .productDescription(createProductRequest.getProductDescription())
         .priceInDollar(createProductRequest.getPriceInDollar())
         .productImageUrls(createProductRequest.getProductImageUrls())
         .build();
-
     productService.createProduct(product);
-    return Response.status(Response.Status.OK)
-        .type(MediaType.APPLICATION_JSON)
-        .entity(product)
-        .build();
+    return ResponseEntity.ok(product);
   }
 
-  @Override
-  public Response updateProduct(final String storeIdentifier,
-                                final String productIdentifier,
-                                final UpdateProductRequest updateProductRequest) {
+  /**
+   * Get information about a specific product in a store.
+   *
+   * @param storeIdentifier the unique store name.
+   * @param productIdentifier the unique product name in the store.
+   * @return the product, or 404 if not found.
+   */
+  @GetMapping("/{storeIdentifier}/products/{productIdentifier}")
+  public ResponseEntity<Product> getProductInfoFromStore(
+      @PathVariable String storeIdentifier,
+      @PathVariable String productIdentifier) {
+    Optional<Product> productOptional =
+        productService.findProductInfoFromStore(storeIdentifier, productIdentifier);
+    return productOptional
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+  }
+
+  /**
+   * Update a product in the specified store.
+   *
+   * @param storeIdentifier the unique store name.
+   * @param productIdentifier the unique product name in the store.
+   * @param updateProductRequest the product update request body.
+   * @return the updated product.
+   */
+  @PutMapping("/{storeIdentifier}/products/{productIdentifier}")
+  public ResponseEntity<Product> updateProduct(
+      @PathVariable String storeIdentifier,
+      @PathVariable String productIdentifier,
+      @RequestBody UpdateProductRequest updateProductRequest) {
     if (StringUtils.isBlank(storeIdentifier)) {
       throw new IllegalArgumentException("storeIdentifier is invalid: " + storeIdentifier);
     }
     if (StringUtils.isBlank(productIdentifier)) {
-      throw new IllegalArgumentException("Invalid productIdentifier: "
-          + productIdentifier);
+      throw new IllegalArgumentException("Invalid productIdentifier: " + productIdentifier);
     }
     if (CollectionUtils.isNullOrEmpty(updateProductRequest.getProductImageUrls())) {
-      throw new IllegalArgumentException("Product images can't be empty: "
-          + updateProductRequest.getProductImageUrls());
+      throw new IllegalArgumentException(
+          "Product images can't be empty: " + updateProductRequest.getProductImageUrls());
     }
-    Optional<Product> productOptional = productService
-        .findProductInfoFromStore(storeIdentifier,
-            productIdentifier);
+    Optional<Product> productOptional =
+        productService.findProductInfoFromStore(storeIdentifier, productIdentifier);
     if (productOptional.isEmpty()) {
-      throw new IllegalArgumentException("Can't find product based on productIdentifier: "
-          + productIdentifier);
+      throw new IllegalArgumentException(
+          "Can't find product based on productIdentifier: " + productIdentifier);
     }
-
     List<String> assetLinksToBeDeletedFromS3 = productOptional.get().getProductImageUrls()
         .stream()
         .filter(link -> !updateProductRequest.getProductImageUrls().contains(link))
         .collect(Collectors.toList());
-
     Product product = Product.builder()
         .uniqueStoreName(storeIdentifier)
         .uniqueProductNameInStore(productIdentifier)
@@ -152,64 +215,28 @@ public class StoreController implements StoreResource {
         .priceInDollar(updateProductRequest.getPriceInDollar())
         .productImageUrls(updateProductRequest.getProductImageUrls())
         .build();
-
     productService.updateProduct(product);
-
-    assetLinksToBeDeletedFromS3.forEach(
-        productAssetService::deleteS3Asset
-    );
-
-
-    return Response.status(Response.Status.OK)
-        .type(MediaType.APPLICATION_JSON)
-        .entity(product)
-        .build();
+    assetLinksToBeDeletedFromS3.forEach(productAssetService::deleteS3Asset);
+    return ResponseEntity.ok(product);
   }
 
-  @Override
-  public Response getProductsInStore(
-      final String storeIdentifier, final String productCategory, int pageNum, int pageSize) {
-    List<Product> products =
-        productService.searchProductsInStore(storeIdentifier, productCategory, pageNum, pageSize);
-    return Response.status(Response.Status.OK)
-        .entity(products)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
-  }
-
-  @Override
-  public Response getProductInfoFromStore(
-      String storeIdentifier, String productIdentifierInStore) {
-    Optional<Product> productOptional = productService
-        .findProductInfoFromStore(storeIdentifier, productIdentifierInStore);
-    if (productOptional.isPresent()) {
-      return Response.status(Response.Status.OK)
-          .entity(productOptional.get())
-          .type(MediaType.APPLICATION_JSON)
-          .build();
-    } else {
-      return Response.status(Response.Status.NOT_FOUND)
-          .type(MediaType.APPLICATION_JSON)
-          .build();
-    }
-  }
-
-  @Override
-  public Response deleteProductInStore(String storeIdentifier, String productIdentifier) {
-    log.info("Delete product with storeIdentifier={}, productIdentifier={}", storeIdentifier,
-        productIdentifier);
-
-    Optional<Product> productOptional = productService
-        .deleteProductInStore(storeIdentifier, productIdentifier);
-    if (productOptional.isPresent()) {
-      return Response.status(Response.Status.OK)
-          .entity(productOptional.get())
-          .type(MediaType.APPLICATION_JSON)
-          .build();
-    } else {
-      return Response.status(Response.Status.NOT_FOUND)
-          .type(MediaType.APPLICATION_JSON)
-          .build();
-    }
+  /**
+   * Delete the specified product in the store.
+   *
+   * @param storeIdentifier the unique store name.
+   * @param productIdentifier the unique product name in the store.
+   * @return the deleted product, or 404 if not found.
+   */
+  @DeleteMapping("/{storeIdentifier}/products/{productIdentifier}")
+  public ResponseEntity<Product> deleteProductInStore(
+      @PathVariable String storeIdentifier,
+      @PathVariable String productIdentifier) {
+    log.info("Delete product with storeIdentifier={}, productIdentifier={}",
+        storeIdentifier, productIdentifier);
+    Optional<Product> productOptional =
+        productService.deleteProductInStore(storeIdentifier, productIdentifier);
+    return productOptional
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
   }
 }

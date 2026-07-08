@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreOwnerRecord;
 
@@ -26,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -38,7 +37,7 @@ public class StoreOwner extends TableImpl<StoreOwnerRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.store_owner</code>
+     * The reference instance of <code>STORE_OWNER</code>
      */
     public static final StoreOwner STORE_OWNER = new StoreOwner();
 
@@ -51,59 +50,59 @@ public class StoreOwner extends TableImpl<StoreOwnerRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.store_owner.store_owner_id</code>.
+     * The column <code>STORE_OWNER.STORE_OWNER_ID</code>.
      */
-    public final TableField<StoreOwnerRecord, UInteger> STORE_OWNER_ID = createField(DSL.name("store_owner_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<StoreOwnerRecord, Long> STORE_OWNER_ID = createField(DSL.name("STORE_OWNER_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.store_id</code>.
+     * The column <code>STORE_OWNER.STORE_ID</code>.
      */
-    public final TableField<StoreOwnerRecord, UInteger> STORE_ID = createField(DSL.name("store_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<StoreOwnerRecord, Long> STORE_ID = createField(DSL.name("STORE_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.cognito_user_id</code>.
+     * The column <code>STORE_OWNER.COGNITO_USER_ID</code>.
      */
-    public final TableField<StoreOwnerRecord, String> COGNITO_USER_ID = createField(DSL.name("cognito_user_id"), SQLDataType.VARCHAR(96), this, "");
+    public final TableField<StoreOwnerRecord, String> COGNITO_USER_ID = createField(DSL.name("COGNITO_USER_ID"), SQLDataType.VARCHAR(96), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.cognito_user_pool_id</code>.
+     * The column <code>STORE_OWNER.COGNITO_USER_POOL_ID</code>.
      */
-    public final TableField<StoreOwnerRecord, String> COGNITO_USER_POOL_ID = createField(DSL.name("cognito_user_pool_id"), SQLDataType.VARCHAR(32), this, "");
+    public final TableField<StoreOwnerRecord, String> COGNITO_USER_POOL_ID = createField(DSL.name("COGNITO_USER_POOL_ID"), SQLDataType.VARCHAR(32), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.email</code>.
+     * The column <code>STORE_OWNER.EMAIL</code>.
      */
-    public final TableField<StoreOwnerRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<StoreOwnerRecord, String> EMAIL = createField(DSL.name("EMAIL"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.phone_number</code>.
+     * The column <code>STORE_OWNER.PHONE_NUMBER</code>.
      */
-    public final TableField<StoreOwnerRecord, String> PHONE_NUMBER = createField(DSL.name("phone_number"), SQLDataType.VARCHAR(32).nullable(false), this, "");
+    public final TableField<StoreOwnerRecord, String> PHONE_NUMBER = createField(DSL.name("PHONE_NUMBER"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.username</code>.
+     * The column <code>STORE_OWNER.USERNAME</code>.
      */
-    public final TableField<StoreOwnerRecord, String> USERNAME = createField(DSL.name("username"), SQLDataType.VARCHAR(32).nullable(false), this, "");
+    public final TableField<StoreOwnerRecord, String> USERNAME = createField(DSL.name("USERNAME"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.profile_picture_link</code>.
+     * The column <code>STORE_OWNER.PROFILE_PICTURE_LINK</code>.
      */
-    public final TableField<StoreOwnerRecord, String> PROFILE_PICTURE_LINK = createField(DSL.name("profile_picture_link"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<StoreOwnerRecord, String> PROFILE_PICTURE_LINK = createField(DSL.name("PROFILE_PICTURE_LINK"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.is_banned</code>.
+     * The column <code>STORE_OWNER.IS_BANNED</code>.
      */
-    public final TableField<StoreOwnerRecord, Byte> IS_BANNED = createField(DSL.name("is_banned"), SQLDataType.TINYINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.TINYINT)), this, "");
+    public final TableField<StoreOwnerRecord, Boolean> IS_BANNED = createField(DSL.name("IS_BANNED"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("0", SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.creation_time</code>.
+     * The column <code>STORE_OWNER.CREATION_TIME</code>.
      */
-    public final TableField<StoreOwnerRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreOwnerRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_owner.modification_time</code>.
+     * The column <code>STORE_OWNER.MODIFICATION_TIME</code>.
      */
-    public final TableField<StoreOwnerRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreOwnerRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private StoreOwner(Name alias, Table<StoreOwnerRecord> aliased) {
         this(alias, aliased, null);
@@ -114,24 +113,24 @@ public class StoreOwner extends TableImpl<StoreOwnerRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_owner</code> table reference
+     * Create an aliased <code>STORE_OWNER</code> table reference
      */
     public StoreOwner(String alias) {
         this(DSL.name(alias), STORE_OWNER);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_owner</code> table reference
+     * Create an aliased <code>STORE_OWNER</code> table reference
      */
     public StoreOwner(Name alias) {
         this(alias, STORE_OWNER);
     }
 
     /**
-     * Create a <code>Catbirdnyc.store_owner</code> table reference
+     * Create a <code>STORE_OWNER</code> table reference
      */
     public StoreOwner() {
-        this(DSL.name("store_owner"), null);
+        this(DSL.name("STORE_OWNER"), null);
     }
 
     public <O extends Record> StoreOwner(Table<O> child, ForeignKey<O, StoreOwnerRecord> key) {
@@ -140,22 +139,22 @@ public class StoreOwner extends TableImpl<StoreOwnerRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<StoreOwnerRecord, UInteger> getIdentity() {
-        return (Identity<StoreOwnerRecord, UInteger>) super.getIdentity();
+    public Identity<StoreOwnerRecord, Long> getIdentity() {
+        return (Identity<StoreOwnerRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<StoreOwnerRecord> getPrimaryKey() {
-        return Keys.KEY_STORE_OWNER_PRIMARY;
+        return Keys.CONSTRAINT_5E;
     }
 
     @Override
     public List<UniqueKey<StoreOwnerRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.KEY_STORE_OWNER_COGNITO_USER_ID, Keys.KEY_STORE_OWNER_EMAIL, Keys.KEY_STORE_OWNER_PHONE_NUMBER, Keys.KEY_STORE_OWNER_USERNAME);
+        return Arrays.asList(Keys.CONSTRAINT_5E2A, Keys.CONSTRAINT_5E2A0, Keys.CONSTRAINT_5E2A09, Keys.CONSTRAINT_5E2);
     }
 
     @Override
@@ -166,7 +165,7 @@ public class StoreOwner extends TableImpl<StoreOwnerRecord> {
     private transient Store _store;
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.store</code> table.
+     * Get the implicit join path to the <code>PUBLIC.STORE</code> table.
      */
     public Store store() {
         if (_store == null)
@@ -206,7 +205,7 @@ public class StoreOwner extends TableImpl<StoreOwnerRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<UInteger, UInteger, String, String, String, String, String, String, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row11<Long, Long, String, String, String, String, String, String, Boolean, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row11) super.fieldsRow();
     }
 }

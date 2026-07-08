@@ -1,28 +1,31 @@
 package com.bimelody.ecommerceservice.controller;
 
 import com.bimelody.ecommerceservice.model.StoreCategory;
-import com.bimelody.ecommerceservice.resource.StoreCategoryResource;
 import com.bimelody.ecommerceservice.service.StoreService;
 import java.util.List;
-import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller for handling StoreCategoryResource.
+ * Controller for handling store categories.
  */
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class StoreCategoryController implements StoreCategoryResource {
+@RestController
+@RequestMapping("/store-categories")
+@RequiredArgsConstructor
+public class StoreCategoryController {
 
   private final StoreService storeService;
 
-  @Override
-  public Response getAllStoreCategories() {
-    List<StoreCategory> categories = storeService.getAllStoreCategories();
-    return Response.status(Response.Status.OK)
-        .entity(categories)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+  /**
+   * Return all store categories.
+   *
+   * @return list of store categories.
+   */
+  @GetMapping
+  public ResponseEntity<List<StoreCategory>> getAllStoreCategories() {
+    return ResponseEntity.ok(storeService.getAllStoreCategories());
   }
 }

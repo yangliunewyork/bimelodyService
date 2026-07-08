@@ -31,7 +31,6 @@ import org.jooq.Table;
 import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
 import org.jooq.impl.DSL;
-import org.jooq.types.UInteger;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -259,7 +258,7 @@ public class StoreRepositoryImpl implements StoreRepository {
                       : Collections.emptyList();
               return com.bimelody.ecommerceservice.model.Store
                   .builder()
-                  .storeId(record.getValue(STORE.STORE_ID).toBigInteger().longValue())
+                  .storeId(record.getValue(STORE.STORE_ID))
                   .storeName(record.getValue(STORE.STORE_NAME))
                   .uniqueStoreName(record.getValue(STORE.UNIQUE_STORE_NAME))
                   .storeWebsite(record.getValue(STORE.STORE_WEBSITE))
@@ -311,7 +310,7 @@ public class StoreRepositoryImpl implements StoreRepository {
                       jooqDslContext.newRecord(STORE_CATEGORY_MAP);
                   storeCategoryMapRecord.setStoreId(storeRecord.getStoreId());
                   storeCategoryMapRecord.setStoreCategoryId(
-                      UInteger.valueOf(allStoreCategories.get(storeCategory).getStoreCategoryId()));
+                      allStoreCategories.get(storeCategory).getStoreCategoryId());
                 }
               });
     }

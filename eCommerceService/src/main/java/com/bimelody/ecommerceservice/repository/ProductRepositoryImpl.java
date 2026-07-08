@@ -34,7 +34,6 @@ import org.jooq.Result;
 import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
-import org.jooq.types.UInteger;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -160,8 +159,7 @@ public class ProductRepositoryImpl implements ProductRepository {
               imageUrl -> {
                 ProductImageRecord productImageRecord =
                     jooqDslContext.newRecord(PRODUCT_IMAGE);
-                productImageRecord.setProductId(
-                    UInteger.valueOf(productInfoInDatabase.getProductId()));
+                productImageRecord.setProductId(productInfoInDatabase.getProductId());
                 productImageRecord.setProductImageLink(imageUrl);
                 productImageRecord.store();
               }

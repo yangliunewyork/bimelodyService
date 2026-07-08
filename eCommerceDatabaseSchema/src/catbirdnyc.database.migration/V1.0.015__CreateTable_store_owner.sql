@@ -1,0 +1,20 @@
+CREATE TABLE store_owner (
+     store_owner_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+     store_id INT UNSIGNED NOT NULL,
+     cognito_user_id VARCHAR(96),
+     cognito_user_pool_id VARCHAR(32),
+     email VARCHAR(256) NOT NULL,
+     phone_number VARCHAR(32) NOT NULL,
+     username VARCHAR(32) NOT NULL,
+     profile_picture_link VARCHAR(256),
+     is_banned BOOLEAN NOT NULL DEFAULT 0,
+     creation_time     DATETIME DEFAULT CURRENT_TIMESTAMP,
+     modification_time DATETIME ON UPDATE CURRENT_TIMESTAMP,
+     PRIMARY KEY (store_owner_id),
+     CONSTRAINT FK_store_owner_RT_store_RC_store_id
+     FOREIGN KEY (store_id) REFERENCES store(store_id),
+     UNIQUE (username),
+     UNIQUE (cognito_user_id),
+     UNIQUE (email),
+     UNIQUE (phone_number)
+);

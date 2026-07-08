@@ -1,0 +1,17 @@
+# Get flyway docker image https://hub.docker.com/r/flyway/flyway/
+FROM flyway/flyway:latest-alpine
+LABEL description="This is a build container image to perform database schema migration."
+
+# Copy flyway sql files to /flyway/sql.
+ADD src/catbirdnyc.database.migration /flyway/sql
+
+# Add docker test data initialization sql files. Should disable it for prod.
+ADD src/catbirdnyc.database.testdata /flyway/sql
+
+### Check files in /flyway/sql.  Disable in AWS
+# RUN ls /flyway/sql
+
+### Only run in container
+ENTRYPOINT ["flyway", "migrate"]
+
+

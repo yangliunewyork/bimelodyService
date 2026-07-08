@@ -8,13 +8,13 @@ import com.bimelody.ecommerceservice.model.Product;
 import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
 import com.bimelody.ecommerceservice.service.ProductService;
 import java.util.List;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Unit test for {@link ProductController}.
@@ -29,17 +29,17 @@ public class ProductControllerTest {
   ProductController productController;
 
   @Test
-  public void test_getProducts_WhenProductServiceReturnResults_ThenShouldReturnOkResponse() {
+  public void testGetProductsWhenProductServiceReturnResultsThenShouldReturnOkResponse() {
     Product mockProduct = mock(Product.class);
     List<Product> productList = List.of(mockProduct);
     SearchProductsRequest searchProductsRequestMock = mock(SearchProductsRequest.class);
     when(productService.searchProducts(searchProductsRequestMock))
         .thenReturn(productList);
 
-    Response response = productController.searchProducts(searchProductsRequestMock);
+    ResponseEntity<List<Product>> response =
+        productController.searchProducts(searchProductsRequestMock);
 
-    assertEquals(Response.Status.OK, response.getStatusInfo().toEnum());
-    assertEquals(MediaType.APPLICATION_JSON, response.getMediaType().toString());
-    assertEquals(productList, response.getEntity());
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertEquals(productList, response.getBody());
   }
 }

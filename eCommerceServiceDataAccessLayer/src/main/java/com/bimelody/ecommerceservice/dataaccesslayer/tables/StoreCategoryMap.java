@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreCategoryMapRecord;
 
@@ -26,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -38,7 +37,7 @@ public class StoreCategoryMap extends TableImpl<StoreCategoryMapRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.store_category_map</code>
+     * The reference instance of <code>STORE_CATEGORY_MAP</code>
      */
     public static final StoreCategoryMap STORE_CATEGORY_MAP = new StoreCategoryMap();
 
@@ -51,30 +50,29 @@ public class StoreCategoryMap extends TableImpl<StoreCategoryMapRecord> {
     }
 
     /**
-     * The column
-     * <code>Catbirdnyc.store_category_map.store_category_map_id</code>.
+     * The column <code>STORE_CATEGORY_MAP.STORE_CATEGORY_MAP_ID</code>.
      */
-    public final TableField<StoreCategoryMapRecord, UInteger> STORE_CATEGORY_MAP_ID = createField(DSL.name("store_category_map_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<StoreCategoryMapRecord, Long> STORE_CATEGORY_MAP_ID = createField(DSL.name("STORE_CATEGORY_MAP_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_category_map.store_id</code>.
+     * The column <code>STORE_CATEGORY_MAP.STORE_ID</code>.
      */
-    public final TableField<StoreCategoryMapRecord, UInteger> STORE_ID = createField(DSL.name("store_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<StoreCategoryMapRecord, Long> STORE_ID = createField(DSL.name("STORE_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_category_map.store_category_id</code>.
+     * The column <code>STORE_CATEGORY_MAP.STORE_CATEGORY_ID</code>.
      */
-    public final TableField<StoreCategoryMapRecord, UInteger> STORE_CATEGORY_ID = createField(DSL.name("store_category_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<StoreCategoryMapRecord, Long> STORE_CATEGORY_ID = createField(DSL.name("STORE_CATEGORY_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_category_map.creation_time</code>.
+     * The column <code>STORE_CATEGORY_MAP.CREATION_TIME</code>.
      */
-    public final TableField<StoreCategoryMapRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreCategoryMapRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_category_map.modification_time</code>.
+     * The column <code>STORE_CATEGORY_MAP.MODIFICATION_TIME</code>.
      */
-    public final TableField<StoreCategoryMapRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreCategoryMapRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private StoreCategoryMap(Name alias, Table<StoreCategoryMapRecord> aliased) {
         this(alias, aliased, null);
@@ -85,26 +83,24 @@ public class StoreCategoryMap extends TableImpl<StoreCategoryMapRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_category_map</code> table
-     * reference
+     * Create an aliased <code>STORE_CATEGORY_MAP</code> table reference
      */
     public StoreCategoryMap(String alias) {
         this(DSL.name(alias), STORE_CATEGORY_MAP);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_category_map</code> table
-     * reference
+     * Create an aliased <code>STORE_CATEGORY_MAP</code> table reference
      */
     public StoreCategoryMap(Name alias) {
         this(alias, STORE_CATEGORY_MAP);
     }
 
     /**
-     * Create a <code>Catbirdnyc.store_category_map</code> table reference
+     * Create a <code>STORE_CATEGORY_MAP</code> table reference
      */
     public StoreCategoryMap() {
-        this(DSL.name("store_category_map"), null);
+        this(DSL.name("STORE_CATEGORY_MAP"), null);
     }
 
     public <O extends Record> StoreCategoryMap(Table<O> child, ForeignKey<O, StoreCategoryMapRecord> key) {
@@ -113,17 +109,17 @@ public class StoreCategoryMap extends TableImpl<StoreCategoryMapRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<StoreCategoryMapRecord, UInteger> getIdentity() {
-        return (Identity<StoreCategoryMapRecord, UInteger>) super.getIdentity();
+    public Identity<StoreCategoryMapRecord, Long> getIdentity() {
+        return (Identity<StoreCategoryMapRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<StoreCategoryMapRecord> getPrimaryKey() {
-        return Keys.KEY_STORE_CATEGORY_MAP_PRIMARY;
+        return Keys.CONSTRAINT_9E;
     }
 
     @Override
@@ -135,7 +131,7 @@ public class StoreCategoryMap extends TableImpl<StoreCategoryMapRecord> {
     private transient StoreCategory _storeCategory;
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.store</code> table.
+     * Get the implicit join path to the <code>PUBLIC.STORE</code> table.
      */
     public Store store() {
         if (_store == null)
@@ -145,7 +141,7 @@ public class StoreCategoryMap extends TableImpl<StoreCategoryMapRecord> {
     }
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.store_category</code>
+     * Get the implicit join path to the <code>PUBLIC.STORE_CATEGORY</code>
      * table.
      */
     public StoreCategory storeCategory() {
@@ -186,7 +182,7 @@ public class StoreCategoryMap extends TableImpl<StoreCategoryMapRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<UInteger, UInteger, UInteger, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row5<Long, Long, Long, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row5) super.fieldsRow();
     }
 }

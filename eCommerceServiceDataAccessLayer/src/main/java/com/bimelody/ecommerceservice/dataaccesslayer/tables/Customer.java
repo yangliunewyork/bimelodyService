@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.CustomerRecord;
 
@@ -26,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -38,7 +37,7 @@ public class Customer extends TableImpl<CustomerRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.customer</code>
+     * The reference instance of <code>CUSTOMER</code>
      */
     public static final Customer CUSTOMER = new Customer();
 
@@ -51,54 +50,54 @@ public class Customer extends TableImpl<CustomerRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.customer.customer_id</code>.
+     * The column <code>CUSTOMER.CUSTOMER_ID</code>.
      */
-    public final TableField<CustomerRecord, UInteger> CUSTOMER_ID = createField(DSL.name("customer_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<CustomerRecord, Long> CUSTOMER_ID = createField(DSL.name("CUSTOMER_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.cognito_user_id</code>.
+     * The column <code>CUSTOMER.COGNITO_USER_ID</code>.
      */
-    public final TableField<CustomerRecord, String> COGNITO_USER_ID = createField(DSL.name("cognito_user_id"), SQLDataType.VARCHAR(96), this, "");
+    public final TableField<CustomerRecord, String> COGNITO_USER_ID = createField(DSL.name("COGNITO_USER_ID"), SQLDataType.VARCHAR(96), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.cognito_user_pool_id</code>.
+     * The column <code>CUSTOMER.COGNITO_USER_POOL_ID</code>.
      */
-    public final TableField<CustomerRecord, String> COGNITO_USER_POOL_ID = createField(DSL.name("cognito_user_pool_id"), SQLDataType.VARCHAR(32), this, "");
+    public final TableField<CustomerRecord, String> COGNITO_USER_POOL_ID = createField(DSL.name("COGNITO_USER_POOL_ID"), SQLDataType.VARCHAR(32), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.email</code>.
+     * The column <code>CUSTOMER.EMAIL</code>.
      */
-    public final TableField<CustomerRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<CustomerRecord, String> EMAIL = createField(DSL.name("EMAIL"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.phone_number</code>.
+     * The column <code>CUSTOMER.PHONE_NUMBER</code>.
      */
-    public final TableField<CustomerRecord, String> PHONE_NUMBER = createField(DSL.name("phone_number"), SQLDataType.VARCHAR(32).nullable(false), this, "");
+    public final TableField<CustomerRecord, String> PHONE_NUMBER = createField(DSL.name("PHONE_NUMBER"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.username</code>.
+     * The column <code>CUSTOMER.USERNAME</code>.
      */
-    public final TableField<CustomerRecord, String> USERNAME = createField(DSL.name("username"), SQLDataType.VARCHAR(32).nullable(false), this, "");
+    public final TableField<CustomerRecord, String> USERNAME = createField(DSL.name("USERNAME"), SQLDataType.VARCHAR(32).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.profile_picture_link</code>.
+     * The column <code>CUSTOMER.PROFILE_PICTURE_LINK</code>.
      */
-    public final TableField<CustomerRecord, String> PROFILE_PICTURE_LINK = createField(DSL.name("profile_picture_link"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<CustomerRecord, String> PROFILE_PICTURE_LINK = createField(DSL.name("PROFILE_PICTURE_LINK"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.is_banned</code>.
+     * The column <code>CUSTOMER.IS_BANNED</code>.
      */
-    public final TableField<CustomerRecord, Byte> IS_BANNED = createField(DSL.name("is_banned"), SQLDataType.TINYINT.nullable(false).defaultValue(DSL.inline("0", SQLDataType.TINYINT)), this, "");
+    public final TableField<CustomerRecord, Boolean> IS_BANNED = createField(DSL.name("IS_BANNED"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("0", SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.creation_time</code>.
+     * The column <code>CUSTOMER.CREATION_TIME</code>.
      */
-    public final TableField<CustomerRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<CustomerRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.customer.modification_time</code>.
+     * The column <code>CUSTOMER.MODIFICATION_TIME</code>.
      */
-    public final TableField<CustomerRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<CustomerRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private Customer(Name alias, Table<CustomerRecord> aliased) {
         this(alias, aliased, null);
@@ -109,24 +108,24 @@ public class Customer extends TableImpl<CustomerRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.customer</code> table reference
+     * Create an aliased <code>CUSTOMER</code> table reference
      */
     public Customer(String alias) {
         this(DSL.name(alias), CUSTOMER);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.customer</code> table reference
+     * Create an aliased <code>CUSTOMER</code> table reference
      */
     public Customer(Name alias) {
         this(alias, CUSTOMER);
     }
 
     /**
-     * Create a <code>Catbirdnyc.customer</code> table reference
+     * Create a <code>CUSTOMER</code> table reference
      */
     public Customer() {
-        this(DSL.name("customer"), null);
+        this(DSL.name("CUSTOMER"), null);
     }
 
     public <O extends Record> Customer(Table<O> child, ForeignKey<O, CustomerRecord> key) {
@@ -135,22 +134,22 @@ public class Customer extends TableImpl<CustomerRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<CustomerRecord, UInteger> getIdentity() {
-        return (Identity<CustomerRecord, UInteger>) super.getIdentity();
+    public Identity<CustomerRecord, Long> getIdentity() {
+        return (Identity<CustomerRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<CustomerRecord> getPrimaryKey() {
-        return Keys.KEY_CUSTOMER_PRIMARY;
+        return Keys.CONSTRAINT_5;
     }
 
     @Override
     public List<UniqueKey<CustomerRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.KEY_CUSTOMER_COGNITO_USER_ID, Keys.KEY_CUSTOMER_EMAIL, Keys.KEY_CUSTOMER_USERNAME);
+        return Arrays.asList(Keys.CONSTRAINT_52, Keys.CONSTRAINT_52C, Keys.CONSTRAINT_52C7);
     }
 
     @Override
@@ -184,7 +183,7 @@ public class Customer extends TableImpl<CustomerRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<UInteger, String, String, String, String, String, String, Byte, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row10<Long, String, String, String, String, String, String, Boolean, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row10) super.fieldsRow();
     }
 }

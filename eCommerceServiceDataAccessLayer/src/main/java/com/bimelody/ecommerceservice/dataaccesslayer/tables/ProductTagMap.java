@@ -4,8 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
-import com.bimelody.ecommerceservice.dataaccesslayer.Indexes;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductTagMapRecord;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row5;
@@ -28,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -40,7 +37,7 @@ public class ProductTagMap extends TableImpl<ProductTagMapRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.product_tag_map</code>
+     * The reference instance of <code>PRODUCT_TAG_MAP</code>
      */
     public static final ProductTagMap PRODUCT_TAG_MAP = new ProductTagMap();
 
@@ -53,29 +50,29 @@ public class ProductTagMap extends TableImpl<ProductTagMapRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.product_tag_map.product_tag_map_id</code>.
+     * The column <code>PRODUCT_TAG_MAP.PRODUCT_TAG_MAP_ID</code>.
      */
-    public final TableField<ProductTagMapRecord, UInteger> PRODUCT_TAG_MAP_ID = createField(DSL.name("product_tag_map_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<ProductTagMapRecord, Long> PRODUCT_TAG_MAP_ID = createField(DSL.name("PRODUCT_TAG_MAP_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_tag_map.product_id</code>.
+     * The column <code>PRODUCT_TAG_MAP.PRODUCT_ID</code>.
      */
-    public final TableField<ProductTagMapRecord, UInteger> PRODUCT_ID = createField(DSL.name("product_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<ProductTagMapRecord, Long> PRODUCT_ID = createField(DSL.name("PRODUCT_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_tag_map.product_tag_id</code>.
+     * The column <code>PRODUCT_TAG_MAP.PRODUCT_TAG_ID</code>.
      */
-    public final TableField<ProductTagMapRecord, UInteger> PRODUCT_TAG_ID = createField(DSL.name("product_tag_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<ProductTagMapRecord, Long> PRODUCT_TAG_ID = createField(DSL.name("PRODUCT_TAG_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_tag_map.creation_time</code>.
+     * The column <code>PRODUCT_TAG_MAP.CREATION_TIME</code>.
      */
-    public final TableField<ProductTagMapRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductTagMapRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_tag_map.modification_time</code>.
+     * The column <code>PRODUCT_TAG_MAP.MODIFICATION_TIME</code>.
      */
-    public final TableField<ProductTagMapRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductTagMapRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private ProductTagMap(Name alias, Table<ProductTagMapRecord> aliased) {
         this(alias, aliased, null);
@@ -86,24 +83,24 @@ public class ProductTagMap extends TableImpl<ProductTagMapRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_tag_map</code> table reference
+     * Create an aliased <code>PRODUCT_TAG_MAP</code> table reference
      */
     public ProductTagMap(String alias) {
         this(DSL.name(alias), PRODUCT_TAG_MAP);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_tag_map</code> table reference
+     * Create an aliased <code>PRODUCT_TAG_MAP</code> table reference
      */
     public ProductTagMap(Name alias) {
         this(alias, PRODUCT_TAG_MAP);
     }
 
     /**
-     * Create a <code>Catbirdnyc.product_tag_map</code> table reference
+     * Create a <code>PRODUCT_TAG_MAP</code> table reference
      */
     public ProductTagMap() {
-        this(DSL.name("product_tag_map"), null);
+        this(DSL.name("PRODUCT_TAG_MAP"), null);
     }
 
     public <O extends Record> ProductTagMap(Table<O> child, ForeignKey<O, ProductTagMapRecord> key) {
@@ -112,49 +109,43 @@ public class ProductTagMap extends TableImpl<ProductTagMapRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.PRODUCT_TAG_MAP_PRODUCT_ID, Indexes.PRODUCT_TAG_MAP_PRODUCT_TAG_ID);
-    }
-
-    @Override
-    public Identity<ProductTagMapRecord, UInteger> getIdentity() {
-        return (Identity<ProductTagMapRecord, UInteger>) super.getIdentity();
+    public Identity<ProductTagMapRecord, Long> getIdentity() {
+        return (Identity<ProductTagMapRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<ProductTagMapRecord> getPrimaryKey() {
-        return Keys.KEY_PRODUCT_TAG_MAP_PRIMARY;
+        return Keys.CONSTRAINT_7;
     }
 
     @Override
     public List<ForeignKey<ProductTagMapRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.PRODUCT_TAG_MAP_IBFK_1, Keys.PRODUCT_TAG_MAP_IBFK_2);
+        return Arrays.asList(Keys.CONSTRAINT_73, Keys.CONSTRAINT_73F);
     }
 
     private transient Product _product;
     private transient ProductTag _productTag;
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.product</code> table.
+     * Get the implicit join path to the <code>PUBLIC.PRODUCT</code> table.
      */
     public Product product() {
         if (_product == null)
-            _product = new Product(this, Keys.PRODUCT_TAG_MAP_IBFK_1);
+            _product = new Product(this, Keys.CONSTRAINT_73);
 
         return _product;
     }
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.product_tag</code>
-     * table.
+     * Get the implicit join path to the <code>PUBLIC.PRODUCT_TAG</code> table.
      */
     public ProductTag productTag() {
         if (_productTag == null)
-            _productTag = new ProductTag(this, Keys.PRODUCT_TAG_MAP_IBFK_2);
+            _productTag = new ProductTag(this, Keys.CONSTRAINT_73F);
 
         return _productTag;
     }
@@ -190,7 +181,7 @@ public class ProductTagMap extends TableImpl<ProductTagMapRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<UInteger, UInteger, UInteger, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row5<Long, Long, Long, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row5) super.fieldsRow();
     }
 }

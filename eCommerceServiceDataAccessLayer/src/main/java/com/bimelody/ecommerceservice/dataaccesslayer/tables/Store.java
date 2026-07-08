@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreRecord;
 
@@ -26,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -38,7 +37,7 @@ public class Store extends TableImpl<StoreRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.store</code>
+     * The reference instance of <code>STORE</code>
      */
     public static final Store STORE = new Store();
 
@@ -51,74 +50,74 @@ public class Store extends TableImpl<StoreRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.store.store_id</code>.
+     * The column <code>STORE.STORE_ID</code>.
      */
-    public final TableField<StoreRecord, UInteger> STORE_ID = createField(DSL.name("store_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<StoreRecord, Long> STORE_ID = createField(DSL.name("STORE_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.unique_store_name</code>.
+     * The column <code>STORE.UNIQUE_STORE_NAME</code>.
      */
-    public final TableField<StoreRecord, String> UNIQUE_STORE_NAME = createField(DSL.name("unique_store_name"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<StoreRecord, String> UNIQUE_STORE_NAME = createField(DSL.name("UNIQUE_STORE_NAME"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.contact_number</code>.
+     * The column <code>STORE.CONTACT_NUMBER</code>.
      */
-    public final TableField<StoreRecord, String> CONTACT_NUMBER = createField(DSL.name("contact_number"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<StoreRecord, String> CONTACT_NUMBER = createField(DSL.name("CONTACT_NUMBER"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.contact_email</code>.
+     * The column <code>STORE.CONTACT_EMAIL</code>.
      */
-    public final TableField<StoreRecord, String> CONTACT_EMAIL = createField(DSL.name("contact_email"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<StoreRecord, String> CONTACT_EMAIL = createField(DSL.name("CONTACT_EMAIL"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.store_name</code>.
+     * The column <code>STORE.STORE_NAME</code>.
      */
-    public final TableField<StoreRecord, String> STORE_NAME = createField(DSL.name("store_name"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<StoreRecord, String> STORE_NAME = createField(DSL.name("STORE_NAME"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.store_website</code>.
+     * The column <code>STORE.STORE_WEBSITE</code>.
      */
-    public final TableField<StoreRecord, String> STORE_WEBSITE = createField(DSL.name("store_website"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<StoreRecord, String> STORE_WEBSITE = createField(DSL.name("STORE_WEBSITE"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.store_description</code>.
+     * The column <code>STORE.STORE_DESCRIPTION</code>.
      */
-    public final TableField<StoreRecord, String> STORE_DESCRIPTION = createField(DSL.name("store_description"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
+    public final TableField<StoreRecord, String> STORE_DESCRIPTION = createField(DSL.name("STORE_DESCRIPTION"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.store_cover_image</code>.
+     * The column <code>STORE.STORE_COVER_IMAGE</code>.
      */
-    public final TableField<StoreRecord, String> STORE_COVER_IMAGE = createField(DSL.name("store_cover_image"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<StoreRecord, String> STORE_COVER_IMAGE = createField(DSL.name("STORE_COVER_IMAGE"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.yelp_link</code>.
+     * The column <code>STORE.YELP_LINK</code>.
      */
-    public final TableField<StoreRecord, String> YELP_LINK = createField(DSL.name("yelp_link"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<StoreRecord, String> YELP_LINK = createField(DSL.name("YELP_LINK"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.facebook_link</code>.
+     * The column <code>STORE.FACEBOOK_LINK</code>.
      */
-    public final TableField<StoreRecord, String> FACEBOOK_LINK = createField(DSL.name("facebook_link"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<StoreRecord, String> FACEBOOK_LINK = createField(DSL.name("FACEBOOK_LINK"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.instagram_link</code>.
+     * The column <code>STORE.INSTAGRAM_LINK</code>.
      */
-    public final TableField<StoreRecord, String> INSTAGRAM_LINK = createField(DSL.name("instagram_link"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<StoreRecord, String> INSTAGRAM_LINK = createField(DSL.name("INSTAGRAM_LINK"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.twitter_link</code>.
+     * The column <code>STORE.TWITTER_LINK</code>.
      */
-    public final TableField<StoreRecord, String> TWITTER_LINK = createField(DSL.name("twitter_link"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<StoreRecord, String> TWITTER_LINK = createField(DSL.name("TWITTER_LINK"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.creation_time</code>.
+     * The column <code>STORE.CREATION_TIME</code>.
      */
-    public final TableField<StoreRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store.modification_time</code>.
+     * The column <code>STORE.MODIFICATION_TIME</code>.
      */
-    public final TableField<StoreRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private Store(Name alias, Table<StoreRecord> aliased) {
         this(alias, aliased, null);
@@ -129,24 +128,24 @@ public class Store extends TableImpl<StoreRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store</code> table reference
+     * Create an aliased <code>STORE</code> table reference
      */
     public Store(String alias) {
         this(DSL.name(alias), STORE);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store</code> table reference
+     * Create an aliased <code>STORE</code> table reference
      */
     public Store(Name alias) {
         this(alias, STORE);
     }
 
     /**
-     * Create a <code>Catbirdnyc.store</code> table reference
+     * Create a <code>STORE</code> table reference
      */
     public Store() {
-        this(DSL.name("store"), null);
+        this(DSL.name("STORE"), null);
     }
 
     public <O extends Record> Store(Table<O> child, ForeignKey<O, StoreRecord> key) {
@@ -155,22 +154,22 @@ public class Store extends TableImpl<StoreRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<StoreRecord, UInteger> getIdentity() {
-        return (Identity<StoreRecord, UInteger>) super.getIdentity();
+    public Identity<StoreRecord, Long> getIdentity() {
+        return (Identity<StoreRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<StoreRecord> getPrimaryKey() {
-        return Keys.KEY_STORE_PRIMARY;
+        return Keys.CONSTRAINT_4;
     }
 
     @Override
     public List<UniqueKey<StoreRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.KEY_STORE_UNIQUE_STORE_NAME);
+        return Arrays.asList(Keys.CONSTRAINT_4B);
     }
 
     @Override
@@ -204,7 +203,7 @@ public class Store extends TableImpl<StoreRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row14<UInteger, String, String, String, String, String, String, String, String, String, String, String, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row14<Long, String, String, String, String, String, String, String, String, String, String, String, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row14) super.fieldsRow();
     }
 }

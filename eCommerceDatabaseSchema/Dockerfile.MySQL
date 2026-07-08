@@ -1,0 +1,5 @@
+# This file is used to create a local mysql instance in a docker container.
+FROM --platform=linux/x86-64 mysql:8.0.20
+
+# Expose port
+EXPOSE 3306

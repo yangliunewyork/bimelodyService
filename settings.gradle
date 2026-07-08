@@ -1,3 +1,4 @@
 include 'eCommerceService'
 include 'eCommerceServiceDataAccessLayer'
+include 'eCommerceDatabaseSchema'
 

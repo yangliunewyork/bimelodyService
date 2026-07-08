@@ -4,8 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
-import com.bimelody.ecommerceservice.dataaccesslayer.Indexes;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductImageRecord;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
-import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Row5;
@@ -28,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -40,7 +37,7 @@ public class ProductImage extends TableImpl<ProductImageRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.product_image</code>
+     * The reference instance of <code>PRODUCT_IMAGE</code>
      */
     public static final ProductImage PRODUCT_IMAGE = new ProductImage();
 
@@ -53,29 +50,29 @@ public class ProductImage extends TableImpl<ProductImageRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.product_image.product_image_id</code>.
+     * The column <code>PRODUCT_IMAGE.PRODUCT_IMAGE_ID</code>.
      */
-    public final TableField<ProductImageRecord, UInteger> PRODUCT_IMAGE_ID = createField(DSL.name("product_image_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<ProductImageRecord, Long> PRODUCT_IMAGE_ID = createField(DSL.name("PRODUCT_IMAGE_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_image.product_id</code>.
+     * The column <code>PRODUCT_IMAGE.PRODUCT_ID</code>.
      */
-    public final TableField<ProductImageRecord, UInteger> PRODUCT_ID = createField(DSL.name("product_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<ProductImageRecord, Long> PRODUCT_ID = createField(DSL.name("PRODUCT_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_image.product_image_link</code>.
+     * The column <code>PRODUCT_IMAGE.PRODUCT_IMAGE_LINK</code>.
      */
-    public final TableField<ProductImageRecord, String> PRODUCT_IMAGE_LINK = createField(DSL.name("product_image_link"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
+    public final TableField<ProductImageRecord, String> PRODUCT_IMAGE_LINK = createField(DSL.name("PRODUCT_IMAGE_LINK"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_image.creation_time</code>.
+     * The column <code>PRODUCT_IMAGE.CREATION_TIME</code>.
      */
-    public final TableField<ProductImageRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductImageRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_image.modification_time</code>.
+     * The column <code>PRODUCT_IMAGE.MODIFICATION_TIME</code>.
      */
-    public final TableField<ProductImageRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductImageRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private ProductImage(Name alias, Table<ProductImageRecord> aliased) {
         this(alias, aliased, null);
@@ -86,24 +83,24 @@ public class ProductImage extends TableImpl<ProductImageRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_image</code> table reference
+     * Create an aliased <code>PRODUCT_IMAGE</code> table reference
      */
     public ProductImage(String alias) {
         this(DSL.name(alias), PRODUCT_IMAGE);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_image</code> table reference
+     * Create an aliased <code>PRODUCT_IMAGE</code> table reference
      */
     public ProductImage(Name alias) {
         this(alias, PRODUCT_IMAGE);
     }
 
     /**
-     * Create a <code>Catbirdnyc.product_image</code> table reference
+     * Create a <code>PRODUCT_IMAGE</code> table reference
      */
     public ProductImage() {
-        this(DSL.name("product_image"), null);
+        this(DSL.name("PRODUCT_IMAGE"), null);
     }
 
     public <O extends Record> ProductImage(Table<O> child, ForeignKey<O, ProductImageRecord> key) {
@@ -112,37 +109,32 @@ public class ProductImage extends TableImpl<ProductImageRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.PRODUCT_IMAGE_PRODUCT_ID);
-    }
-
-    @Override
-    public Identity<ProductImageRecord, UInteger> getIdentity() {
-        return (Identity<ProductImageRecord, UInteger>) super.getIdentity();
+    public Identity<ProductImageRecord, Long> getIdentity() {
+        return (Identity<ProductImageRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<ProductImageRecord> getPrimaryKey() {
-        return Keys.KEY_PRODUCT_IMAGE_PRIMARY;
+        return Keys.CONSTRAINT_426;
     }
 
     @Override
     public List<ForeignKey<ProductImageRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.PRODUCT_IMAGE_IBFK_1);
+        return Arrays.asList(Keys.CONSTRAINT_4266);
     }
 
     private transient Product _product;
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.product</code> table.
+     * Get the implicit join path to the <code>PUBLIC.PRODUCT</code> table.
      */
     public Product product() {
         if (_product == null)
-            _product = new Product(this, Keys.PRODUCT_IMAGE_IBFK_1);
+            _product = new Product(this, Keys.CONSTRAINT_4266);
 
         return _product;
     }
@@ -178,7 +170,7 @@ public class ProductImage extends TableImpl<ProductImageRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<UInteger, UInteger, String, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row5<Long, Long, String, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row5) super.fieldsRow();
     }
 }

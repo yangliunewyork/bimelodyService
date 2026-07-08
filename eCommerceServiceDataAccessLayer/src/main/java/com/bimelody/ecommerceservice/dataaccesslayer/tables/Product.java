@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductRecord;
 
@@ -27,7 +27,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -39,7 +38,7 @@ public class Product extends TableImpl<ProductRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.product</code>
+     * The reference instance of <code>PRODUCT</code>
      */
     public static final Product PRODUCT = new Product();
 
@@ -52,49 +51,49 @@ public class Product extends TableImpl<ProductRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.product.product_id</code>.
+     * The column <code>PRODUCT.PRODUCT_ID</code>.
      */
-    public final TableField<ProductRecord, UInteger> PRODUCT_ID = createField(DSL.name("product_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<ProductRecord, Long> PRODUCT_ID = createField(DSL.name("PRODUCT_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.unique_product_name_in_store</code>.
+     * The column <code>PRODUCT.UNIQUE_PRODUCT_NAME_IN_STORE</code>.
      */
-    public final TableField<ProductRecord, String> UNIQUE_PRODUCT_NAME_IN_STORE = createField(DSL.name("unique_product_name_in_store"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<ProductRecord, String> UNIQUE_PRODUCT_NAME_IN_STORE = createField(DSL.name("UNIQUE_PRODUCT_NAME_IN_STORE"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.product_name</code>.
+     * The column <code>PRODUCT.PRODUCT_NAME</code>.
      */
-    public final TableField<ProductRecord, String> PRODUCT_NAME = createField(DSL.name("product_name"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<ProductRecord, String> PRODUCT_NAME = createField(DSL.name("PRODUCT_NAME"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.product_description</code>.
+     * The column <code>PRODUCT.PRODUCT_DESCRIPTION</code>.
      */
-    public final TableField<ProductRecord, String> PRODUCT_DESCRIPTION = createField(DSL.name("product_description"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
+    public final TableField<ProductRecord, String> PRODUCT_DESCRIPTION = createField(DSL.name("PRODUCT_DESCRIPTION"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.price_in_dollar</code>.
+     * The column <code>PRODUCT.PRICE_IN_DOLLAR</code>.
      */
-    public final TableField<ProductRecord, BigDecimal> PRICE_IN_DOLLAR = createField(DSL.name("price_in_dollar"), SQLDataType.DECIMAL(16, 2).nullable(false), this, "");
+    public final TableField<ProductRecord, BigDecimal> PRICE_IN_DOLLAR = createField(DSL.name("PRICE_IN_DOLLAR"), SQLDataType.DECIMAL(16, 2).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.quantity</code>.
+     * The column <code>PRODUCT.QUANTITY</code>.
      */
-    public final TableField<ProductRecord, UInteger> QUANTITY = createField(DSL.name("quantity"), SQLDataType.INTEGERUNSIGNED.nullable(false).defaultValue(DSL.inline("0", SQLDataType.INTEGERUNSIGNED)), this, "");
+    public final TableField<ProductRecord, Long> QUANTITY = createField(DSL.name("QUANTITY"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field("0", SQLDataType.BIGINT)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.store_id</code>.
+     * The column <code>PRODUCT.STORE_ID</code>.
      */
-    public final TableField<ProductRecord, UInteger> STORE_ID = createField(DSL.name("store_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<ProductRecord, Long> STORE_ID = createField(DSL.name("STORE_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.creation_time</code>.
+     * The column <code>PRODUCT.CREATION_TIME</code>.
      */
-    public final TableField<ProductRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product.modification_time</code>.
+     * The column <code>PRODUCT.MODIFICATION_TIME</code>.
      */
-    public final TableField<ProductRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private Product(Name alias, Table<ProductRecord> aliased) {
         this(alias, aliased, null);
@@ -105,24 +104,24 @@ public class Product extends TableImpl<ProductRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product</code> table reference
+     * Create an aliased <code>PRODUCT</code> table reference
      */
     public Product(String alias) {
         this(DSL.name(alias), PRODUCT);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product</code> table reference
+     * Create an aliased <code>PRODUCT</code> table reference
      */
     public Product(Name alias) {
         this(alias, PRODUCT);
     }
 
     /**
-     * Create a <code>Catbirdnyc.product</code> table reference
+     * Create a <code>PRODUCT</code> table reference
      */
     public Product() {
-        this(DSL.name("product"), null);
+        this(DSL.name("PRODUCT"), null);
     }
 
     public <O extends Record> Product(Table<O> child, ForeignKey<O, ProductRecord> key) {
@@ -131,22 +130,22 @@ public class Product extends TableImpl<ProductRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<ProductRecord, UInteger> getIdentity() {
-        return (Identity<ProductRecord, UInteger>) super.getIdentity();
+    public Identity<ProductRecord, Long> getIdentity() {
+        return (Identity<ProductRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<ProductRecord> getPrimaryKey() {
-        return Keys.KEY_PRODUCT_PRIMARY;
+        return Keys.CONSTRAINT_1;
     }
 
     @Override
     public List<UniqueKey<ProductRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.KEY_PRODUCT_UNIQUE_PRODUCT_NAME_IN_STORE);
+        return Arrays.asList(Keys.UNIQUE_PRODUCT_NAME_IN_STORE);
     }
 
     @Override
@@ -157,7 +156,7 @@ public class Product extends TableImpl<ProductRecord> {
     private transient Store _store;
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.store</code> table.
+     * Get the implicit join path to the <code>PUBLIC.STORE</code> table.
      */
     public Store store() {
         if (_store == null)
@@ -197,7 +196,7 @@ public class Product extends TableImpl<ProductRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<UInteger, String, String, String, BigDecimal, UInteger, UInteger, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row9<Long, String, String, String, BigDecimal, Long, Long, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 }

@@ -1,22 +1,24 @@
 package com.bimelody.ecommerceservice.controller;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller for handling service health.
  */
-@Path("/")
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
+@RestController
 public class HealthController {
-  @GET
-  @Path("ping")
-  public Response ping() {
-    return Response.ok().entity("health").build();
+
+  /**
+   * Health check endpoint.
+   *
+   * @return a simple health string.
+   */
+  @GetMapping("/ping")
+  public ResponseEntity<String> ping() {
+    return ResponseEntity.ok("health");
   }
 }

@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductTagRecord;
 
@@ -24,7 +24,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -36,7 +35,7 @@ public class ProductTag extends TableImpl<ProductTagRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.product_tag</code>
+     * The reference instance of <code>PRODUCT_TAG</code>
      */
     public static final ProductTag PRODUCT_TAG = new ProductTag();
 
@@ -49,24 +48,24 @@ public class ProductTag extends TableImpl<ProductTagRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.product_tag.product_tag_id</code>.
+     * The column <code>PRODUCT_TAG.PRODUCT_TAG_ID</code>.
      */
-    public final TableField<ProductTagRecord, UInteger> PRODUCT_TAG_ID = createField(DSL.name("product_tag_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<ProductTagRecord, Long> PRODUCT_TAG_ID = createField(DSL.name("PRODUCT_TAG_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_tag.tag_content</code>.
+     * The column <code>PRODUCT_TAG.TAG_CONTENT</code>.
      */
-    public final TableField<ProductTagRecord, String> TAG_CONTENT = createField(DSL.name("tag_content"), SQLDataType.VARCHAR(256), this, "");
+    public final TableField<ProductTagRecord, String> TAG_CONTENT = createField(DSL.name("TAG_CONTENT"), SQLDataType.VARCHAR(256), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_tag.creation_time</code>.
+     * The column <code>PRODUCT_TAG.CREATION_TIME</code>.
      */
-    public final TableField<ProductTagRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductTagRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_tag.modification_time</code>.
+     * The column <code>PRODUCT_TAG.MODIFICATION_TIME</code>.
      */
-    public final TableField<ProductTagRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductTagRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private ProductTag(Name alias, Table<ProductTagRecord> aliased) {
         this(alias, aliased, null);
@@ -77,24 +76,24 @@ public class ProductTag extends TableImpl<ProductTagRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_tag</code> table reference
+     * Create an aliased <code>PRODUCT_TAG</code> table reference
      */
     public ProductTag(String alias) {
         this(DSL.name(alias), PRODUCT_TAG);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_tag</code> table reference
+     * Create an aliased <code>PRODUCT_TAG</code> table reference
      */
     public ProductTag(Name alias) {
         this(alias, PRODUCT_TAG);
     }
 
     /**
-     * Create a <code>Catbirdnyc.product_tag</code> table reference
+     * Create a <code>PRODUCT_TAG</code> table reference
      */
     public ProductTag() {
-        this(DSL.name("product_tag"), null);
+        this(DSL.name("PRODUCT_TAG"), null);
     }
 
     public <O extends Record> ProductTag(Table<O> child, ForeignKey<O, ProductTagRecord> key) {
@@ -103,17 +102,17 @@ public class ProductTag extends TableImpl<ProductTagRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<ProductTagRecord, UInteger> getIdentity() {
-        return (Identity<ProductTagRecord, UInteger>) super.getIdentity();
+    public Identity<ProductTagRecord, Long> getIdentity() {
+        return (Identity<ProductTagRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<ProductTagRecord> getPrimaryKey() {
-        return Keys.KEY_PRODUCT_TAG_PRIMARY;
+        return Keys.CONSTRAINT_2;
     }
 
     @Override
@@ -147,7 +146,7 @@ public class ProductTag extends TableImpl<ProductTagRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<UInteger, String, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row4<Long, String, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 }

@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.StoreLocationRecord;
 
@@ -27,7 +27,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -39,7 +38,7 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.store_location</code>
+     * The reference instance of <code>STORE_LOCATION</code>
      */
     public static final StoreLocation STORE_LOCATION = new StoreLocation();
 
@@ -52,39 +51,39 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.store_location.store_location_id</code>.
+     * The column <code>STORE_LOCATION.STORE_LOCATION_ID</code>.
      */
-    public final TableField<StoreLocationRecord, UInteger> STORE_LOCATION_ID = createField(DSL.name("store_location_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<StoreLocationRecord, Long> STORE_LOCATION_ID = createField(DSL.name("STORE_LOCATION_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_location.store_id</code>.
+     * The column <code>STORE_LOCATION.STORE_ID</code>.
      */
-    public final TableField<StoreLocationRecord, UInteger> STORE_ID = createField(DSL.name("store_id"), SQLDataType.INTEGERUNSIGNED.nullable(false), this, "");
+    public final TableField<StoreLocationRecord, Long> STORE_ID = createField(DSL.name("STORE_ID"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_location.formatted_address</code>.
+     * The column <code>STORE_LOCATION.FORMATTED_ADDRESS</code>.
      */
-    public final TableField<StoreLocationRecord, String> FORMATTED_ADDRESS = createField(DSL.name("formatted_address"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
+    public final TableField<StoreLocationRecord, String> FORMATTED_ADDRESS = createField(DSL.name("FORMATTED_ADDRESS"), SQLDataType.VARCHAR(1024).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_location.latitude</code>.
+     * The column <code>STORE_LOCATION.LATITUDE</code>.
      */
-    public final TableField<StoreLocationRecord, BigDecimal> LATITUDE = createField(DSL.name("latitude"), SQLDataType.DECIMAL(10, 6).nullable(false), this, "");
+    public final TableField<StoreLocationRecord, BigDecimal> LATITUDE = createField(DSL.name("LATITUDE"), SQLDataType.DECIMAL(10, 6).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_location.longitude</code>.
+     * The column <code>STORE_LOCATION.LONGITUDE</code>.
      */
-    public final TableField<StoreLocationRecord, BigDecimal> LONGITUDE = createField(DSL.name("longitude"), SQLDataType.DECIMAL(10, 6).nullable(false), this, "");
+    public final TableField<StoreLocationRecord, BigDecimal> LONGITUDE = createField(DSL.name("LONGITUDE"), SQLDataType.DECIMAL(10, 6).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_location.creation_time</code>.
+     * The column <code>STORE_LOCATION.CREATION_TIME</code>.
      */
-    public final TableField<StoreLocationRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreLocationRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.store_location.modification_time</code>.
+     * The column <code>STORE_LOCATION.MODIFICATION_TIME</code>.
      */
-    public final TableField<StoreLocationRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<StoreLocationRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private StoreLocation(Name alias, Table<StoreLocationRecord> aliased) {
         this(alias, aliased, null);
@@ -95,24 +94,24 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_location</code> table reference
+     * Create an aliased <code>STORE_LOCATION</code> table reference
      */
     public StoreLocation(String alias) {
         this(DSL.name(alias), STORE_LOCATION);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.store_location</code> table reference
+     * Create an aliased <code>STORE_LOCATION</code> table reference
      */
     public StoreLocation(Name alias) {
         this(alias, STORE_LOCATION);
     }
 
     /**
-     * Create a <code>Catbirdnyc.store_location</code> table reference
+     * Create a <code>STORE_LOCATION</code> table reference
      */
     public StoreLocation() {
-        this(DSL.name("store_location"), null);
+        this(DSL.name("STORE_LOCATION"), null);
     }
 
     public <O extends Record> StoreLocation(Table<O> child, ForeignKey<O, StoreLocationRecord> key) {
@@ -121,17 +120,17 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<StoreLocationRecord, UInteger> getIdentity() {
-        return (Identity<StoreLocationRecord, UInteger>) super.getIdentity();
+    public Identity<StoreLocationRecord, Long> getIdentity() {
+        return (Identity<StoreLocationRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<StoreLocationRecord> getPrimaryKey() {
-        return Keys.KEY_STORE_LOCATION_PRIMARY;
+        return Keys.CONSTRAINT_C;
     }
 
     @Override
@@ -142,7 +141,7 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
     private transient Store _store;
 
     /**
-     * Get the implicit join path to the <code>Catbirdnyc.store</code> table.
+     * Get the implicit join path to the <code>PUBLIC.STORE</code> table.
      */
     public Store store() {
         if (_store == null)
@@ -182,7 +181,7 @@ public class StoreLocation extends TableImpl<StoreLocationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<UInteger, UInteger, String, BigDecimal, BigDecimal, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row7<Long, Long, String, BigDecimal, BigDecimal, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 }

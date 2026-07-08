@@ -4,7 +4,7 @@
 package com.bimelody.ecommerceservice.dataaccesslayer.tables;
 
 
-import com.bimelody.ecommerceservice.dataaccesslayer.Catbirdnyc;
+import com.bimelody.ecommerceservice.dataaccesslayer.DefaultSchema;
 import com.bimelody.ecommerceservice.dataaccesslayer.Keys;
 import com.bimelody.ecommerceservice.dataaccesslayer.tables.records.ProductCategoryRecord;
 
@@ -26,7 +26,6 @@ import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
-import org.jooq.types.UInteger;
 
 
 /**
@@ -38,7 +37,7 @@ public class ProductCategory extends TableImpl<ProductCategoryRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>Catbirdnyc.product_category</code>
+     * The reference instance of <code>PRODUCT_CATEGORY</code>
      */
     public static final ProductCategory PRODUCT_CATEGORY = new ProductCategory();
 
@@ -51,24 +50,24 @@ public class ProductCategory extends TableImpl<ProductCategoryRecord> {
     }
 
     /**
-     * The column <code>Catbirdnyc.product_category.product_category_id</code>.
+     * The column <code>PRODUCT_CATEGORY.PRODUCT_CATEGORY_ID</code>.
      */
-    public final TableField<ProductCategoryRecord, UInteger> PRODUCT_CATEGORY_ID = createField(DSL.name("product_category_id"), SQLDataType.INTEGERUNSIGNED.nullable(false).identity(true), this, "");
+    public final TableField<ProductCategoryRecord, Long> PRODUCT_CATEGORY_ID = createField(DSL.name("PRODUCT_CATEGORY_ID"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_category.category_type</code>.
+     * The column <code>PRODUCT_CATEGORY.CATEGORY_TYPE</code>.
      */
-    public final TableField<ProductCategoryRecord, String> CATEGORY_TYPE = createField(DSL.name("category_type"), SQLDataType.VARCHAR(256).nullable(false), this, "");
+    public final TableField<ProductCategoryRecord, String> CATEGORY_TYPE = createField(DSL.name("CATEGORY_TYPE"), SQLDataType.VARCHAR(256).nullable(false), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_category.creation_time</code>.
+     * The column <code>PRODUCT_CATEGORY.CREATION_TIME</code>.
      */
-    public final TableField<ProductCategoryRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("creation_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductCategoryRecord, LocalDateTime> CREATION_TIME = createField(DSL.name("CREATION_TIME"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>Catbirdnyc.product_category.modification_time</code>.
+     * The column <code>PRODUCT_CATEGORY.MODIFICATION_TIME</code>.
      */
-    public final TableField<ProductCategoryRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("modification_time"), SQLDataType.LOCALDATETIME(0), this, "");
+    public final TableField<ProductCategoryRecord, LocalDateTime> MODIFICATION_TIME = createField(DSL.name("MODIFICATION_TIME"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private ProductCategory(Name alias, Table<ProductCategoryRecord> aliased) {
         this(alias, aliased, null);
@@ -79,26 +78,24 @@ public class ProductCategory extends TableImpl<ProductCategoryRecord> {
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_category</code> table
-     * reference
+     * Create an aliased <code>PRODUCT_CATEGORY</code> table reference
      */
     public ProductCategory(String alias) {
         this(DSL.name(alias), PRODUCT_CATEGORY);
     }
 
     /**
-     * Create an aliased <code>Catbirdnyc.product_category</code> table
-     * reference
+     * Create an aliased <code>PRODUCT_CATEGORY</code> table reference
      */
     public ProductCategory(Name alias) {
         this(alias, PRODUCT_CATEGORY);
     }
 
     /**
-     * Create a <code>Catbirdnyc.product_category</code> table reference
+     * Create a <code>PRODUCT_CATEGORY</code> table reference
      */
     public ProductCategory() {
-        this(DSL.name("product_category"), null);
+        this(DSL.name("PRODUCT_CATEGORY"), null);
     }
 
     public <O extends Record> ProductCategory(Table<O> child, ForeignKey<O, ProductCategoryRecord> key) {
@@ -107,22 +104,22 @@ public class ProductCategory extends TableImpl<ProductCategoryRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Catbirdnyc.CATBIRDNYC;
+        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
     }
 
     @Override
-    public Identity<ProductCategoryRecord, UInteger> getIdentity() {
-        return (Identity<ProductCategoryRecord, UInteger>) super.getIdentity();
+    public Identity<ProductCategoryRecord, Long> getIdentity() {
+        return (Identity<ProductCategoryRecord, Long>) super.getIdentity();
     }
 
     @Override
     public UniqueKey<ProductCategoryRecord> getPrimaryKey() {
-        return Keys.KEY_PRODUCT_CATEGORY_PRIMARY;
+        return Keys.CONSTRAINT_3;
     }
 
     @Override
     public List<UniqueKey<ProductCategoryRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.KEY_PRODUCT_CATEGORY_UK_PRODUCT_CATEGORY_C_CATEGORY_TYPE);
+        return Arrays.asList(Keys.UK_PRODUCT_CATEGORY_C_CATEGORY_TYPE);
     }
 
     @Override
@@ -156,7 +153,7 @@ public class ProductCategory extends TableImpl<ProductCategoryRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<UInteger, String, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row4<Long, String, LocalDateTime, LocalDateTime> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 }

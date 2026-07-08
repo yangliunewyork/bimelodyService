@@ -2,32 +2,35 @@ package com.bimelody.ecommerceservice.controller;
 
 import com.bimelody.ecommerceservice.model.Product;
 import com.bimelody.ecommerceservice.model.request.SearchProductsRequest;
-import com.bimelody.ecommerceservice.resource.ProductResource;
 import com.bimelody.ecommerceservice.service.ProductService;
 import java.util.List;
-import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller for handling Product resource.
+ * Controller for handling product search.
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Inject))
-public class ProductController implements ProductResource {
+@RestController
+@RequestMapping("/products")
+@RequiredArgsConstructor
+public class ProductController {
 
   private final ProductService productService;
 
-  @Override
-  public Response searchProducts(@NonNull SearchProductsRequest searchProductsRequest) {
-    List<Product> products =
-        productService.searchProducts(searchProductsRequest);
-    return Response.status(Response.Status.OK)
-        .entity(products)
-        .type(MediaType.APPLICATION_JSON)
-        .build();
+  /**
+   * Search for products.
+   *
+   * @param searchProductsRequest query parameters for searching products.
+   * @return list of matching products.
+   */
+  @GetMapping
+  public ResponseEntity<List<Product>> searchProducts(
+      SearchProductsRequest searchProductsRequest) {
+    return ResponseEntity.ok(productService.searchProducts(searchProductsRequest));
   }
 }
